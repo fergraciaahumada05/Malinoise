@@ -38,10 +38,5 @@
   ],
   "env": {
     "NODE_ENV": "production"
-  },
-  "functions": {
-    "server-simple.js": {
-      "maxDuration": 10
-    }
   }
 }
