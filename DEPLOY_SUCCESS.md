@@ -1,10 +1,11 @@
 # 🚀 DEPLOY EXITOSO - MALINOISE EN PRODUCCIÓN
 
 ## ✅ Estado del Deploy
+
 - **Estado**: ✅ COMPLETADO Y FUNCIONANDO
 - **Fecha**: 22 de Junio de 2025
 - **Plataforma**: Vercel
-- **URL de Producción**: [Agregar URL de Vercel aquí]
+- **URL de Producción**: https://malinoise-fernando-jose-gracia-ahumadas-projects.vercel.app/
 
 ## 🔧 Variables de Entorno que Funcionaron en Vercel
 
