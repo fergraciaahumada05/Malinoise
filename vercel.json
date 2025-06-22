@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "api/**/*.js",
+      "src": "api/auth.js",
       "use": "@vercel/node"
     },
     {
@@ -11,6 +11,10 @@
     }
   ],
   "routes": [
+    {
+      "src": "/api/auth/(.*)",
+      "dest": "/api/auth.js"
+    },
     {
       "src": "/admin",
       "dest": "/public/admin.html"
