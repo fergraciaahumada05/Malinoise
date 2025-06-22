@@ -2,18 +2,14 @@
   "version": 2,
   "builds": [
     {
-      "src": "server-professional.js",
+      "src": "server-simple.js",
       "use": "@vercel/node"
-    },
-    {
-      "src": "public/**/*",
-      "use": "@vercel/static"
     }
   ],
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "/server-professional.js"
+      "dest": "/server-simple.js"
     },
     {
       "src": "/admin",
@@ -24,11 +20,28 @@
       "dest": "/public/dashboard.html"
     },
     {
+      "src": "/js/(.*)",
+      "dest": "/public/js/$1"
+    },
+    {
+      "src": "/css/(.*)",
+      "dest": "/public/css/$1"
+    },
+    {
+      "src": "/assets/(.*)",
+      "dest": "/public/assets/$1"
+    },
+    {
       "src": "/(.*)",
-      "dest": "/public/$1"
+      "dest": "/public/index.html"
     }
   ],
   "env": {
     "NODE_ENV": "production"
+  },
+  "functions": {
+    "server-simple.js": {
+      "maxDuration": 10
+    }
   }
 }
