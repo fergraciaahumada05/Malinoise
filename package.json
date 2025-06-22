@@ -1,0 +1,46 @@
+{
+  "name": "malinoise-web",
+  "version": "2.0.0",
+  "description": "Aplicación web profesional para PreverIA y Malinoise con base de datos real",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server-simple.js",
+    "dev": "nodemon server-simple.js",
+    "start:full": "node server-professional.js",
+    "dev:full": "nodemon server-professional.js",
+    "build": "npm install",
+    "migrate": "node scripts/migrate.js"
+  },
+  "keywords": [
+    "preveria",
+    "malinoise",
+    "spa",
+    "dashboard",
+    "postgresql",
+    "real-time"
+  ],
+  "author": "CEO Malinoise",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.6.2",
+    "bcryptjs": "^2.4.3",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.1.5",
+    "helmet": "^7.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.10.1",
+    "pg": "^8.11.3",
+    "puppeteer": "^21.6.1",
+    "socket.io": "^4.7.4"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

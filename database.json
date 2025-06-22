@@ -1,0 +1,16 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "ceo@malinoise.com",
+      "password": "$2a$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewdBdXfs2Sh/0Kae",
+      "name": "CEO Malinoise",
+      "role": "CEO",
+      "verified": true,
+      "created_at": "2025-06-22T18:24:01.991Z"
+    }
+  ],
+  "temp_users": [],
+  "sales": [],
+  "products": []
+}
