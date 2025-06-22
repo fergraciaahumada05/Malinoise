@@ -576,8 +576,7 @@
             if (window.authAPI && window.authAPI.isAuthenticated()) {
                 // Si ya está autenticado, redirigir al dashboard
                 window.location.href = '/dashboard';
-                return;
-            }
+                return;            }
 
             // Configurar el botón de acceso al dashboard
             const dashboardAccessBtn = document.getElementById('dashboardAccessBtn');
@@ -585,9 +584,12 @@
                 dashboardAccessBtn.addEventListener('click', () => {
                     // Verificar nuevamente si está autenticado
                     if (window.authAPI && window.authAPI.isAuthenticated()) {
-                        window.location.href = '/dashboard';
+                        console.log('🔄 Accediendo al dashboard desde botón...');
+                        // Usar dashboard.html directamente para mayor compatibilidad
+                        window.location.href = 'dashboard.html';
                     } else {
                         // Si no está autenticado, ir a la sección de autenticación
+                        alert('Debes iniciar sesión primero para acceder al dashboard.');
                         document.getElementById('auth').scrollIntoView({ behavior: 'smooth' });
                     }
                 });
@@ -862,15 +864,17 @@
                     localStorage.setItem('authToken', result.token);
                     localStorage.setItem('lastLoginDate', new Date().toISOString());
                     localStorage.setItem('loginMethod', 'login');
-                    
-                    // Mensaje de éxito y redirección inmediata
+                      // Mensaje de éxito y redirección inmediata
                     showMessage(loginMessage, '¡Inicio de sesión exitoso! Redirigiendo al dashboard...', 'success');
                     
-                    console.log('✅ Login exitoso:', result);                    
-                    // Redirigir al dashboard
+                    console.log('✅ Login exitoso:', result);
+                    console.log('🔄 Redirigiendo al dashboard...');
+                      // Redirigir al dashboard con múltiples opciones de fallback
                     setTimeout(() => {
-                        window.location.href = '/dashboard';
-                    }, 1000);
+                        console.log('🔄 Redirigiendo al dashboard...');
+                        // Usar dashboard.html directamente para mayor compatibilidad
+                        window.location.href = 'dashboard.html';
+                    }, 1500);
                     
                 } catch (error) {
                     console.error('❌ Error en login:', error);
@@ -1093,11 +1097,13 @@
                     
                     // Limpiar datos temporales
                     localStorage.removeItem('tempUserEmail');
-                    
-                    showMessage(verificationMessage, '¡Registro completado! Redirigiendo al dashboard...', 'success');
+                      showMessage(verificationMessage, '¡Registro completado! Redirigiendo al dashboard...', 'success');
+                      console.log('✅ Verificación exitosa, redirigiendo al dashboard...');
                     
                     setTimeout(() => {
-                        window.location.href = '/dashboard';
+                        console.log('🔄 Redirigiendo al dashboard...');
+                        // Usar dashboard.html directamente para mayor compatibilidad
+                        window.location.href = 'dashboard.html';
                     }, 1500);
                     
                 } catch (error) {
