@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PreverIA - Visión de la Aplicación</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+      <!-- Chart.js para gráficos interactivos -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Socket.IO para actualizaciones en tiempo real -->
+    <script src="https://cdn.socket.io/4.7.4/socket.io.min.js"></script>
+    
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- 
+    Chosen Palette: Calm Harmony
+    - Background: bg-slate-50 (#F8FAFC)
+    - Text: text-slate-800 (#1E293B), text-slate-600 (#475569)
+    - Primary Accent: bg-teal-600 (#0D9488), text-white
+    - Secondary Accent: bg-slate-200 (#E2E8F0)
+    - Chart/Highlight: Teal, Amber
+    -->
+      <!-- 
+    Application Structure Plan: 
+    He diseñado esta SPA con una estructura temática y navegable, en lugar de un documento lineal. El objetivo es permitir a los interesados (inversores, equipo) explorar rápidamente las áreas clave del plan.
+    1.  **Navegación Fija Superior:** Permite saltar instantáneamente a las secciones principales (Visión, Módulos, Tecnología, Modelo de Negocio, Descargas, Autenticación). Esto facilita el acceso a la información sin necesidad de hacer scroll largo.
+    2.  **Sección de Visión (Hero):** Captura la atención inmediatamente con la propuesta de valor única y los nombres sugeridos.
+    3.  **Sección de Módulos Interactivos:** El núcleo del plan. Usé una cuadrícula de tarjetas con iconos para presentar los 6 módulos principales. Al hacer clic, cada tarjeta revela sus características detalladas. Esta interacción de "revelación progresiva" evita abrumar al usuario con texto y le permite enfocarse en un módulo a la vez.
+    4.  **Sección de Demostración Visual (Gráfico IA):** Un gráfico interactivo de Chart.js para visualizar el concepto de "Análisis Predictivo". Esto transforma una idea abstracta en algo tangible y demuestra el valor de la IA.
+    5.  **Secciones de Soporte (Tecnología y Monetización):** Presentan información de apoyo de manera visual. El stack tecnológico se muestra como un diagrama de flujo simple hecho con HTML/Tailwind y el modelo de negocio como una tabla de comparación clara.
+    6.  **Sección de Descargas:** Permite a los usuarios visualizar las opciones de descarga de la aplicación para diferentes plataformas.    7.  **Sección de Autenticación:** Muestra las opciones principales para gestionar el acceso de usuario, ahora con formularios interactivos.
+    Esta estructura está pensada para contar una historia coherente y convincente sobre la aplicación, guiando al usuario desde la gran visión hasta los detalles de implementación, todo de forma interactiva y digerible.
+    -->
+      <!--
+    Visualization & Content Choices:
+    - **App Vision -> Goal: Inform -> Presentation: Hero Section.** Un bloque grande y centrado con el título "PreverIA" (uno de los nombres sugeridos) para darle una identidad concreta.
+    - **App Modules -> Goal: Organize -> Presentation: Interactive Cards.** Cada uno de los 6 módulos del informe se convierte en una tarjeta. Interaction: Clic para expandir y ver detalles. Justification: Evita un muro de texto, fomenta la exploración. Method: HTML/Tailwind para las tarjetas, JS para la funcionalidad de acordeón.
+    - **Predictive AI -> Goal: Compare/Change -> Presentation: Line Chart.** Muestra ventas históricas vs. predicción de IA. Interaction: Botones para activar/desactivar la visualización de la predicción y las anomalías. Justification: Hace tangible el beneficio más innovador de la app. Library: Chart.js.
+    - **Tech Stack -> Goal: Organize -> Presentation: HTML/CSS Diagram.** Un diagrama de flujo visual. Justification: Más atractivo y fácil de entender que una lista con viñetas. Method: Tailwind Flexbox y bordes.
+    - **Monetization Model -> Goal: Compare -> Presentation: Comparison Table.** Tabla Freemium vs. Premium. Justification: Formato estándar y efectivo para comparar planes. Method: HTML/Tailwind.
+    - **Roadmap -> Goal: Change -> Presentation: Horizontal Timeline.** Muestra el desarrollo iterativo. Justification: Visualiza el progreso en el tiempo. Method: HTML/Tailwind Flexbox.    - **Downloads -> Goal: Inform -> Presentation: Platform Buttons.** Clear calls to action for different device types. Method: HTML/Tailwind buttons and simple layout.
+    - **Authentication -> Goal: Inform/Organize -> Presentation: Dynamic Forms.** Interactive forms for Login, Register, and Password Recovery. Interaction: Buttons to switch between forms, basic client-side validation for passwords. Justification: Provides a tangible representation of user authentication flows. Method: HTML/Tailwind forms, JavaScript for form visibility toggle and validation.
+    - **AI Assistant Chat -> Goal: Inform/Interact -> Presentation: Conversational Interface within Module.** User can type questions and get LLM-generated responses. Interaction: Text input, send button, scrolling chat history. Justification: Directly demonstrates the core AI assistant functionality using Gemini API. Method: HTML/Tailwind for UI, JavaScript for API call, chat history management, and loading state.
+    -->
+    
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/custom.css">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8FAFC;
+            color: #1E293B;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .nav-link-active {
+            color: #0D9488;
+            font-weight: 600;
+        }        .module-card-icon {
+            font-size: 2.5rem;
+            line-height: 1;
+        }
+        
+        /* Animaciones para descarga */
+        @keyframes downloadProgress {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .download-card {
+            transition: all 0.3s ease;
+        }
+        
+        .download-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .download-progress {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #0D9488, #14B8A6);
+            border-radius: 0 0 12px 12px;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .downloading {
+            animation: pulse 1.5s infinite;
+        }
+        
+        .download-icon {
+            transition: transform 0.3s ease;
+        }
+        
+        .download-card:hover .download-icon {
+            animation: bounce 1s;
+        }
+          .download-complete {
+            background: linear-gradient(135deg, #0D9488, #14B8A6);
+            color: white;
+        }
+        
+        /* Estilos para formularios de autenticación */
+        .form-message {
+            margin-top: 0.75rem;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        .form-message.success {
+            background-color: #D1FAE5; /* green-100 */
+            color: #065F46; /* green-800 */
+        }
+        .form-message.error {
+            background-color: #FEE2E2; /* red-100 */
+            color: #991B1B; /* red-800 */
+        }
+          /* Estilos para el chat del asistente IA */
+        .chat-container {
+            height: 300px;
+            overflow-y: auto;
+            border: 1px solid #E2E8F0;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            background-color: #F8FAFC;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .chat-message {
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.5rem;
+            max-width: 80%;
+        }
+        .chat-message.user {
+            background-color: #DCFCE7; /* green-100 */
+            align-self: flex-end;
+        }
+        .chat-message.ai {
+            background-color: #E0F2FE; /* blue-100 */
+            align-self: flex-start;
+        }        .chat-loading-indicator {
+            align-self: flex-start;
+            color: #475569;
+            font-style: italic;
+        }
+        
+        /* Mejoras para interacciones táctiles */
+        @media (hover: none) and (pointer: coarse) {
+            .module-card:hover,
+            .download-card:hover {
+                transform: none;
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            }
+            
+            .module-card:active,
+            .download-card:active {
+                transform: scale(0.98);
+                transition: transform 0.1s ease;
+            }
+            
+            button:hover {
+                transform: none;
+            }
+            
+            button:active {
+                transform: scale(0.95);
+                transition: transform 0.1s ease;
+            }
+        }
+        
+        /* Espaciado adaptativo para diferentes pantallas */
+        @media (min-width: 1024px) {
+            .container {
+                max-width: 1200px;
+            }
+        }
+        
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .container {
+                max-width: 768px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-50">    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto container-padding py-3 flex justify-between items-center">
+            <h1 class="text-xl sm:text-2xl font-bold text-teal-600">PreverIA</h1>
+            
+            <div class="hidden md:flex space-x-4 lg:space-x-6 items-center">
+                <a href="#vision" class="nav-link text-slate-600 hover:text-teal-600 transition-colors text-sm lg:text-base">Visión</a>
+                <a href="#modules" class="nav-link text-slate-600 hover:text-teal-600 transition-colors text-sm lg:text-base">Módulos</a>
+                <a href="#demo" class="nav-link text-slate-600 hover:text-teal-600 transition-colors text-sm lg:text-base">Demo IA</a>
+                <a href="#tech" class="nav-link text-slate-600 hover:text-teal-600 transition-colors text-sm lg:text-base">Tecnología</a>
+                <a href="#model" class="nav-link text-slate-600 hover:text-teal-600 transition-colors text-sm lg:text-base">Modelo de Negocio</a>
+                <a href="#downloads" class="nav-link text-slate-600 hover:text-teal-600 transition-colors text-sm lg:text-base">Descargas</a>
+                <a href="#auth" class="nav-link text-slate-600 hover:text-teal-600 transition-colors text-sm lg:text-base">Autenticación</a>
+                
+                <!-- Selector de divisas -->
+                <div id="currency-selector-container" class="flex items-center space-x-2">
+                    <i class="fas fa-exchange-alt text-slate-500 text-sm"></i>
+                </div>
+            </div>
+
+            <div class="md:hidden flex items-center space-x-2">
+                <!-- Selector de divisas móvil -->
+                <div id="currency-selector-mobile" class="flex items-center">
+                    <i class="fas fa-exchange-alt text-slate-500 text-sm mr-1"></i>
+                </div>
+                
+                <button id="mobile-menu-button" class="text-slate-600 focus:outline-none p-2" title="Abrir menú de navegación">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </nav>
+        
+        <div id="mobile-menu" class="mobile-menu hidden md:hidden">
+            <a href="#vision" class="mobile-menu-item block text-slate-600 hover:bg-slate-100 hover:text-teal-600">Visión</a>
+            <a href="#modules" class="mobile-menu-item block text-slate-600 hover:bg-slate-100 hover:text-teal-600">Módulos</a>
+            <a href="#demo" class="mobile-menu-item block text-slate-600 hover:bg-slate-100 hover:text-teal-600">Demo IA</a>
+            <a href="#tech" class="mobile-menu-item block text-slate-600 hover:bg-slate-100 hover:text-teal-600">Tecnología</a>
+            <a href="#model" class="mobile-menu-item block text-slate-600 hover:bg-slate-100 hover:text-teal-600">Modelo de Negocio</a>
+            <a href="#downloads" class="mobile-menu-item block text-slate-600 hover:bg-slate-100 hover:text-teal-600">Descargas</a>
+            <a href="#auth" class="mobile-menu-item block text-slate-600 hover:bg-slate-100 hover:text-teal-600">Autenticación</a>
+        </div>
+    </header><main>        <!-- Sección de Visión (Hero) -->
+        <section id="vision" class="hero-section py-16 sm:py-20 md:py-24 lg:py-32">
+            <div class="container mx-auto container-padding text-center">
+                <h2 class="hero-title text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-800 mb-4 sm:mb-6">Tu Asistente de Negocios Inteligente</h2>                <p class="hero-subtitle text-base sm:text-lg md:text-xl text-slate-600 max-w-3xl mx-auto mb-6 sm:mb-8 leading-relaxed">
+                    Una plataforma integral que no solo organiza el presente de tu negocio, sino que anticipa el futuro, convirtiendo datos en decisiones estratégicas para minimizar pérdidas y maximizar el crecimiento.
+                </p>                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <a href="#modules" class="inline-block bg-teal-600 text-white font-semibold px-6 sm:px-8 py-3 sm:py-4 rounded-lg hover:bg-teal-700 transition-colors shadow-lg hover:shadow-xl text-sm sm:text-base">Explora las Funcionalidades</a>
+                    <button id="dashboardAccessBtn" class="inline-block bg-slate-200 text-slate-800 font-semibold px-6 sm:px-8 py-3 sm:py-4 rounded-lg hover:bg-slate-300 transition-colors shadow hover:shadow-lg text-sm sm:text-base">Acceder al Dashboard</button>
+                </div>
+            </div>
+        </section>        <!-- Sección de Módulos Interactivos -->
+        <section id="modules" class="section-padding py-16 sm:py-20 bg-white">
+            <div class="container mx-auto container-padding">
+                <div class="text-center mb-8 sm:mb-12">
+                    <h3 class="section-title text-2xl sm:text-3xl md:text-4xl font-bold text-slate-800 mb-3 sm:mb-4">Módulos y Funcionalidades Clave</h3>
+                    <p class="text-base sm:text-lg text-slate-600">Un ecosistema completo para potenciar cada área de tu emprendimiento. <span class="mobile-hidden">Haz clic en cada módulo para ver los detalles.</span></p>
+                </div>
+                <div class="modules-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">                    
+                    <div class="module-card bg-slate-50 p-4 sm:p-6 rounded-xl shadow-sm cursor-pointer hover:shadow-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-teal-600" data-module="1" tabindex="0">
+                        <div class="flex items-center space-x-3 sm:space-x-4">
+                            <div class="module-card-icon text-3xl sm:text-4xl">📈</div>
+                            <h4 class="module-title text-lg sm:text-xl font-semibold text-slate-800">Gestión del Negocio</h4>
+                        </div>
+                        <p class="text-slate-600 mt-2 text-sm sm:text-base">La base de operaciones para configurar, monitorear y controlar tu negocio.</p>
+                        <div class="module-details hidden mt-4 pt-4 border-t border-slate-200 text-xs sm:text-sm text-slate-600 space-y-2">
+                            <p>✓ Dashboard personalizable con KPIs</p>
+                            <p>✓ Registro de ventas y compras</p>
+                            <p>✓ Generación de facturas simplificadas</p>
+                            <p>✓ CRM básico de clientes y proveedores</p>
+                        </div>
+                    </div>
+                    
+                    <div class="module-card bg-slate-50 p-6 rounded-xl shadow-sm cursor-pointer hover:shadow-lg transition-shadow" data-module="2">
+                        <div class="flex items-center space-x-4">
+                           <div class="module-card-icon">📦</div>
+                            <h4 class="text-xl font-semibold text-slate-800">Inventario Inteligente</h4>
+                        </div>
+                        <p class="text-slate-600 mt-2">Optimiza tu stock con alertas y sugerencias automáticas.</p>
+                        <div class="module-details hidden mt-4 pt-4 border-t border-slate-200 text-sm text-slate-600 space-y-2">
+                            <p>✓ Registro detallado de productos (SKU)</p>
+                            <p>✓ Historial de movimientos de inventario</p>
+                            <p>✓ Alertas de stock mínimo y máximo</p>
+                            <p>✓ Sugerencias de reabastecimiento (IA)</p>
+                        </div>
+                    </div>
+
+                    <div class="module-card bg-slate-50 p-6 rounded-xl shadow-sm cursor-pointer hover:shadow-lg transition-shadow" data-module="3">
+                        <div class="flex items-center space-x-4">
+                            <div class="module-card-icon">🔮</div>
+                            <h4 class="text-xl font-semibold text-slate-800">Análisis Predictivo</h4>
+                        </div>
+                        <p class="text-slate-600 mt-2">Anticípate a los problemas y oportunidades con el poder de la IA.</p>
+                        <div class="module-details hidden mt-4 pt-4 border-t border-slate-200 text-sm text-slate-600 space-y-2">
+                            <p>✓ Detección de anomalías en gastos/ventas</p>
+                            <p>✓ Predicción de flujo de caja</p>
+                            <p>✓ Simulación de escenarios de negocio</p>
+                            <p>✓ Recomendaciones proactivas para evitar pérdidas</p>
+                        </div>
+                    </div>                    <div class="module-card bg-slate-50 p-6 rounded-xl shadow-sm cursor-pointer hover:shadow-lg transition-shadow" data-module="4">
+                        <div class="flex items-center space-x-4">
+                            <div class="module-card-icon">🤖</div>
+                            <h4 class="text-xl font-semibold text-slate-800">Asistente IA ✨</h4>
+                        </div>
+                        <p class="text-slate-600 mt-2">Tu consejero estratégico personal, disponible 24/7. ¡Pruébalo abajo!</p>
+                        <div class="module-details hidden mt-4 pt-4 border-t border-slate-200 text-sm text-slate-600 space-y-2">
+                            <p>✓ Interfaz conversacional (chat/voz)</p>
+                            <p>✓ Consultas en lenguaje natural</p>
+                            <p>✓ Consejos estratégicos personalizados</p>
+                            <p>✓ Automatización de informes a petición</p>
+
+                            <!-- Sección del chat del Asistente IA -->
+                            <div class="mt-4 p-4 border border-teal-200 bg-white rounded-lg shadow-inner">
+                                <h5 class="text-base font-semibold text-teal-700 mb-3">Chatea con tu Asistente ✨</h5>
+                                <div id="aiAssistantChat" class="chat-container">
+                                    <!-- Los mensajes del chat se insertarán aquí -->
+                                    <div class="chat-message ai">Hola, soy tu asistente de negocios. ¿En qué puedo ayudarte hoy?</div>
+                                </div>
+                                <div class="flex mt-4 gap-2">
+                                    <input type="text" id="aiAssistantInput" placeholder="Haz una pregunta a tu asistente..." class="flex-1 p-2 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-teal-500 text-slate-800">
+                                    <button id="sendAiMessage" class="bg-teal-600 text-white font-semibold px-4 py-2 rounded-lg hover:bg-teal-700 transition-colors shadow">
+                                        Enviar
+                                    </button>
+                                </div>
+                                <div id="aiAssistantLoading" class="chat-loading-indicator hidden mt-2">Cargando respuesta...</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="module-card bg-slate-50 p-6 rounded-xl shadow-sm cursor-pointer hover:shadow-lg transition-shadow" data-module="5">
+                        <div class="flex items-center space-x-4">
+                            <div class="module-card-icon">⚙️</div>
+                            <h4 class="text-xl font-semibold text-slate-800">Automatización</h4>
+                        </div>
+                        <p class="text-slate-600 mt-2">Ahorra tiempo y reduce errores automatizando tareas repetitivas.</p>
+                         <div class="module-details hidden mt-4 pt-4 border-t border-slate-200 text-sm text-slate-600 space-y-2">
+                            <p>✓ Programación de tareas y recordatorios</p>
+                            <p>✓ Automatización de informes regulares</p>
+                            <p>✓ Integración con calendario</p>
+                            <p>✓ Gestión de documentos en la nube</p>
+                        </div>
+                    </div>
+
+                    <div class="module-card bg-slate-50 p-6 rounded-xl shadow-sm cursor-pointer hover:shadow-lg transition-shadow" data-module="6">
+                        <div class="flex items-center space-x-4">
+                            <div class="module-card-icon">🔔</div>
+                            <h4 class="text-xl font-semibold text-slate-800">Alertas Inteligentes</h4>
+                        </div>
+                        <p class="text-slate-600 mt-2">Mantente informado de lo importante, sin el ruido innecesario.</p>
+                        <div class="module-details hidden mt-4 pt-4 border-t border-slate-200 text-sm text-slate-600 space-y-2">
+                            <p>✓ Notificaciones push personalizables</p>
+                            <p>✓ Alertas de anomalías detectadas por IA</p>
+                            <p>✓ Recordatorios de pagos y cobros</p>
+                            <p>✓ Resúmenes ejecutivos diarios</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+          <!-- Sección de Demostración Visual (Gráfico IA) -->
+        <section id="demo" class="section-padding py-16 sm:py-20">
+            <div class="container mx-auto container-padding">
+                <div class="text-center mb-8 sm:mb-12">
+                    <h3 class="section-title text-2xl sm:text-3xl md:text-4xl font-bold text-slate-800 mb-3 sm:mb-4">El Poder de la Predicción en Acción</h3>
+                    <p class="text-sm sm:text-base lg:text-lg text-slate-600">Este gráfico simula cómo PreverIA analiza tus ventas, predice tendencias y detecta anomalías, permitiéndote actuar a tiempo. <span class="mobile-hidden">Interactúa con los botones para ver las capacidades de la IA.</span></p>
+                </div>
+                <div class="bg-white p-4 sm:p-6 rounded-xl shadow-lg">
+                    <div class="chart-container">
+                        <canvas id="salesChart"></canvas>
+                    </div>
+                    <div class="chart-controls mt-4 sm:mt-6 flex justify-center items-center flex-wrap gap-3 sm:gap-4">
+                        <button id="togglePrediction" class="chart-control-btn bg-teal-600 text-white text-xs sm:text-sm font-semibold px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg hover:bg-teal-700 transition-colors flex items-center justify-center">
+                            <span class="mobile-hidden">Ocultar </span>Predicción IA
+                        </button>
+                        <button id="toggleAnomaly" class="chart-control-btn bg-amber-500 text-white text-xs sm:text-sm font-semibold px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg hover:bg-amber-600 transition-colors flex items-center justify-center">
+                            <span class="mobile-hidden">Ocultar </span>Anomalías
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>        <!-- Sección de Tecnología -->
+        <section id="tech" class="section-padding py-16 sm:py-20 bg-white">
+            <div class="container mx-auto container-padding">
+                <div class="text-center mb-8 sm:mb-12">
+                    <h3 class="section-title text-2xl sm:text-3xl md:text-4xl font-bold text-slate-800 mb-3 sm:mb-4">Tecnología Escalable y Segura</h3>
+                    <p class="text-sm sm:text-base lg:text-lg text-slate-600">Construimos sobre una base moderna y robusta para garantizar rendimiento y fiabilidad.</p>
+                </div>
+                <div class="max-w-4xl mx-auto space-y-6 sm:space-y-8">
+                     <div class="tech-item text-center p-4 sm:p-6 bg-slate-50 rounded-xl">
+                        <h4 class="font-semibold text-base sm:text-lg text-teal-600">Frontend (App Móvil)</h4>
+                        <p class="text-xl sm:text-2xl font-bold mt-1">React Native</p>
+                        <p class="text-slate-600 text-xs sm:text-sm mt-1">Para una experiencia nativa y fluida en iOS y Android.</p>
+                    </div>
+                    <div class="flex justify-center mobile-hidden">
+                        <div class="h-6 sm:h-8 w-px bg-slate-300"></div>
+                    </div>
+                    <div class="tech-item text-center p-4 sm:p-6 bg-slate-50 rounded-xl">
+                        <h4 class="font-semibold text-base sm:text-lg text-teal-600">Backend & Base de Datos</h4>
+                        <p class="text-xl sm:text-2xl font-bold mt-1">Firebase / AWS Amplify</p>
+                        <p class="text-slate-600 text-xs sm:text-sm mt-1">Servicios en la nube para sincronización en tiempo real, autenticación y escalabilidad.</p>
+                    </div>
+                    <div class="flex justify-center mobile-hidden">
+                        <div class="h-6 sm:h-8 w-px bg-slate-300"></div>
+                    </div>
+                    <div class="tech-item text-center p-4 sm:p-6 bg-slate-50 rounded-xl">
+                        <h4 class="font-semibold text-base sm:text-lg text-teal-600">Inteligencia Artificial</h4>
+                        <p class="text-xl sm:text-2xl font-bold mt-1">Google Cloud AI / AWS AI</p>
+                        <p class="text-slate-600 text-xs sm:text-sm mt-1">APIs y modelos optimizados para análisis predictivo y el asistente conversacional.</p>
+                    </div>
+                </div>
+            </div>
+        </section>        <!-- Sección de Modelo de Negocio -->
+        <section id="model" class="section-padding py-16 sm:py-20">
+             <div class="container mx-auto container-padding">
+                <div class="text-center mb-8 sm:mb-12">
+                    <h3 class="section-title text-2xl sm:text-3xl md:text-4xl font-bold text-slate-800 mb-3 sm:mb-4">Modelo de Negocio Flexible</h3>
+                    <p class="text-sm sm:text-base lg:text-lg text-slate-600">Un plan para crecer contigo. Empieza gratis y desbloquea más poder cuando lo necesites.</p>
+                </div>
+                <div class="pricing-table grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-4xl mx-auto">
+                    <div class="pricing-column border border-slate-200 rounded-xl p-6 sm:p-8 bg-white shadow-sm">
+                        <h4 class="pricing-header text-xl sm:text-2xl font-bold text-slate-800 mb-2">Freemium</h4>
+                        <p class="text-slate-600 text-sm sm:text-base mb-4 sm:mb-6">Ideal para empezar y organizar tu negocio.</p>
+                        <ul class="space-y-2 sm:space-y-3 text-slate-600 text-sm sm:text-base">
+                            <li class="pricing-cell flex items-center"><span class="text-teal-500 mr-3 text-lg">✔</span>Gestión de negocio básica</li>
+                            <li class="pricing-cell flex items-center"><span class="text-teal-500 mr-3 text-lg">✔</span>Inventario con alertas</li>
+                            <li class="pricing-cell flex items-center"><span class="text-teal-500 mr-3 text-lg">✔</span>Registro de hasta 100 productos</li>
+                            <li class="pricing-cell flex items-center"><span class="text-teal-500 mr-3 text-lg">✔</span>Notificaciones estándar</li>
+                        </ul>
+                    </div>
+                     <div class="pricing-column border-2 border-teal-500 rounded-xl p-6 sm:p-8 bg-white shadow-lg relative">
+                        <div class="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 bg-teal-500 text-white text-xs font-bold px-3 py-1 rounded-full mobile-hidden">MÁS POPULAR</div>
+                        <h4 class="pricing-header text-xl sm:text-2xl font-bold text-slate-800 mb-2">Premium</h4>
+                        <p class="text-slate-600 text-sm sm:text-base mb-4 sm:mb-6">Para emprendedores que buscan optimizar y predecir.</p>
+                        <ul class="space-y-2 sm:space-y-3 text-slate-600 text-sm sm:text-base">
+                            <li class="pricing-cell flex items-center"><span class="text-teal-500 mr-3 text-lg">✔</span>Todo lo de Freemium</li>
+                            <li class="pricing-cell flex items-center font-semibold"><span class="text-teal-500 mr-3 text-lg">✔</span>Análisis Predictivo IA</li>
+                            <li class="pricing-cell flex items-center font-semibold"><span class="text-teal-500 mr-3 text-lg">✔</span>Asistente IA</li>
+                            <li class="pricing-cell flex items-center"><span class="text-teal-500 mr-3 text-lg">✔</span>Productos ilimitados</li>
+                            <li class="pricing-cell flex items-center"><span class="text-teal-500 mr-3 text-lg">✔</span>Integraciones y Add-ons</li>
+                        </ul>
+                    </div>
+                </div>
+             </div>
+        </section><!-- Sección de Descargas con Animaciones -->
+        <section id="downloads" class="section-padding py-16 sm:py-20 bg-white">
+            <div class="container mx-auto container-padding text-center">
+                <h3 class="section-title text-2xl sm:text-3xl md:text-4xl font-bold text-slate-800 mb-3 sm:mb-4">Descarga PreverIA en tu Dispositivo</h3>
+                <p class="text-sm sm:text-base lg:text-lg text-slate-600 max-w-2xl mx-auto mb-8 sm:mb-12">
+                    PreverIA estará disponible en todas tus plataformas preferidas. Accede a tu negocio desde cualquier lugar, manteniendo tus datos sincronizados.
+                </p>
+                <div class="downloads-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-4xl mx-auto">
+                    <div class="download-card relative flex flex-col items-center p-4 sm:p-6 bg-slate-50 rounded-xl shadow-md hover:shadow-lg cursor-pointer transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-teal-600" data-platform="desktop" tabindex="0">
+                        <span class="download-icon text-4xl sm:text-5xl mb-2 sm:mb-3">💻</span>
+                        <span class="text-base sm:text-lg font-semibold text-slate-800">Escritorio</span>
+                        <span class="text-xs sm:text-sm text-slate-600 mb-2">Windows/macOS</span>
+                        <div class="download-status text-xs text-slate-500 mobile-center">Toca para descargar</div>
+                        <div class="download-progress"></div>
+                    </div>
+                    <div class="download-card relative flex flex-col items-center p-4 sm:p-6 bg-slate-50 rounded-xl shadow-md hover:shadow-lg cursor-pointer transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-teal-600" data-platform="ios" tabindex="0">
+                        <span class="download-icon text-4xl sm:text-5xl mb-2 sm:mb-3">📱</span>
+                        <span class="text-base sm:text-lg font-semibold text-slate-800">iOS</span>
+                        <span class="text-xs sm:text-sm text-slate-600 mb-2">iPhone</span>
+                        <div class="download-status text-xs text-slate-500 mobile-center">Toca para descargar</div>
+                        <div class="download-progress"></div>
+                    </div>
+                    <div class="download-card relative flex flex-col items-center p-4 sm:p-6 bg-slate-50 rounded-xl shadow-md hover:shadow-lg cursor-pointer transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-teal-600" data-platform="ipad" tabindex="0">
+                        <span class="download-icon text-4xl sm:text-5xl mb-2 sm:mb-3">📱</span>
+                        <span class="text-base sm:text-lg font-semibold text-slate-800">iPad</span>
+                        <span class="text-xs sm:text-sm text-slate-600 mb-2">Tablet Apple</span>
+                        <div class="download-status text-xs text-slate-500 mobile-center">Toca para descargar</div>
+                        <div class="download-progress"></div>
+                    </div>
+                    <div class="download-card relative flex flex-col items-center p-4 sm:p-6 bg-slate-50 rounded-xl shadow-md hover:shadow-lg cursor-pointer transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-teal-600" data-platform="android" tabindex="0">
+                        <span class="download-icon text-4xl sm:text-5xl mb-2 sm:mb-3">🤖</span>
+                        <span class="text-base sm:text-lg font-semibold text-slate-800">Android</span>
+                        <span class="text-xs sm:text-sm text-slate-600 mb-2">Teléfono/Tablet</span>
+                        <div class="download-status text-xs text-slate-500 mobile-center">Toca para descargar</div>
+                        <div class="download-progress"></div>
+                    </div>
+                </div>
+            </div>
+        </section>        <!-- Sección de Autenticación con Formularios Dinámicos -->
+        <section id="auth" class="section-padding py-16 sm:py-20">
+            <div class="container mx-auto container-padding text-center">
+                <h3 class="section-title text-2xl sm:text-3xl md:text-4xl font-bold text-slate-800 mb-3 sm:mb-4">Accede a tu Cuenta PreverIA</h3>
+                <p class="text-sm sm:text-base lg:text-lg text-slate-600 max-w-2xl mx-auto mb-6 sm:mb-8">
+                    Gestiona tu negocio de forma segura. Inicia sesión o regístrate para comenzar a transformar tus operaciones.
+                </p>
+                <div class="auth-container max-w-sm sm:max-w-md mx-auto p-6 sm:p-8 bg-white rounded-xl shadow-lg">
+                    <div class="auth-tabs flex justify-center mb-4 sm:mb-6 border-b border-slate-200 flex-wrap">
+                        <button id="showLogin" class="auth-tab px-3 sm:px-4 py-2 text-xs sm:text-sm text-slate-600 font-semibold border-b-2 border-transparent hover:border-teal-600 transition-colors">Iniciar Sesión</button>
+                        <button id="showRegister" class="auth-tab px-3 sm:px-4 py-2 text-xs sm:text-sm text-slate-600 font-semibold border-b-2 border-transparent hover:border-teal-600 transition-colors">Registrarse</button>
+                        <button id="showRecover" class="auth-tab px-3 sm:px-4 py-2 text-xs sm:text-sm text-slate-600 font-semibold border-b-2 border-transparent hover:border-teal-600 transition-colors">Recuperar</button>
+                    </div>
+
+                    <div id="loginForm" class="auth-form space-y-3 sm:space-y-4">
+                        <h4 class="text-lg sm:text-xl font-semibold text-slate-800 mb-3 sm:mb-4">Iniciar Sesión</h4>
+                        <input type="email" placeholder="Correo Electrónico" class="auth-input w-full p-3 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-teal-500 text-sm sm:text-base" id="loginEmail">
+                        <input type="password" placeholder="Contraseña" class="auth-input w-full p-3 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-teal-500 text-sm sm:text-base" id="loginPassword">
+                        <button class="auth-button w-full bg-teal-600 text-white font-semibold py-3 rounded-lg hover:bg-teal-700 transition-colors shadow text-sm sm:text-base" id="loginButton">
+                            Iniciar Sesión
+                        </button>
+                        <div id="loginMessage" class="form-message hidden text-sm"></div>
+                    </div>
+
+                    <div id="registerForm" class="auth-form hidden space-y-3 sm:space-y-4">
+                        <h4 class="text-lg sm:text-xl font-semibold text-slate-800 mb-3 sm:mb-4">Registrarse</h4>
+                        <input type="email" placeholder="Correo Electrónico" class="auth-input w-full p-3 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-teal-500 text-sm sm:text-base" id="registerEmail">
+                        <input type="password" placeholder="Contraseña" class="auth-input w-full p-3 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-teal-500 text-sm sm:text-base" id="registerPassword">
+                        <input type="password" placeholder="Confirmar Contraseña" class="auth-input w-full p-3 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-teal-500 text-sm sm:text-base" id="confirmPassword">
+                        <button class="auth-button w-full bg-teal-600 text-white font-semibold py-3 rounded-lg hover:bg-teal-700 transition-colors shadow text-sm sm:text-base" id="registerButton">
+                            Registrarse
+                        </button>
+                        <div id="registerMessage" class="form-message hidden text-sm"></div>
+                    </div>                    <div id="recoverForm" class="auth-form hidden space-y-4">
+                        <h4 class="text-xl font-semibold text-slate-800 mb-4">Recuperar Contraseña</h4>
+                        <p class="text-sm text-slate-600">Ingresa tu correo electrónico y te enviaremos un enlace para restablecer tu contraseña.</p>
+                        <input type="email" placeholder="Correo Electrónico" class="w-full p-3 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-teal-500" id="recoverEmail">
+                        <button class="w-full bg-teal-600 text-white font-semibold py-3 rounded-lg hover:bg-teal-700 transition-colors shadow" id="recoverButton">
+                            Enviar Enlace
+                        </button>
+                        <div id="recoverMessage" class="form-message hidden"></div>
+                    </div>
+
+                    <div id="verificationForm" class="auth-form hidden space-y-4">
+                        <h4 class="text-xl font-semibold text-slate-800 mb-4">Verificar Email</h4>
+                        <p class="text-sm text-slate-600 mb-4">Hemos enviado un código de verificación de 6 dígitos a tu correo electrónico.</p>
+                        <p id="verificationEmail" class="text-sm font-semibold text-teal-600 mb-4"></p>
+                        <div class="space-y-4">
+                            <input type="text" placeholder="Código de 6 dígitos" maxlength="6" class="w-full p-3 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-teal-500 text-center text-lg font-mono tracking-wider" id="verificationCode">
+                            <p class="text-xs text-slate-500">Para propósitos de demostración, el código es: <span id="demoCode" class="font-mono font-bold text-teal-600"></span></p>
+                            <button class="w-full bg-teal-600 text-white font-semibold py-3 rounded-lg hover:bg-teal-700 transition-colors shadow" id="verifyButton">
+                                Verificar Código
+                            </button>
+                            <button class="w-full bg-slate-200 text-slate-800 font-semibold py-2 rounded-lg hover:bg-slate-300 transition-colors" id="resendCodeButton">
+                                Reenviar Código
+                            </button>
+                        </div>
+                        <div id="verificationMessage" class="form-message hidden text-sm"></div>
+                    </div>
+                </div>
+            </div>
+        </section>    </main>
+    
+    <footer class="bg-slate-800 text-white py-6 sm:py-8">
+        <div class="container mx-auto container-padding text-center text-slate-400">
+            <p class="text-sm sm:text-base">&copy; 2025 PreverIA. Conceptualización de una aplicación de negocios.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript para funcionalidad interactiva -->    <script>
+        document.addEventListener('DOMContentLoaded', () => {            // Verificar si el usuario ya está autenticado
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            if (isLoggedIn === 'true') {
+                // Si ya está autenticado, redirigir al dashboard
+                window.location.href = 'dashboard.html';
+                return;
+            }
+
+            // Configurar el botón de acceso al dashboard
+            const dashboardAccessBtn = document.getElementById('dashboardAccessBtn');
+            if (dashboardAccessBtn) {
+                dashboardAccessBtn.addEventListener('click', () => {
+                    // Verificar nuevamente si está autenticado por si cambió durante la sesión
+                    const currentLoginStatus = localStorage.getItem('isLoggedIn');
+                    if (currentLoginStatus === 'true') {
+                        window.location.href = 'dashboard.html';
+                    } else {
+                        // Si no está autenticado, ir a la sección de autenticación
+                        window.location.href = '#auth';
+                        document.getElementById('auth').scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            }
+
+            // Funcionalidad del menú móvil
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            document.querySelectorAll('#mobile-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+
+            // Funcionalidad de las tarjetas de módulos (acordeón)
+            const moduleCards = document.querySelectorAll('.module-card');
+            moduleCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const details = card.querySelector('.module-details');
+                    details.classList.toggle('hidden');
+                    card.classList.toggle('bg-white');
+                });
+            });
+
+            // Configuración del gráfico interactivo con Chart.js
+            const ctx = document.getElementById('salesChart').getContext('2d');
+            const salesData = {
+                labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+                datasets: [
+                    {
+                        label: 'Ventas Históricas (€)',
+                        data: [1200, 1900, 3000, 5000, 2300, 3100, 4200, 3500, 2800, 4500, 4800, 6000],
+                        borderColor: 'rgb(59, 130, 246)',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        fill: true,
+                        tension: 0.4,
+                    },
+                    {
+                        label: 'Predicción IA (€)',
+                        data: [1300, 2000, 2800, 4800, 2500, 3300, 4400, 3700, 3000, 4700, 5000, 6300],
+                        borderColor: 'rgb(13, 148, 136)',
+                        borderDash: [5, 5],
+                        fill: false,
+                        tension: 0.4,
+                    },
+                    {
+                        label: 'Anomalía Detectada',
+                        data: [null, null, null, null, null, null, null, 3500, null, null, null, null],
+                        borderColor: 'rgb(245, 158, 11)',
+                        backgroundColor: 'rgba(245, 158, 11, 0.5)',
+                        pointRadius: 8,
+                        pointHoverRadius: 10,
+                        showLine: false,
+                        type: 'bubble'
+                    }
+                ]
+            };
+
+            const salesChart = new Chart(ctx, {
+                type: 'line',
+                data: salesData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.y !== null) {
+                                        label += new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(context.parsed.y);
+                                    }
+                                    if(context.dataset.label === 'Anomalía Detectada') {
+                                       return 'Anomalía: Caída inesperada en ventas';
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // Funcionalidad de los botones del gráfico
+            document.getElementById('togglePrediction').addEventListener('click', (e) => {
+                const isVisible = salesChart.isDatasetVisible(1);
+                salesChart.setDatasetVisibility(1, !isVisible);
+                salesChart.update();
+                e.target.textContent = isVisible ? 'Mostrar Predicción IA' : 'Ocultar Predicción IA';
+                e.target.classList.toggle('bg-slate-400', isVisible);
+                e.target.classList.toggle('bg-teal-600', !isVisible);
+            });
+            
+            document.getElementById('toggleAnomaly').addEventListener('click', (e) => {
+                const isVisible = salesChart.isDatasetVisible(2);
+                salesChart.setDatasetVisibility(2, !isVisible);
+                salesChart.update();
+                e.target.textContent = isVisible ? 'Mostrar Anomalías' : 'Ocultar Anomalías';
+                e.target.classList.toggle('bg-slate-400', isVisible);
+                e.target.classList.toggle('bg-amber-500', !isVisible);
+            });
+
+            // Navegación activa por scroll
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('main section');
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (pageYOffset >= sectionTop - 65) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('nav-link-active');
+                    if (link.getAttribute('href').includes(current)) {
+                        link.classList.add('nav-link-active');                    }
+                });
+            });
+            
+            // Funcionalidad de animación de descarga
+            const downloadCards = document.querySelectorAll('.download-card');
+            
+            downloadCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const platform = this.dataset.platform;
+                    const progressBar = this.querySelector('.download-progress');
+                    const statusElement = this.querySelector('.download-status');
+                    const icon = this.querySelector('.download-icon');
+                    
+                    // Prevenir múltiples clics
+                    if (this.classList.contains('downloading')) return;
+                    
+                    // Iniciar descarga
+                    this.classList.add('downloading');
+                    statusElement.textContent = 'Iniciando descarga...';
+                    
+                    // Animación de progreso
+                    setTimeout(() => {
+                        progressBar.style.animation = 'downloadProgress 3s ease-out forwards';
+                        statusElement.textContent = 'Descargando...';
+                    }, 500);
+                      // Completar descarga
+                    setTimeout(() => {
+                        this.classList.remove('downloading');
+                        this.classList.add('download-complete');
+                        statusElement.textContent = '¡Descarga completada!';
+                        icon.textContent = '✓';
+                        
+                        // Si es escritorio, redirigir a la versión web después de mostrar el éxito
+                        if (platform === 'desktop') {
+                            setTimeout(() => {
+                                statusElement.textContent = 'Abriendo versión web...';
+                                setTimeout(() => {
+                                    window.location.href = '#auth';
+                                    // Scroll suave hacia la sección de autenticación
+                                    document.getElementById('auth').scrollIntoView({ behavior: 'smooth' });
+                                }, 1000);
+                            }, 1500);
+                        } else {
+                            // Para otras plataformas, mantener el comportamiento original
+                            setTimeout(() => {
+                                this.classList.remove('download-complete');
+                                progressBar.style.animation = 'none';
+                                progressBar.style.width = '0%';
+                                statusElement.textContent = 'Toca para descargar';
+                                
+                                // Restaurar icono original
+                                switch(platform) {
+                                    case 'ios':
+                                        icon.textContent = '📱';
+                                        break;
+                                    case 'ipad':
+                                        icon.textContent = '📱';
+                                        break;
+                                    case 'android':
+                                        icon.textContent = '🤖';
+                                        break;
+                                }
+                            }, 3000);
+                        }
+                    }, 3500);
+                });
+            });
+            
+            // ============================================================
+            // FORMULARIOS DE AUTENTICACIÓN DINÁMICOS
+            // ============================================================
+            const loginForm = document.getElementById('loginForm');
+            const registerForm = document.getElementById('registerForm');
+            const recoverForm = document.getElementById('recoverForm');
+
+            const showLoginBtn = document.getElementById('showLogin');
+            const showRegisterBtn = document.getElementById('showRegister');
+            const showRecoverBtn = document.getElementById('showRecover');
+
+            const loginMessage = document.getElementById('loginMessage');
+            const registerMessage = document.getElementById('registerMessage');
+            const recoverMessage = document.getElementById('recoverMessage');
+
+            /**
+             * Función para mostrar un formulario específico y ocultar los demás
+             * @param {HTMLElement} formToShow - El formulario que se va a mostrar
+             */
+            function showForm(formToShow) {
+                // Ocultar todos los formularios
+                [loginForm, registerForm, recoverForm].forEach(form => form.classList.add('hidden'));
+                // Quitar el borde activo de todos los botones
+                [showLoginBtn, showRegisterBtn, showRecoverBtn].forEach(btn => btn.classList.remove('border-teal-600'));
+                
+                // Mostrar el formulario seleccionado y activar su botón
+                formToShow.classList.remove('hidden');
+                if (formToShow === loginForm) showLoginBtn.classList.add('border-teal-600');
+                else if (formToShow === registerForm) showRegisterBtn.classList.add('border-teal-600');
+                else if (formToShow === recoverForm) showRecoverBtn.classList.add('border-teal-600');
+                
+                // Limpiar mensajes al cambiar de formulario
+                [loginMessage, registerMessage, recoverMessage].forEach(msg => msg.classList.add('hidden'));
+            }
+
+            // Event listeners para cambiar entre formularios
+            showLoginBtn.addEventListener('click', () => showForm(loginForm));
+            showRegisterBtn.addEventListener('click', () => showForm(registerForm));
+            showRecoverBtn.addEventListener('click', () => showForm(recoverForm));
+
+            // Mostrar formulario de login por defecto
+            showForm(loginForm);            // ============================================================
+            // LÓGICA DE INICIO DE SESIÓN
+            // ============================================================
+            document.getElementById('loginButton').addEventListener('click', () => {
+                const email = document.getElementById('loginEmail').value.trim();
+                const password = document.getElementById('loginPassword').value;
+                
+                // Validación básica del lado del cliente
+                if (!email || !password) {
+                    showMessage(loginMessage, 'Por favor, introduce correo y contraseña.', 'error');
+                    return;
+                }
+                if (!isValidEmail(email)) {
+                    showMessage(loginMessage, 'Por favor, introduce un correo electrónico válido.', 'error');
+                    return;
+                }
+
+                // Simulación de llamada de autenticación exitosa
+                showMessage(loginMessage, 'Iniciando sesión...', 'success');
+                  // Simular tiempo de autenticación
+                setTimeout(() => {
+                    // Guardar datos de sesión
+                    localStorage.setItem('isLoggedIn', 'true');
+                    localStorage.setItem('userEmail', email);
+                    localStorage.setItem('userName', email.split('@')[0]); // Usar la parte del email antes del @ como nombre
+                    localStorage.setItem('lastLoginDate', new Date().toISOString());
+                    localStorage.setItem('loginMethod', 'login');
+                    
+                    // Mensaje de éxito y redirección
+                    showMessage(loginMessage, '¡Inicio de sesión exitoso! Redirigiendo al dashboard...', 'success');
+                    
+                    // Redirigir al dashboard después de 1.5 segundos
+                    setTimeout(() => {
+                        window.location.href = 'dashboard.html';
+                    }, 1500);
+                }, 1000);
+                
+                console.log('Intento de inicio de sesión con:', { email, password });
+                
+                // En una app real aquí irían las llamadas a Firebase Auth o similar:
+                // auth.signInWithEmailAndPassword(email, password)
+                //   .then((userCredential) => {
+                //     localStorage.setItem('isLoggedIn', 'true');
+                //     localStorage.setItem('userEmail', userCredential.user.email);
+                //     showMessage(loginMessage, '¡Inicio de sesión exitoso!', 'success');
+                //     setTimeout(() => window.location.href = 'dashboard.html', 1500);
+                //   })
+                //   .catch((error) => {
+                //     showMessage(loginMessage, `Error: ${error.message}`, 'error');
+                //   });
+            });            // ============================================================
+            // LÓGICA DE REGISTRO
+            // ============================================================
+            document.getElementById('registerButton').addEventListener('click', () => {
+                const email = document.getElementById('registerEmail').value.trim();
+                const password = document.getElementById('registerPassword').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
+
+                // Validación del lado del cliente
+                if (!email || !password || !confirmPassword) {
+                    showMessage(registerMessage, 'Por favor, completa todos los campos.', 'error');
+                    return;
+                }
+                if (!isValidEmail(email)) {
+                    showMessage(registerMessage, 'Por favor, introduce un correo electrónico válido.', 'error');
+                    return;
+                }
+                if (password.length < 6) {
+                    showMessage(registerMessage, 'La contraseña debe tener al menos 6 caracteres.', 'error');
+                    return;
+                }
+                if (password !== confirmPassword) {
+                    showMessage(registerMessage, 'Las contraseñas no coinciden.', 'error');
+                    return;
+                }                // Generar código de verificación de 6 dígitos
+                const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+                
+                // Simulación de envío de código de verificación
+                showMessage(registerMessage, 'Enviando código de verificación...', 'success');
+                
+                // Simular tiempo de envío
+                setTimeout(() => {
+                    // Guardar código temporalmente para validación
+                    localStorage.setItem('tempVerificationCode', verificationCode);
+                    localStorage.setItem('tempUserEmail', email);
+                    localStorage.setItem('tempUserPassword', password);
+                    
+                    // Mostrar formulario de verificación
+                    showVerificationForm(email, verificationCode);
+                }, 1000);
+                
+                console.log('Intento de registro con:', { email, password });
+
+                // En una app real:
+                // auth.createUserWithEmailAndPassword(email, password)
+                //   .then((userCredential) => {
+                //     localStorage.setItem('isLoggedIn', 'true');
+                //     localStorage.setItem('userEmail', userCredential.user.email);
+                //     showMessage(registerMessage, '¡Registro exitoso! Redirigiendo al dashboard...', 'success');
+                //     setTimeout(() => window.location.href = 'dashboard.html', 2000);
+                //   })
+                //   .catch((error) => {
+                //     showMessage(registerMessage, `Error: ${error.message}`, 'error');
+                //   });
+            });
+
+            // ============================================================
+            // LÓGICA DE RECUPERACIÓN DE CONTRASEÑA
+            // ============================================================
+            document.getElementById('recoverButton').addEventListener('click', () => {
+                const email = document.getElementById('recoverEmail').value.trim();
+
+                if (!email) {
+                    showMessage(recoverMessage, 'Por favor, introduce tu correo electrónico.', 'error');
+                    return;
+                }
+                if (!isValidEmail(email)) {
+                    showMessage(recoverMessage, 'Por favor, introduce un correo electrónico válido.', 'error');
+                    return;
+                }
+
+                // Simulación de llamada de recuperación
+                showMessage(recoverMessage, `Enviando enlace a ${email}... (Función de backend simulada)`, 'success');
+                console.log('Intento de recuperación para:', email);
+
+                // En una app real:
+                // auth.sendPasswordResetEmail(email)
+                //   .then(() => {
+                //     showMessage(recoverMessage, '¡Enlace de recuperación enviado! Revisa tu bandeja de entrada.', 'success');
+                //   })
+                //   .catch((error) => {
+                //     showMessage(recoverMessage, `Error: ${error.message}`, 'error');
+                //   });
+            });
+
+            // ============================================================
+            // CHAT DEL ASISTENTE IA
+            // ============================================================
+            const aiAssistantChat = document.getElementById('aiAssistantChat');
+            const aiAssistantInput = document.getElementById('aiAssistantInput');
+            const sendAiMessageBtn = document.getElementById('sendAiMessage');
+            const aiAssistantLoading = document.getElementById('aiAssistantLoading');
+
+            // Historial del chat para mantener contexto
+            let chatHistory = [{ 
+                role: "model", 
+                parts: [{ text: "Hola, soy tu asistente de negocios. ¿En qué puedo ayudarte hoy?" }] 
+            }];
+
+            /**
+             * Muestra un mensaje en el chat
+             * @param {string} role - 'user' o 'ai'
+             * @param {string} text - El texto del mensaje
+             */
+            function displayChatMessage(role, text) {
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('chat-message', role === 'user' ? 'user' : 'ai');
+                messageDiv.textContent = text;
+                aiAssistantChat.appendChild(messageDiv);
+                aiAssistantChat.scrollTop = aiAssistantChat.scrollHeight; // Auto-scroll hacia abajo
+            }
+
+            /**
+             * Envía un mensaje del usuario al asistente IA
+             */
+            async function sendUserMessage() {
+                const prompt = aiAssistantInput.value.trim();
+                if (!prompt) return;
+
+                // Mostrar mensaje del usuario
+                displayChatMessage('user', prompt);
+                chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                aiAssistantInput.value = ''; // Limpiar input
+
+                // Mostrar indicador de carga
+                aiAssistantLoading.classList.remove('hidden');
+
+                try {
+                    // Configuración para la API de Gemini
+                    const payload = { contents: chatHistory };
+                    const apiKey = ""; // En un entorno real, esta clave vendría de variables de entorno
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const result = await response.json();
+
+                    // Procesar respuesta de la API
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        const aiText = result.candidates[0].content.parts[0].text;
+                        displayChatMessage('ai', aiText);
+                        chatHistory.push({ role: "model", parts: [{ text: aiText }] });
+                    } else {
+                        displayChatMessage('ai', 'Lo siento, no pude obtener una respuesta. Intenta de nuevo.');
+                        console.error('Estructura de respuesta inesperada:', result);
+                    }
+                } catch (error) {
+                    displayChatMessage('ai', 'Hubo un error al conectar con el asistente. Por favor, intenta más tarde.');
+                    console.error('Error al llamar la API de Gemini:', error);
+                } finally {
+                    // Ocultar indicador de carga
+                    aiAssistantLoading.classList.add('hidden');
+                }
+            }
+
+            // Event listeners para el chat
+            sendAiMessageBtn.addEventListener('click', sendUserMessage);
+            aiAssistantInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    sendUserMessage();
+                }
+            });
+
+            // ============================================================
+            // FUNCIONES AUXILIARES
+            // ============================================================
+              // ============================================================
+            // SISTEMA DE VERIFICACIÓN POR EMAIL
+            // ============================================================
+            
+            /**
+             * Muestra el formulario de verificación con el código generado
+             * @param {string} email - Email del usuario
+             * @param {string} code - Código de verificación generado
+             */
+            function showVerificationForm(email, code) {
+                // Ocultar todos los formularios
+                document.querySelectorAll('.auth-form').forEach(form => {
+                    form.classList.add('hidden');
+                });
+                
+                // Mostrar formulario de verificación
+                const verificationForm = document.getElementById('verificationForm');
+                verificationForm.classList.remove('hidden');
+                
+                // Mostrar email y código de demo
+                document.getElementById('verificationEmail').textContent = `📧 ${email}`;
+                document.getElementById('demoCode').textContent = code;
+                
+                // Limpiar campo de entrada
+                document.getElementById('verificationCode').value = '';
+            }
+
+            // Event listener para verificar código
+            document.getElementById('verifyButton').addEventListener('click', () => {
+                const enteredCode = document.getElementById('verificationCode').value.trim();
+                const correctCode = localStorage.getItem('tempVerificationCode');
+                const email = localStorage.getItem('tempUserEmail');
+                const password = localStorage.getItem('tempUserPassword');
+                const verificationMessage = document.getElementById('verificationMessage');
+
+                if (!enteredCode) {
+                    showMessage(verificationMessage, 'Por favor, introduce el código de verificación.', 'error');
+                    return;
+                }
+
+                if (enteredCode !== correctCode) {
+                    showMessage(verificationMessage, 'Código incorrecto. Por favor, verifica el código enviado.', 'error');
+                    return;
+                }
+
+                // Código correcto - completar registro
+                showMessage(verificationMessage, '¡Código verificado! Completando registro...', 'success');
+                
+                setTimeout(() => {
+                    // Guardar datos de sesión
+                    localStorage.setItem('isLoggedIn', 'true');
+                    localStorage.setItem('userEmail', email);
+                    localStorage.setItem('userName', email.split('@')[0]);
+                    localStorage.setItem('registrationDate', new Date().toISOString());
+                    localStorage.setItem('loginMethod', 'register');
+                    localStorage.setItem('isVerified', 'true');
+                    
+                    // Limpiar datos temporales
+                    localStorage.removeItem('tempVerificationCode');
+                    localStorage.removeItem('tempUserEmail');
+                    localStorage.removeItem('tempUserPassword');
+                    
+                    // Guardar usuario en la base de datos de clientes
+                    saveUserToDatabase(email, email.split('@')[0]);
+                    
+                    showMessage(verificationMessage, '¡Registro completado! Redirigiendo al dashboard...', 'success');
+                    
+                    setTimeout(() => {
+                        window.location.href = 'dashboard.html';
+                    }, 1500);
+                }, 1000);
+            });
+
+            // Event listener para reenviar código
+            document.getElementById('resendCodeButton').addEventListener('click', () => {
+                const email = localStorage.getItem('tempUserEmail');
+                const verificationMessage = document.getElementById('verificationMessage');
+                
+                if (!email) {
+                    showMessage(verificationMessage, 'Error: No se encontró email para reenvío.', 'error');
+                    return;
+                }
+                
+                // Generar nuevo código
+                const newVerificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+                localStorage.setItem('tempVerificationCode', newVerificationCode);
+                
+                // Actualizar código mostrado
+                document.getElementById('demoCode').textContent = newVerificationCode;
+                
+                showMessage(verificationMessage, '¡Nuevo código enviado! Verifica tu email.', 'success');
+                setTimeout(() => verificationMessage.classList.add('hidden'), 3000);
+            });
+
+            /**
+             * Guarda un nuevo usuario en la base de datos de clientes
+             * @param {string} email - Email del usuario
+             * @param {string} name - Nombre del usuario
+             */
+            function saveUserToDatabase(email, name) {
+                // Obtener usuarios existentes
+                let users = JSON.parse(localStorage.getItem('malinoise_users') || '[]');
+                
+                // Crear nuevo usuario
+                const newUser = {
+                    id: generateUserId(),
+                    email: email,
+                    name: name,
+                    registrationDate: new Date().toISOString(),
+                    isVerified: true,
+                    role: 'user',
+                    status: 'active',
+                    lastLogin: new Date().toISOString(),
+                    totalSales: 0,
+                    productsCount: 0
+                };
+                
+                // Añadir usuario si no existe
+                if (!users.find(user => user.email === email)) {
+                    users.push(newUser);
+                    localStorage.setItem('malinoise_users', JSON.stringify(users));
+                    console.log('Usuario guardado en base de datos:', newUser);
+                }
+            }
+
+            /**
+             * Genera un ID único para el usuario
+             * @returns {string} ID único
+             */
+            function generateUserId() {
+                return 'USR_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+            }
+
+            // ============================================================
+            // FUNCIONES AUXILIARES
+            // ============================================================
+            
+            /**
+             * Valida si un email tiene formato correcto
+             * @param {string} email - El email a validar
+             * @returns {boolean} - True si es válido, false si no
+             */
+            function isValidEmail(email) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return emailRegex.test(email);
+            }
+
+            /**
+             * Muestra un mensaje de feedback en los formularios
+             * @param {HTMLElement} messageElement - El elemento donde mostrar el mensaje
+             * @param {string} text - El texto del mensaje
+             * @param {string} type - 'success' o 'error'
+             */
+            function showMessage(messageElement, text, type) {
+                messageElement.textContent = text;
+                messageElement.className = `form-message ${type}`;
+                messageElement.classList.remove('hidden');
+            }        });
+    </script>    <!-- Script principal simple para desarrollo -->
+    <script src="/js/app-simple.js"></script>
+    
+    <!-- Script específico para la página principal -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Inicializar selectores de divisas en móvil también
+            const currencyMobile = document.getElementById('currency-selector-mobile');
+            if (currencyMobile && window.currencySystem) {
+                const mobileSelector = window.currencySystem.createCurrencySelector();
+                mobileSelector.className = 'bg-white border border-slate-300 rounded px-2 py-1 text-xs';
+                currencyMobile.appendChild(mobileSelector);
+            }
+
+            // Funciones específicas para la autenticación con la nueva API
+            window.handleRegister = async function(email, password, name) {
+                try {
+                    const result = await window.auth.register(email, password, name);
+                    if (result.success) {
+                        // Mostrar formulario de verificación
+                        document.getElementById('auth-register').classList.add('hidden');
+                        document.getElementById('auth-verify').classList.remove('hidden');
+                        
+                        // Guardar email para la verificación
+                        document.getElementById('verify-email').value = email;
+                        
+                        return true;
+                    }
+                } catch (error) {
+                    console.error('Error en registro:', error);
+                    return false;
+                }
+            };
+
+            window.handleVerifyCode = async function(email, code) {
+                try {
+                    const result = await window.auth.verifyCode(email, code);
+                    if (result.success) {
+                        // Redirigir al dashboard
+                        window.location.href = '/dashboard';
+                        return true;
+                    }
+                } catch (error) {
+                    console.error('Error en verificación:', error);
+                    return false;
+                }
+            };
+
+            window.handleLogin = async function(email, password) {
+                try {
+                    const result = await window.auth.login(email, password);
+                    if (result.success) {
+                        // Redirigir al dashboard
+                        window.location.href = '/dashboard';
+                        return true;
+                    }
+                } catch (error) {
+                    console.error('Error en login:', error);
+                    return false;
+                }
+            };
+
+            window.handleResendCode = async function() {
+                const email = document.getElementById('verify-email').value;
+                if (email) {
+                    try {
+                        await window.auth.resendCode(email);
+                        return true;
+                    } catch (error) {
+                        console.error('Error reenviando código:', error);
+                        return false;
+                    }
+                }
+            };
+
+            // Función para descargar PDFs desde la interfaz
+            window.downloadHistorial = function() {
+                if (window.auth.isAuthenticated()) {
+                    window.pdfSystem.downloadTransactionHistory();
+                } else {
+                    window.notifications.warning('Debes iniciar sesión para descargar tu historial');
+                    document.getElementById('auth').scrollIntoView({ behavior: 'smooth' });
+                }
+            };
+
+            // Agregar botones de descarga de PDF a la sección de descargas si el usuario está autenticado
+            function updateDownloadOptions() {
+                if (window.auth.isAuthenticated()) {
+                    const downloadSection = document.querySelector('#downloads .grid');
+                    if (downloadSection && !document.getElementById('pdf-download-card')) {
+                        const pdfCard = document.createElement('div');
+                        pdfCard.id = 'pdf-download-card';
+                        pdfCard.className = 'download-card bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-all relative overflow-hidden';
+                        pdfCard.innerHTML = `
+                            <div class="flex items-center justify-between mb-4">
+                                <i class="fas fa-file-pdf text-4xl text-red-500"></i>
+                                <span class="text-xs bg-red-100 text-red-800 px-2 py-1 rounded-full">Reportes</span>
+                            </div>
+                            <h3 class="font-semibold text-slate-800 mb-2">Descargar Historial</h3>
+                            <p class="text-sm text-slate-600 mb-4">Obtén tu historial de transacciones en PDF</p>
+                            <button onclick="downloadHistorial()" class="w-full bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 transition-colors">
+                                <i class="fas fa-download mr-2"></i>Descargar PDF
+                            </button>
+                        `;
+                        downloadSection.appendChild(pdfCard);
+                    }
+                }
+            }
+
+            // Actualizar opciones cuando cambie el estado de autenticación
+            if (window.auth.isAuthenticated()) {
+                updateDownloadOptions();
+            }
+        });
+    </script>
+</body>
+</html>

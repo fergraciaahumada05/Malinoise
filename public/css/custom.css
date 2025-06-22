@@ -1,0 +1,441 @@
+/* CSS Personalizado para PreverIA - Optimizado para todos los dispositivos */
+
+/* ================================
+   CONFIGURACIÓN BASE RESPONSIVE
+   ================================ */
+
+/* Mejoras de interacción táctil para dispositivos móviles */
+@media (hover: none) and (pointer: coarse) {
+    .module-card, .download-btn, .tech-item, .nav-link {
+        -webkit-tap-highlight-color: rgba(13, 148, 136, 0.2);
+        touch-action: manipulation;
+    }
+}
+
+/* ================================
+   TIPOGRAFÍA RESPONSIVE
+   ================================ */
+
+/* Escala de tipografía optimizada para móviles */
+@media (max-width: 640px) {
+    .hero-title {
+        font-size: 2.5rem !important;
+        line-height: 1.1 !important;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.125rem !important;
+        line-height: 1.5 !important;
+    }
+    
+    .section-title {
+        font-size: 2rem !important;
+        line-height: 1.2 !important;
+    }
+    
+    .module-title {
+        font-size: 1.25rem !important;
+    }
+}
+
+/* Tipografía para tablet (iPad) */
+@media (min-width: 641px) and (max-width: 1024px) {
+    .hero-title {
+        font-size: 3.5rem !important;
+        line-height: 1.1 !important;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.25rem !important;
+    }
+    
+    .section-title {
+        font-size: 2.5rem !important;
+    }
+}
+
+/* ================================
+   NAVEGACIÓN RESPONSIVE
+   ================================ */
+
+/* Mejoras del menú móvil */
+@media (max-width: 767px) {    .mobile-menu {
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+        background-color: rgba(248, 250, 252, 0.95);
+        border: 1px solid rgba(13, 148, 136, 0.1);
+    }
+    
+    .mobile-menu-item {
+        padding: 1rem 1.5rem;
+        border-bottom: 1px solid rgba(13, 148, 136, 0.1);
+        font-size: 1.125rem;
+        font-weight: 500;
+    }
+    
+    .mobile-menu-item:last-child {
+        border-bottom: none;
+    }
+}
+
+/* ================================
+   TARJETAS DE MÓDULOS RESPONSIVE
+   ================================ */
+
+/* Móviles pequeños (320px - 480px) */
+@media (max-width: 480px) {
+    .modules-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+    }
+    
+    .module-card {
+        padding: 1.5rem 1rem !important;
+        margin: 0 !important;
+    }
+    
+    .module-card-icon {
+        font-size: 2rem !important;
+    }
+    
+    .module-details {
+        padding: 1rem !important;
+        font-size: 0.875rem !important;
+        line-height: 1.5 !important;
+    }
+}
+
+/* Móviles medianos y grandes (481px - 640px) */
+@media (min-width: 481px) and (max-width: 640px) {
+    .modules-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.25rem !important;
+    }
+    
+    .module-card {
+        padding: 1.75rem 1.25rem !important;
+    }
+}
+
+/* Tablets (iPad) - 641px - 1024px */
+@media (min-width: 641px) and (max-width: 1024px) {
+    .modules-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 1.5rem !important;
+    }
+    
+    .module-card {
+        padding: 2rem 1.5rem !important;
+    }
+    
+    .module-card-icon {
+        font-size: 2.75rem !important;
+    }
+}
+
+/* ================================
+   GRÁFICO Y CONTROLES RESPONSIVE
+   ================================ */
+
+/* Contenedor del gráfico responsive */
+.chart-container {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+}
+
+@media (max-width: 640px) {
+    .chart-container {
+        height: 250px !important;
+        padding: 0 0.5rem;
+    }
+    
+    .chart-controls {
+        flex-direction: column !important;
+        gap: 0.75rem !important;
+    }
+    
+    .chart-control-btn {
+        width: 100% !important;
+        justify-content: center !important;
+        padding: 0.75rem !important;
+        font-size: 0.875rem !important;
+    }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+    .chart-container {
+        height: 320px !important;
+    }
+    
+    .chart-controls {
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        gap: 1rem !important;
+    }
+}
+
+/* ================================
+   FORMULARIOS DE AUTENTICACIÓN
+   ================================ */
+
+@media (max-width: 640px) {
+    .auth-container {
+        padding: 1.5rem 1rem !important;
+        margin: 1rem !important;
+    }
+    
+    .auth-form {
+        padding: 2rem 1.5rem !important;
+    }
+    
+    .auth-input {
+        padding: 0.875rem !important;
+        font-size: 1rem !important;
+    }
+    
+    .auth-button {
+        padding: 0.875rem !important;
+        font-size: 1rem !important;
+        font-weight: 600 !important;
+    }
+    
+    .auth-tabs {
+        flex-direction: column !important;
+        gap: 0.5rem !important;
+    }
+    
+    .auth-tab {
+        width: 100% !important;
+        text-align: center !important;
+        padding: 0.75rem !important;
+    }
+}
+
+/* ================================
+   CHAT DEL ASISTENTE IA
+   ================================ */
+
+@media (max-width: 640px) {
+    .chat-container {
+        height: 300px !important;
+        padding: 1rem !important;
+    }
+    
+    .chat-messages {
+        padding: 0.75rem !important;
+        gap: 0.75rem !important;
+    }
+    
+    .chat-message {
+        padding: 0.75rem !important;
+        font-size: 0.875rem !important;
+        line-height: 1.4 !important;
+        border-radius: 0.75rem !important;
+    }
+    
+    .chat-input-container {
+        padding: 1rem !important;
+        gap: 0.75rem !important;
+    }
+    
+    .chat-input {
+        padding: 0.75rem !important;
+        font-size: 0.875rem !important;
+    }
+    
+    .chat-send-btn {
+        padding: 0.75rem !important;
+        min-width: 2.5rem !important;
+    }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+    .chat-container {
+        height: 350px !important;
+    }
+    
+    .chat-messages {
+        padding: 1rem !important;
+    }
+}
+
+/* ================================
+   SECCIÓN DE DESCARGAS
+   ================================ */
+
+@media (max-width: 640px) {
+    .downloads-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+    }
+    
+    .download-card {
+        padding: 1.5rem 1rem !important;
+        text-align: center !important;
+    }
+    
+    .download-btn {
+        padding: 1rem 1.5rem !important;
+        font-size: 1rem !important;
+        width: 100% !important;
+    }
+    
+    .download-icon {
+        font-size: 2.5rem !important;
+        margin-bottom: 1rem !important;
+    }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+    .downloads-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 1.5rem !important;
+    }
+}
+
+/* ================================
+   ESPACIADO Y PADDING RESPONSIVE
+   ================================ */
+
+/* Reduzco el espaciado en móviles para aprovechar mejor el espacio */
+@media (max-width: 640px) {
+    .section-padding {
+        padding-top: 3rem !important;
+        padding-bottom: 3rem !important;
+    }
+    
+    .container-padding {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+    
+    .hero-section {
+        padding-top: 4rem !important;
+        padding-bottom: 4rem !important;
+    }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+    .section-padding {
+        padding-top: 4rem !important;
+        padding-bottom: 4rem !important;
+    }
+    
+    .container-padding {
+        padding-left: 2rem !important;
+        padding-right: 2rem !important;
+    }
+}
+
+/* ================================
+   MODELO DE NEGOCIO RESPONSIVE
+   ================================ */
+
+@media (max-width: 640px) {
+    .pricing-table {
+        display: block !important;
+    }
+    
+    .pricing-column {
+        display: block !important;
+        width: 100% !important;
+        margin-bottom: 1.5rem !important;
+    }
+    
+    .pricing-header {
+        padding: 1rem !important;
+        font-size: 1.125rem !important;
+    }
+    
+    .pricing-cell {
+        padding: 0.75rem !important;
+        font-size: 0.875rem !important;
+    }
+}
+
+/* ================================
+   ANIMACIONES OPTIMIZADAS
+   ================================ */
+
+/* Reduzco las animaciones en dispositivos con poco rendimiento */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Mejoras para dispositivos táctiles */
+@media (hover: none) {
+    .module-card:hover {
+        transform: none;
+    }
+    
+    .module-card:active {
+        transform: scale(0.98);
+        transition: transform 0.1s ease;
+    }
+    
+    .download-btn:hover {
+        transform: none;
+    }
+    
+    .download-btn:active {
+        transform: scale(0.95);
+        transition: transform 0.1s ease;
+    }
+}
+
+/* ================================
+   MEJORAS DE ACCESIBILIDAD
+   ================================ */
+
+/* Mejoro el contraste y la legibilidad */
+@media (max-width: 640px) {
+    .text-slate-600 {
+        color: #374151 !important; /* Mejor contraste en móviles */
+    }
+    
+    .bg-white\/80 {
+        background-color: rgba(255, 255, 255, 0.95) !important;
+    }
+}
+
+/* Focus mejorado para navegación por teclado */
+.module-card:focus,
+.download-btn:focus,
+.auth-input:focus,
+.chat-input:focus {
+    outline: 2px solid #0D9488;
+    outline-offset: 2px;
+}
+
+/* ================================
+   UTILIDADES ESPECÍFICAS
+   ================================ */
+
+/* Oculto elementos decorativos en pantallas muy pequeñas */
+@media (max-width: 480px) {
+    .mobile-hidden {
+        display: none !important;
+    }
+    
+    .mobile-center {
+        text-align: center !important;
+    }
+}
+
+/* Mejoras específicas para landscape en móviles */
+@media (max-width: 896px) and (orientation: landscape) {
+    .hero-section {
+        padding-top: 2rem !important;
+        padding-bottom: 2rem !important;
+    }
+    
+    .section-padding {
+        padding-top: 2rem !important;
+        padding-bottom: 2rem !important;
+    }
+}
