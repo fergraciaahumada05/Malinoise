@@ -1,143 +1,207 @@
-# 🚀 Malinoise - Plataforma Integral de Negocios Inteligente
+# 🚀 Malinoise Web Application
 
-Malinoise es una **aplicación web moderna** que presenta un asistente de negocios inteligente con IA, diseñada para organizaciones que buscan optimizar sus operaciones y predecir tendencias futuras.
+> **Aplicación web profesional con autenticación real, dashboard empresarial y sistema completo de usuarios**
 
-## 📋 Descripción del Proyecto
+## 📋 Descripción
 
-Esta es una **Single Page Application (SPA)** completa que incluye:
+Malinoise es una aplicación web moderna que presenta PreverIA, una solución de negocios inteligente con IA. Incluye sistema completo de autenticación, dashboard empresarial, manejo de divisas, y generación de reportes.
 
-### 🎯 **Página Principal (Landing Page) - `index.html`**
+## 🏗️ Arquitectura
 
-- **Hero Section** con propuesta de valor y acceso directo al dashboard
-- **6 Módulos Interactivos** expandibles (acordeón)
-- **Demo IA** con gráfico interactivo usando Chart.js
-- **Stack Tecnológico** visual
-- **Modelo de Negocio** (Freemium vs Premium)
-- **Sección de Descargas** con animaciones para diferentes plataformas
-- **Formularios de Autenticación** dinámicos (Login, Registro, Recuperación)
-- **Chat del Asistente IA** integrado con API de Gemini
+### **Servidor Híbrido**
+- **Desarrollo**: SQLite (local)
+- **Producción**: PostgreSQL (Railway)
+- **Auto-detección** del entorno
 
-### 🎯 **Dashboard Web App - `dashboard.html`**
+### **Frontend SPA**
+- **Framework**: Vanilla JS + Tailwind CSS
+- **Responsive**: Mobile-first design
+- **Interactivo**: Chart.js, animaciones, chat IA
 
-- **Panel de Control** con métricas clave (Ventas, Stock, Ganancias)
-- **Gestión de Ventas** con tabla y formularios dinámicos
-- **Inventario Completo** con CRUD de productos y gestión de stock
-- **Proyecciones Financieras** con calculadora de inversión inicial
-- **Navegación por Pestañas** responsive y optimizada
-- **Persistencia de datos** en localStorage con sincronización automática
+### **Autenticación**
+- **JWT Tokens** seguros
+- **Emails reales** con Gmail
+- **Verificación** por código único
+- **Recuperación** de contraseña
 
-## 🔄 Flujo de Usuario Completo
-
-1. **Página Principal**: Los usuarios exploran las funcionalidades y características
-2. **Verificación Automática**: Si ya están autenticados, redirige al dashboard
-3. **Registro/Login**: Autenticación completa con validación y persistencia
-4. **Dashboard**: Acceso protegido a la versión web de Malinoise
-5. **Gestión de Sesión**: Persistencia entre sesiones y protección de rutas
-6. **Redirección Automática**: Acceso directo al dashboard web
-7. **Dashboard**: Gestión completa del negocio con todas las herramientas
-
-## 🎨 Características de Diseño
-
-### **Responsive Design**
-
-- ✅ **Móviles pequeños**: 320px - 480px (layout de 1 columna)
-- ✅ **Móviles medianos/grandes**: 481px - 640px (optimizado para touch)
-- ✅ **Tablets (iPad)**: 641px - 1024px (layout de 2 columnas)
-- ✅ **Desktop**: 1025px+ (experiencia completa)
-
-### **Optimizaciones Específicas**
-
-- **Navegación sticky** con menú móvil mejorado
-- **Tipografía escalable** según dispositivo
-- **Interacciones táctiles** optimizadas
-- **Animaciones adaptativas** según rendimiento del dispositivo
-- **Controles de formulario** adaptados por pantalla
-
-### **Paleta de Colores**
-
-- **Fondo**: `bg-slate-50` (#F8FAFC)
-- **Texto**: `text-slate-800` (#1E293B), `text-slate-600` (#475569)
-- **Acento Principal**: `bg-teal-600` (#0D9488)
-- **Acento Secundario**: `bg-slate-200` (#E2E8F0)
-
-## Estructura del Proyecto
+## 📁 Estructura del Proyecto
 
 ```
-public/                  # Contiene los archivos públicos de tu aplicación web
-│   ├── index.html           # El archivo principal HTML de la SPA
-│   ├── assets/              # Carpeta para recursos estáticos
-│   │   ├── images/          # Imágenes del proyecto
-│   │   └── fonts/           # Fuentes personalizadas
-│   └── css/                 # Estilos CSS personalizados
-│       └── custom.css       # Reglas CSS adicionales
-├── .gitignore               # Archivos y carpetas a ignorar por Git
-├── README.md                # Descripción del proyecto
-└── server.js                # Servidor opcional para desarrollo
+Malinoise_web/
+├── 🖥️  server-hybrid.js          # Servidor principal (SQLite + PostgreSQL)
+├── ⚙️  railway.toml              # Configuración deploy Railway
+├── 📦 package.json               # Dependencias y scripts
+├── 🔧 .env.example               # Variables de entorno ejemplo
+├── 💾 database.json              # Datos de usuarios (desarrollo)
+├── 📂 database/
+│   └── malinoise.db              # Base de datos SQLite (desarrollo)
+├── 🌐 public/                    # Frontend
+│   ├── index.html                # Página principal
+│   ├── dashboard.html            # Dashboard empresarial
+│   ├── admin.html                # Panel administración
+│   ├── css/
+│   │   └── custom.css            # Estilos personalizados
+│   ├── js/
+│   │   └── auth-api.js           # API de autenticación principal
+│   └── assets/                   # Recursos estáticos
+├── 📖 DEPLOY_SUCCESS.md          # Guía de deploy Railway
+├── 📋 DEPLOY_QUICK_GUIDE.md      # Guía rápida
+├── 📄 INSTRUCCIONES_DEPLOY.md    # Instrucciones detalladas
+└── 📘 RAILWAY_DEPLOY.md          # Guía específica Railway
 ```
 
-## Características
+## 🚀 Instalación y Ejecución
 
-- 🎨 **Tailwind CSS**: Framework CSS utilitario para un desarrollo rápido
-- 📱 **Responsive**: Diseño adaptable a diferentes dispositivos
-- 🚀 **SPA Ready**: Estructura preparada para una Single Page Application
-- 🔧 **Modular**: Organización clara de archivos y recursos
+### **Desarrollo Local**
 
-## Instalación y Uso
+1. **Clonar repositorio**
+   ```bash
+   git clone https://github.com/fergraciaahumada05/Malinoise.git
+   cd Malinoise
+   ```
 
-### Opción 1: Servidor Simple (Recomendado)
+2. **Instalar dependencias**
+   ```bash
+   npm install
+   ```
 
-Si tienes Node.js instalado, puedes usar el archivo `server.js` incluido:
+3. **Configurar variables de entorno**
+   ```bash
+   cp .env.example .env
+   # Editar .env con tus credenciales
+   ```
+
+4. **Ejecutar servidor**
+   ```bash
+   npm start
+   # o para desarrollo con auto-reload:
+   npm run dev
+   ```
+
+5. **Abrir aplicación**
+   ```
+   http://localhost:3333
+   ```
+
+### **Deploy en Railway**
+
+1. **Ir a Railway**: https://railway.app/
+2. **Conectar repositorio**: Deploy from GitHub
+3. **Configurar variables**: Copiar desde `.env.example`
+4. **Deploy automático**: Railway detecta `railway.toml`
+
+## ⚙️ Variables de Entorno
+
+```env
+# Email Configuration
+EMAIL_MODE=production
+EMAIL_SERVICE=gmail
+EMAIL_USER=tu-email@gmail.com
+EMAIL_PASSWORD=tu-app-password
+
+# JWT Security
+JWT_SECRET=tu-jwt-secret-seguro
+
+# Database (automático en Railway)
+NODE_ENV=production
+PORT=3000
+DB_SSL=true
+```
+
+## 🌟 Funcionalidades
+
+### **✅ Sistema de Usuarios**
+- Registro con verificación por email
+- Login con JWT
+- Recuperación de contraseña
+- Sesiones persistentes
+
+### **✅ Dashboard Empresarial**
+- Métricas en tiempo real
+- 12 divisas internacionales
+- Gráficos interactivos (Chart.js)
+- Generación de reportes PDF
+
+### **✅ Frontend Moderno**
+- Diseño responsive mobile-first
+- Navegación sticky adaptativa
+- Módulos interactivos expandibles
+- Chat del asistente IA (Gemini API)
+- Animaciones smooth
+
+### **✅ Backend Robusto**
+- Servidor Express.js híbrido
+- Base de datos auto-configurable
+- Sistema de emails real
+- API REST completa
+
+## 🔧 Scripts Disponibles
 
 ```bash
-node server.js
+npm start          # Ejecutar servidor híbrido
+npm run dev        # Desarrollo con auto-reload
+npm test           # Ejecutar tests (si están configurados)
 ```
 
-Luego abre tu navegador en `http://localhost:3000`
+## 🌐 URLs Importantes
 
-### Opción 2: Servidor Local
+### **Desarrollo**
+- **Principal**: http://localhost:3333
+- **Dashboard**: http://localhost:3333/dashboard
+- **Admin**: http://localhost:3333/admin
+- **Health Check**: http://localhost:3333/api/health
 
-También puedes servir los archivos usando cualquier servidor web local:
+### **Producción** (después del deploy)
+- **URL**: `https://tu-app.railway.app`
+- **Dashboard**: `https://tu-app.railway.app/dashboard`
+- **Admin**: `https://tu-app.railway.app/admin`
 
-```bash
-# Con Python 3
-python -m http.server 8000
+## 🛠️ Tecnologías
 
-# Con Node.js (npx)
-npx serve public
+### **Backend**
+- Node.js + Express.js
+- SQLite (desarrollo) / PostgreSQL (producción)
+- JWT para autenticación
+- Nodemailer + Gmail
+- bcrypt para contraseñas
 
-# Con PHP
-php -S localhost:8000 -t public
-```
+### **Frontend**
+- HTML5 semántico
+- Tailwind CSS (CDN)
+- Vanilla JavaScript
+- Chart.js para gráficos
+- Responsive design
 
-### Opción 3: Abrir Directamente
+### **Deploy**
+- Railway (recomendado)
+- GitHub Actions ready
+- Docker compatible
 
-Simplemente abre el archivo `public/index.html` en tu navegador.
+## 📚 Documentación
 
-## Desarrollo
+- **[DEPLOY_SUCCESS.md](DEPLOY_SUCCESS.md)** - Guía completa Railway
+- **[DEPLOY_QUICK_GUIDE.md](DEPLOY_QUICK_GUIDE.md)** - Guía rápida
+- **[INSTRUCCIONES_DEPLOY.md](INSTRUCCIONES_DEPLOY.md)** - Instrucciones paso a paso
+- **[RAILWAY_DEPLOY.md](RAILWAY_DEPLOY.md)** - Guía específica Railway
 
-1. **HTML**: Edita `public/index.html` para modificar la estructura
-2. **CSS**: Añade estilos personalizados en `public/css/custom.css`
-3. **Recursos**: Coloca imágenes en `public/assets/images/` y fuentes en `public/assets/fonts/`
-
-## Tecnologías Utilizadas
-
-- **HTML5**: Estructura semántica
-- **Tailwind CSS**: Framework CSS via CDN
-- **CSS3**: Estilos personalizados
-- **JavaScript**: (Listo para añadir funcionalidad)
-
-## Contribuir
+## 🤝 Contribuir
 
 1. Fork el proyecto
-2. Crea tu rama de feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abre un Pull Request
+2. Crear feature branch (`git checkout -b feature/nueva-funcionalidad`)
+3. Commit cambios (`git commit -m 'Agregar nueva funcionalidad'`)
+4. Push a branch (`git push origin feature/nueva-funcionalidad`)
+5. Abrir Pull Request
 
-## Licencia
+## 📄 Licencia
 
-Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para más detalles.
+Este proyecto está bajo la licencia MIT. Ver `LICENSE` para más detalles.
+
+## 👥 Autor
+
+**Fernando José Gracia Ahumada**
+- GitHub: [@fergraciaahumada05](https://github.com/fergraciaahumada05)
+- Email: gracia.fernando1205@gmail.com
 
 ---
 
-### Desarrollado con ❤️ para Malinoise
+**🎉 ¡Malinoise - Aplicación web profesional lista para producción!**
