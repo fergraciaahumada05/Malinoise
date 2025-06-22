@@ -160,10 +160,9 @@ async function insertSampleData(client) {
     }
 
     // Insertar productos de ejemplo
-    const products = [
-      ['PreverIA Básico', 'Plan básico de inteligencia artificial', 29.99, 'USD', 'Software', 100],
-      ['PreverIA Pro', 'Plan profesional con funciones avanzadas', 79.99, 'USD', 'Software', 100],
-      ['PreverIA Enterprise', 'Solución empresarial completa', 199.99, 'USD', 'Software', 50],
+    const products = [      ['Malinoise Básico', 'Plan básico de inteligencia artificial', 29.99, 'USD', 'Software', 100],
+      ['Malinoise Pro', 'Plan profesional con funciones avanzadas', 79.99, 'USD', 'Software', 100],
+      ['Malinoise Enterprise', 'Solución empresarial completa', 199.99, 'USD', 'Software', 50],
       ['Consultoría IA', 'Consultoría personalizada en IA', 500.00, 'USD', 'Servicios', 10],
       ['Entrenamiento Personalizado', 'Entrenamiento de modelos específicos', 1500.00, 'USD', 'Servicios', 5]
     ];

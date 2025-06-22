@@ -10,7 +10,101 @@
       "created_at": "2025-06-22T18:24:01.991Z"
     }
   ],
-  "temp_users": [],
+  "temp_users": [
+    {
+      "email": "test@example.com",
+      "password": "$2a$12$3IY2hi0X.O/Bt6ybgl57DODZ/7FPL53YifHzJcDXE6d4o5zaGaTMO",
+      "name": "Usuario Test",
+      "verification_code": "138621",
+      "created_at": "2025-06-22T21:46:42.586Z"
+    },
+    {
+      "email": "test1750628872@example.com",
+      "password": "$2a$12$Uj9IKJilGB6STyuSHgvSYuog7Dw6LZ7yeDyLGAEjUjpI45d3jfbsG",
+      "name": "Usuario Test",
+      "verification_code": "778378",
+      "created_at": "2025-06-22T21:47:52.932Z"
+    },
+    {
+      "email": "gracia.fernando1205+test@gmail.com",
+      "password": "$2a$12$.NF7TuHXg.bxBeabsNpzJuANkzyb16CtzYe2YbolIHFz.BYMvBIeC",
+      "name": "Usuario Prueba",
+      "verification_code": "389703",
+      "created_at": "2025-06-22T21:50:25.748Z"
+    },
+    {
+      "email": "gracia.fernando1205+test1750629045@gmail.com",
+      "password": "$2a$12$IvIxFVkH/JwLMCmemp8yjew4t7ctT2hdGQbWLpYHx8Wvp.mZzi9GK",
+      "name": "Usuario Test",
+      "verification_code": "817996",
+      "created_at": "2025-06-22T21:50:46.397Z"
+    },
+    {
+      "email": "usuario1+demo@gmail.com",
+      "password": "$2a$12$uiRlAhsSSh7.4JiHLdvFieyQUBsG.WjZkVtYRlB2wo52H2SD2OoS.",
+      "name": "Usuario Demo 1",
+      "verification_code": "313908",
+      "created_at": "2025-06-22T21:59:19.953Z"
+    },
+    {
+      "email": "usuario2+demo@gmail.com",
+      "password": "$2a$12$iPQzUAiSGBwXRBQsTOY1kO59/8W/fDga.jmTFdH5/hu9VBke9LTZq",
+      "name": "Usuario Demo 2",
+      "verification_code": "917747",
+      "created_at": "2025-06-22T21:59:28.298Z"
+    },
+    {
+      "email": "usuario3+demo@gmail.com",
+      "password": "$2a$12$M.kMY7NKGDoEzqd7Y8fCMeDsdeNWM0icfGz01tGDunaNio75faol.",
+      "name": "Usuario Demo 3",
+      "verification_code": "104196",
+      "created_at": "2025-06-22T21:59:41.313Z"
+    },
+    {
+      "email": "test1+unique@gmail.com",
+      "password": "$2a$12$9vYKxV0T7r.VETe6br3sA.i7L0CxZrp80w.QTjuqJL4rA.tKUWn..",
+      "name": "Test User 1",
+      "verification_code": "382989",
+      "created_at": "2025-06-22T22:00:45.897Z"
+    },
+    {
+      "email": "test2+unique@gmail.com",
+      "password": "$2a$12$9T5NEnZ8iQ07ZeNF2HFuZuVJsZBAv6zxFn3kqZn3joIAf30egp/PW",
+      "name": "Test User 2",
+      "verification_code": "845322",
+      "created_at": "2025-06-22T22:00:49.009Z"
+    },
+    {
+      "email": "test3+unique@gmail.com",
+      "password": "$2a$12$d.Dj/17760RdctrMRvvaeuGNhi6/mUwTkdFAoKrYawh7Rrli8wsMe",
+      "name": "Test User 3",
+      "verification_code": "777660",
+      "created_at": "2025-06-22T22:00:51.878Z"
+    },
+    {
+      "email": "test4+unique@gmail.com",
+      "password": "$2a$12$9grBCe5ug4UwQjx5NTZ8Yupyvpq72K5XeoiKY2BvyEBpvTB25U72.",
+      "name": "Test User 4",
+      "verification_code": "165692",
+      "created_at": "2025-06-22T22:00:56.433Z"
+    },
+    {
+      "email": "test5+unique@gmail.com",
+      "password": "$2a$12$nNJUOCBmupVWbqYhbBtYru9HaXndD9hAp.O2qXdE99zORaDjGqVXu",
+      "name": "Test User 5",
+      "verification_code": "660647",
+      "created_at": "2025-06-22T22:00:59.395Z"
+    }
+  ],
   "sales": [],
-  "products": []
+  "products": [],
+  "recovery_codes": [
+    {
+      "email": "ceo@malinoise.com",
+      "code": "525710",
+      "expires": 1750632228119,
+      "used": false,
+      "created_at": "2025-06-22T22:13:48.119Z"
+    }
+  ]
 }

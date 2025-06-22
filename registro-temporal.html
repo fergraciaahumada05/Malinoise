@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malinoise - Registro Sin Validación de Nombre</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Auth API -->
+    <script src="js/auth-api.js"></script>
+</head>
+<body class="bg-slate-50">
+    <main class="min-h-screen flex items-center justify-center p-4">
+        <section class="w-full max-w-md">
+            <div class="text-center mb-8">
+                <h1 class="text-3xl font-bold text-slate-800 mb-2">Malinoise</h1>
+                <p class="text-slate-600">Registro temporal sin validación de nombre</p>
+            </div>
+            
+            <div class="bg-white rounded-xl shadow-lg p-8">
+                <h2 class="text-xl font-semibold text-slate-800 mb-6">Registrarse</h2>
+                
+                <div class="space-y-4">
+                    <input type="text" placeholder="Nombre Completo" class="w-full p-3 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-teal-500" id="registerName">
+                    <input type="email" placeholder="Correo Electrónico" class="w-full p-3 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-teal-500" id="registerEmail">
+                    <input type="password" placeholder="Contraseña" class="w-full p-3 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-teal-500" id="registerPassword">
+                    <input type="password" placeholder="Confirmar Contraseña" class="w-full p-3 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-teal-500" id="confirmPassword">
+                    
+                    <button onclick="registerWithoutNameValidation()" class="w-full bg-teal-600 text-white font-semibold py-3 rounded-lg hover:bg-teal-700 transition-colors shadow">
+                        Registrarse (Sin Validación de Nombre)
+                    </button>
+                </div>
+                
+                <div id="message" class="mt-4 p-3 border rounded hidden"></div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        async function registerWithoutNameValidation() {
+            const name = document.getElementById('registerName').value.trim() || 'Usuario'; // Valor por defecto
+            const email = document.getElementById('registerEmail').value.trim();
+            const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            const message = document.getElementById('message');
+            message.classList.remove('hidden');
+            
+            console.log('=== REGISTRO SIN VALIDACIÓN DE NOMBRE ===');
+            console.log('Nombre:', name);
+            console.log('Email:', email);
+            console.log('Password:', password ? '[PRESENTE]' : '[VACÍA]');
+            
+            // Validaciones básicas (sin nombre)
+            if (!email || !password || !confirmPassword) {
+                message.className = 'mt-4 p-3 border rounded bg-red-100 text-red-800';
+                message.textContent = 'Por favor, completa email, contraseña y confirmación.';
+                return;
+            }
+            
+            if (password.length < 6) {
+                message.className = 'mt-4 p-3 border rounded bg-red-100 text-red-800';
+                message.textContent = 'La contraseña debe tener al menos 6 caracteres.';
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                message.className = 'mt-4 p-3 border rounded bg-red-100 text-red-800';
+                message.textContent = 'Las contraseñas no coinciden.';
+                return;
+            }
+            
+            try {
+                message.className = 'mt-4 p-3 border rounded bg-blue-100 text-blue-800';
+                message.textContent = 'Registrando usuario...';
+                
+                const response = await window.authAPI.registerUser(email, password, name);
+                
+                message.className = 'mt-4 p-3 border rounded bg-green-100 text-green-800';
+                message.innerHTML = `¡Registro exitoso!<br>Código enviado a: ${email}<br><a href="/public/index.html" class="underline">Ir a verificación</a>`;
+                
+            } catch (error) {
+                console.error('Error en registro:', error);
+                message.className = 'mt-4 p-3 border rounded bg-red-100 text-red-800';
+                message.textContent = error.message || 'Error al crear la cuenta.';
+            }
+        }
+    </script>
+</body>
+</html>

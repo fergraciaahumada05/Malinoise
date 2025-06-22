@@ -129,10 +129,10 @@ app.post('/api/auth/register', async (req, res) => {
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to: email,
-      subject: 'Código de Verificación - PreverIA',
+      subject: 'Código de Verificación - Malinoise',
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h2 style="color: #0D9488;">¡Bienvenido a PreverIA!</h2>
+          <h2 style="color: #0D9488;">¡Bienvenido a Malinoise!</h2>
           <p>Tu código de verificación es:</p>
           <div style="background: #f0f9ff; padding: 20px; text-align: center; margin: 20px 0;">
             <h1 style="color: #0D9488; font-size: 32px; margin: 0;">${verificationCode}</h1>
@@ -220,7 +220,7 @@ app.post('/api/auth/resend-code', async (req, res) => {
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to: email,
-      subject: 'Nuevo Código de Verificación - PreverIA',
+      subject: 'Nuevo Código de Verificación - Malinoise',
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <h2 style="color: #0D9488;">Nuevo Código de Verificación</h2>

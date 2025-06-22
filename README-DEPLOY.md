@@ -1,6 +1,6 @@
 # 🚀 Malinoise - Aplicación Web Empresarial
 
-Una aplicación web completa para gestión empresarial con PreverIA (landing page) y Malinoise (dashboard), desarrollada con email real y sistema de autenticación completo.
+Una aplicación web completa para gestión empresarial con Malinoise (landing page) y Malinoise (dashboard), desarrollada con email real y sistema de autenticación completo.
 
 ## ✨ Características
 
@@ -58,7 +58,7 @@ npm start
 
 ```
 ├── public/                 # Frontend
-│   ├── index.html         # PreverIA (landing)
+│   ├── index.html         # Malinoise (landing)
 │   ├── dashboard.html     # Malinoise (dashboard)
 │   ├── css/custom.css     # Estilos
 │   └── js/app-simple.js   # JavaScript
@@ -76,7 +76,7 @@ Una vez desplegado en Vercel:
 
 ## 🔄 Flujo de Usuario
 
-1. **Landing**: Usuario ve PreverIA y características
+1. **Landing**: Usuario ve Malinoise y características
 2. **Registro**: Email + código de verificación real
 3. **Dashboard**: Acceso completo a Malinoise
 4. **Gestión**: Ventas, inventario, proyecciones

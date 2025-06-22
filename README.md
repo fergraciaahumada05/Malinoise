@@ -1,6 +1,6 @@
-# 🚀 PreverIA - Plataforma Integral de Negocios Inteligente
+# 🚀 Malinoise - Plataforma Integral de Negocios Inteligente
 
-PreverIA es una **aplicación web moderna** que presenta un asistente de negocios inteligente con IA, diseñada para organizaciones que buscan optimizar sus operaciones y predecir tendencias futuras.
+Malinoise es una **aplicación web moderna** que presenta un asistente de negocios inteligente con IA, diseñada para organizaciones que buscan optimizar sus operaciones y predecir tendencias futuras.
 
 ## 📋 Descripción del Proyecto
 

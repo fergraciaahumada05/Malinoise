@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PreverIA - Visión de la Aplicación</title>
+    <title>Malinoise - Visión de la Aplicación</title>
     
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -42,7 +42,7 @@
     -->
       <!--
     Visualization & Content Choices:
-    - **App Vision -> Goal: Inform -> Presentation: Hero Section.** Un bloque grande y centrado con el título "PreverIA" (uno de los nombres sugeridos) para darle una identidad concreta.
+    - **App Vision -> Goal: Inform -> Presentation: Hero Section.** Un bloque grande y centrado con el título "Malinoise" (uno de los nombres sugeridos) para darle una identidad concreta.
     - **App Modules -> Goal: Organize -> Presentation: Interactive Cards.** Cada uno de los 6 módulos del informe se convierte en una tarjeta. Interaction: Clic para expandir y ver detalles. Justification: Evita un muro de texto, fomenta la exploración. Method: HTML/Tailwind para las tarjetas, JS para la funcionalidad de acordeón.
     - **Predictive AI -> Goal: Compare/Change -> Presentation: Line Chart.** Muestra ventas históricas vs. predicción de IA. Interaction: Botones para activar/desactivar la visualización de la predicción y las anomalías. Justification: Hace tangible el beneficio más innovador de la app. Library: Chart.js.
     - **Tech Stack -> Goal: Organize -> Presentation: HTML/CSS Diagram.** Un diagrama de flujo visual. Justification: Más atractivo y fácil de entender que una lista con viñetas. Method: Tailwind Flexbox y bordes.
@@ -385,7 +385,7 @@
             <div class="container mx-auto container-padding">
                 <div class="text-center mb-8 sm:mb-12">
                     <h3 class="section-title text-2xl sm:text-3xl md:text-4xl font-bold text-slate-800 mb-3 sm:mb-4">El Poder de la Predicción en Acción</h3>
-                    <p class="text-sm sm:text-base lg:text-lg text-slate-600">Este gráfico simula cómo PreverIA analiza tus ventas, predice tendencias y detecta anomalías, permitiéndote actuar a tiempo. <span class="mobile-hidden">Interactúa con los botones para ver las capacidades de la IA.</span></p>
+                    <p class="text-sm sm:text-base lg:text-lg text-slate-600">Este gráfico simula cómo Malinoise analiza tus ventas, predice tendencias y detecta anomalías, permitiéndote actuar a tiempo. <span class="mobile-hidden">Interactúa con los botones para ver las capacidades de la IA.</span></p>
                 </div>
                 <div class="bg-white p-4 sm:p-6 rounded-xl shadow-lg">
                     <div class="chart-container">
@@ -467,9 +467,9 @@
         </section><!-- Sección de Descargas con Animaciones -->
         <section id="downloads" class="section-padding py-16 sm:py-20 bg-white">
             <div class="container mx-auto container-padding text-center">
-                <h3 class="section-title text-2xl sm:text-3xl md:text-4xl font-bold text-slate-800 mb-3 sm:mb-4">Descarga PreverIA en tu Dispositivo</h3>
+                <h3 class="section-title text-2xl sm:text-3xl md:text-4xl font-bold text-slate-800 mb-3 sm:mb-4">Descarga Malinoise en tu Dispositivo</h3>
                 <p class="text-sm sm:text-base lg:text-lg text-slate-600 max-w-2xl mx-auto mb-8 sm:mb-12">
-                    PreverIA estará disponible en todas tus plataformas preferidas. Accede a tu negocio desde cualquier lugar, manteniendo tus datos sincronizados.
+                    Malinoise estará disponible en todas tus plataformas preferidas. Accede a tu negocio desde cualquier lugar, manteniendo tus datos sincronizados.
                 </p>
                 <div class="downloads-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-4xl mx-auto">
                     <div class="download-card relative flex flex-col items-center p-4 sm:p-6 bg-slate-50 rounded-xl shadow-md hover:shadow-lg cursor-pointer transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-teal-600" data-platform="desktop" tabindex="0">
@@ -505,7 +505,7 @@
         </section>        <!-- Sección de Autenticación con Formularios Dinámicos -->
         <section id="auth" class="section-padding py-16 sm:py-20">
             <div class="container mx-auto container-padding text-center">
-                <h3 class="section-title text-2xl sm:text-3xl md:text-4xl font-bold text-slate-800 mb-3 sm:mb-4">Accede a tu Cuenta PreverIA</h3>
+                <h3 class="section-title text-2xl sm:text-3xl md:text-4xl font-bold text-slate-800 mb-3 sm:mb-4">Accede a tu Cuenta Malinoise</h3>
                 <p class="text-sm sm:text-base lg:text-lg text-slate-600 max-w-2xl mx-auto mb-6 sm:mb-8">
                     Gestiona tu negocio de forma segura. Inicia sesión o regístrate para comenzar a transformar tus operaciones.
                 </p>
@@ -524,10 +524,9 @@
                             Iniciar Sesión
                         </button>
                         <div id="loginMessage" class="form-message hidden text-sm"></div>
-                    </div>
-
-                    <div id="registerForm" class="auth-form hidden space-y-3 sm:space-y-4">
+                    </div>                    <div id="registerForm" class="auth-form hidden space-y-3 sm:space-y-4">
                         <h4 class="text-lg sm:text-xl font-semibold text-slate-800 mb-3 sm:mb-4">Registrarse</h4>
+                        <input type="text" placeholder="Nombre Completo" class="auth-input w-full p-3 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-teal-500 text-sm sm:text-base" id="registerName">
                         <input type="email" placeholder="Correo Electrónico" class="auth-input w-full p-3 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-teal-500 text-sm sm:text-base" id="registerEmail">
                         <input type="password" placeholder="Contraseña" class="auth-input w-full p-3 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-teal-500 text-sm sm:text-base" id="registerPassword">
                         <input type="password" placeholder="Confirmar Contraseña" class="auth-input w-full p-3 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-teal-500 text-sm sm:text-base" id="confirmPassword">
@@ -535,13 +534,32 @@
                             Registrarse
                         </button>
                         <div id="registerMessage" class="form-message hidden text-sm"></div>
-                    </div>                    <div id="recoverForm" class="auth-form hidden space-y-4">
-                        <h4 class="text-xl font-semibold text-slate-800 mb-4">Recuperar Contraseña</h4>
-                        <p class="text-sm text-slate-600">Ingresa tu correo electrónico y te enviaremos un enlace para restablecer tu contraseña.</p>
-                        <input type="email" placeholder="Correo Electrónico" class="w-full p-3 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-teal-500" id="recoverEmail">
-                        <button class="w-full bg-teal-600 text-white font-semibold py-3 rounded-lg hover:bg-teal-700 transition-colors shadow" id="recoverButton">
-                            Enviar Enlace
-                        </button>
+                    </div><div id="recoverForm" class="auth-form hidden space-y-4">
+                        <!-- Paso 1: Solicitar código -->
+                        <div id="recoverStep1" class="space-y-4">
+                            <h4 class="text-xl font-semibold text-slate-800 mb-4">Recuperar Contraseña</h4>
+                            <p class="text-sm text-slate-600">Ingresa tu correo electrónico y te enviaremos un código de 6 dígitos para restablecer tu contraseña.</p>
+                            <input type="email" placeholder="Correo Electrónico" class="w-full p-3 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-teal-500" id="recoverEmail">
+                            <button class="w-full bg-teal-600 text-white font-semibold py-3 rounded-lg hover:bg-teal-700 transition-colors shadow" id="recoverButton">
+                                Enviar Código
+                            </button>
+                        </div>
+                        
+                        <!-- Paso 2: Verificar código y nueva contraseña -->
+                        <div id="recoverStep2" class="hidden space-y-4">
+                            <h4 class="text-xl font-semibold text-slate-800 mb-4">Ingresar Código y Nueva Contraseña</h4>
+                            <p class="text-sm text-slate-600 mb-4">Hemos enviado un código de 6 dígitos a: <span id="recoverEmailDisplay" class="font-semibold text-teal-600"></span></p>
+                            <input type="text" placeholder="Código de 6 dígitos" maxlength="6" class="w-full p-3 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-teal-500 text-center text-lg font-mono tracking-wider" id="recoveryCode">
+                            <input type="password" placeholder="Nueva Contraseña" class="w-full p-3 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-teal-500" id="newPassword">
+                            <input type="password" placeholder="Confirmar Nueva Contraseña" class="w-full p-3 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-teal-500" id="confirmNewPassword">
+                            <button class="w-full bg-teal-600 text-white font-semibold py-3 rounded-lg hover:bg-teal-700 transition-colors shadow" id="resetPasswordButton">
+                                Actualizar Contraseña
+                            </button>
+                            <button class="w-full bg-slate-200 text-slate-800 font-semibold py-2 rounded-lg hover:bg-slate-300 transition-colors" id="resendRecoveryButton">
+                                Reenviar Código
+                            </button>
+                        </div>
+                        
                         <div id="recoverMessage" class="form-message hidden"></div>
                     </div>
 
@@ -567,7 +585,7 @@
     
     <footer class="bg-slate-800 text-white py-6 sm:py-8">
         <div class="container mx-auto container-padding text-center text-slate-400">
-            <p class="text-sm sm:text-base">&copy; 2025 PreverIA. Conceptualización de una aplicación de negocios.</p>
+            <p class="text-sm sm:text-base">&copy; 2025 Malinoise. Conceptualización de una aplicación de negocios.</p>
         </div>
     </footer>
 
@@ -882,35 +900,64 @@
                 }
             });            // ============================================================
             // LÓGICA DE REGISTRO
-            // ============================================================
-            document.getElementById('registerButton').addEventListener('click', async () => {
-                const email = document.getElementById('registerEmail').value.trim();
-                const password = document.getElementById('registerPassword').value;
-                const confirmPassword = document.getElementById('confirmPassword').value;
+            // ============================================================            document.getElementById('registerButton').addEventListener('click', async () => {
+                const nameElement = document.getElementById('registerName');
+                const emailElement = document.getElementById('registerEmail');
+                const passwordElement = document.getElementById('registerPassword');
+                const confirmPasswordElement = document.getElementById('confirmPassword');
+                
+                // Debug: verificar que los elementos existen
+                console.log('=== DEBUG REGISTRO ===');
+                console.log('Elemento nombre:', nameElement);
+                console.log('Elemento email:', emailElement);
+                console.log('Elemento password:', passwordElement);
+                console.log('Elemento confirm:', confirmPasswordElement);
+                
+                const name = nameElement ? nameElement.value.trim() : '';
+                const email = emailElement ? emailElement.value.trim() : '';
+                const password = passwordElement ? passwordElement.value : '';
+                const confirmPassword = confirmPasswordElement ? confirmPasswordElement.value : '';
+                
+                console.log('Valores capturados:');
+                console.log('- Nombre original:', `"${nameElement ? nameElement.value : 'ELEMENTO NO ENCONTRADO'}"`);
+                console.log('- Nombre después de trim:', `"${name}"`);
+                console.log('- Longitud del nombre:', name.length);
+                console.log('- Email:', `"${email}"`);
+                console.log('- Password presente:', password ? 'SÍ' : 'NO');
+                console.log('- Confirm presente:', confirmPassword ? 'SÍ' : 'NO');
 
                 // Validación del lado del cliente
-                if (!email || !password || !confirmPassword) {
+                if (!name || !email || !password || !confirmPassword) {
+                    console.log('❌ Falla en validación: campos vacíos');
                     showMessage(registerMessage, 'Por favor, completa todos los campos.', 'error');
                     return;
                 }
-                if (!window.authAPI.isValidEmail(email)) {
+                if (name.length < 2) {
+                    console.log('❌ Falla en validación: nombre muy corto');
+                    showMessage(registerMessage, 'El nombre debe tener al menos 2 caracteres.', 'error');
+                    return;
+                }                if (!window.authAPI.isValidEmail(email)) {
+                    console.log('❌ Falla en validación: email inválido');
                     showMessage(registerMessage, 'Por favor, introduce un correo electrónico válido.', 'error');
                     return;
                 }
                 if (password.length < 6) {
+                    console.log('❌ Falla en validación: contraseña muy corta');
                     showMessage(registerMessage, 'La contraseña debe tener al menos 6 caracteres.', 'error');
                     return;
                 }
                 if (password !== confirmPassword) {
+                    console.log('❌ Falla en validación: contraseñas no coinciden');
                     showMessage(registerMessage, 'Las contraseñas no coinciden.', 'error');
                     return;
                 }
 
                 try {
+                    console.log('✅ Todas las validaciones pasaron, llamando a la API...');
                     showMessage(registerMessage, 'Creando cuenta y enviando código de verificación...', 'success');
                     
-                    // Llamada real al backend para registro
-                    const response = await window.authAPI.registerUser(email, password);
+                    // Llamada real al backend para registro con nombre
+                    const response = await window.authAPI.registerUser(email, password, name);
                     
                     // Guardar email temporalmente para verificación
                     localStorage.setItem('tempUserEmail', email);
@@ -923,12 +970,14 @@
                     console.error('Error en registro:', error);
                     showMessage(registerMessage, error.message || 'Error al crear la cuenta. Inténtalo de nuevo.', 'error');
                 }
-            });
-
-            // ============================================================
+            });            // ============================================================
             // LÓGICA DE RECUPERACIÓN DE CONTRASEÑA
             // ============================================================
-            document.getElementById('recoverButton').addEventListener('click', () => {
+              // Variables globales para recuperación
+            let recoveryEmail = '';
+            
+            // Paso 1: Solicitar código de recuperación
+            document.getElementById('recoverButton').addEventListener('click', async () => {
                 const email = document.getElementById('recoverEmail').value.trim();
 
                 if (!email) {
@@ -938,20 +987,111 @@
                 if (!isValidEmail(email)) {
                     showMessage(recoverMessage, 'Por favor, introduce un correo electrónico válido.', 'error');
                     return;
+                }                try {
+                    showMessage(recoverMessage, 'Enviando código de recuperación...', 'success');
+                    
+                    const result = await window.authAPI.requestPasswordRecovery(email);
+                    
+                    // Guardar email para el siguiente paso
+                    recoveryEmail = email;
+                    
+                    // Mostrar el paso 2
+                    document.getElementById('recoverStep1').classList.add('hidden');
+                    document.getElementById('recoverStep2').classList.remove('hidden');
+                    document.getElementById('recoverEmailDisplay').textContent = email;
+                    
+                    showMessage(recoverMessage, '¡Código enviado! Revisa tu bandeja de entrada.', 'success');
+                    
+                    // Si hay código de desarrollo, mostrarlo
+                    if (result.developmentCode) {
+                        showMessage(recoverMessage, `Código de desarrollo: ${result.developmentCode}`, 'info');
+                    }
+                    
+                } catch (error) {
+                    console.error('Error en recuperación:', error);
+                    showMessage(recoverMessage, error.message || 'Error al enviar código. Inténtalo de nuevo.', 'error');
                 }
+            });
+            
+            // Paso 2: Verificar código y actualizar contraseña
+            document.getElementById('resetPasswordButton').addEventListener('click', async () => {
+                const code = document.getElementById('recoveryCode').value.trim();
+                const newPassword = document.getElementById('newPassword').value;
+                const confirmNewPassword = document.getElementById('confirmNewPassword').value;
 
-                // Simulación de llamada de recuperación
-                showMessage(recoverMessage, `Enviando enlace a ${email}... (Función de backend simulada)`, 'success');
-                console.log('Intento de recuperación para:', email);
-
-                // En una app real:
-                // auth.sendPasswordResetEmail(email)
-                //   .then(() => {
-                //     showMessage(recoverMessage, '¡Enlace de recuperación enviado! Revisa tu bandeja de entrada.', 'success');
-                //   })
-                //   .catch((error) => {
-                //     showMessage(recoverMessage, `Error: ${error.message}`, 'error');
-                //   });
+                // Validaciones
+                if (!code) {
+                    showMessage(recoverMessage, 'Por favor, introduce el código de 6 dígitos.', 'error');
+                    return;
+                }
+                if (code.length !== 6) {
+                    showMessage(recoverMessage, 'El código debe tener exactamente 6 dígitos.', 'error');
+                    return;
+                }
+                if (!newPassword) {
+                    showMessage(recoverMessage, 'Por favor, introduce la nueva contraseña.', 'error');
+                    return;
+                }
+                if (newPassword.length < 6) {
+                    showMessage(recoverMessage, 'La contraseña debe tener al menos 6 caracteres.', 'error');
+                    return;
+                }
+                if (newPassword !== confirmNewPassword) {
+                    showMessage(recoverMessage, 'Las contraseñas no coinciden.', 'error');
+                    return;
+                }                try {
+                    showMessage(recoverMessage, 'Verificando código y actualizando contraseña...', 'success');
+                    
+                    const result = await window.authAPI.resetPassword(recoveryEmail, code, newPassword);
+                    
+                    showMessage(recoverMessage, '¡Contraseña actualizada exitosamente! Ya puedes iniciar sesión.', 'success');
+                    
+                    // Resetear formulario y volver al login después de un delay
+                    setTimeout(() => {
+                        // Volver al paso 1
+                        document.getElementById('recoverStep2').classList.add('hidden');
+                        document.getElementById('recoverStep1').classList.remove('hidden');
+                        
+                        // Limpiar campos
+                        document.getElementById('recoverEmail').value = '';
+                        document.getElementById('recoveryCode').value = '';
+                        document.getElementById('newPassword').value = '';
+                        document.getElementById('confirmNewPassword').value = '';
+                        
+                        // Volver al formulario de login
+                        showForm(loginForm);
+                        showMessage(recoverMessage, '', '');
+                        
+                        recoveryEmail = '';
+                    }, 3000);
+                    
+                } catch (error) {
+                    console.error('Error al actualizar contraseña:', error);
+                    showMessage(recoverMessage, error.message || 'Error al actualizar contraseña. Verifica el código.', 'error');
+                }
+            });
+            
+            // Reenviar código de recuperación
+            document.getElementById('resendRecoveryButton').addEventListener('click', async () => {
+                if (!recoveryEmail) {
+                    showMessage(recoverMessage, 'Error: No hay email de recuperación.', 'error');
+                    return;
+                }                try {
+                    showMessage(recoverMessage, 'Reenviando código...', 'success');
+                    
+                    const result = await window.authAPI.requestPasswordRecovery(recoveryEmail);
+                    
+                    showMessage(recoverMessage, '¡Código reenviado! Revisa tu bandeja de entrada.', 'success');
+                    
+                    // Si hay código de desarrollo, mostrarlo
+                    if (result.developmentCode) {
+                        showMessage(recoverMessage, `Código de desarrollo: ${result.developmentCode}`, 'info');
+                    }
+                    
+                } catch (error) {
+                    console.error('Error al reenviar código:', error);
+                    showMessage(recoverMessage, error.message || 'Error al reenviar código.', 'error');
+                }
             });
 
             // ============================================================

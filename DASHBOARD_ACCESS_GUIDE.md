@@ -42,6 +42,8 @@
 - **Ventas Totales**: Resumen de ingresos
 - **Productos en Stock**: Inventario actual
 - **Ganancias Netas**: Beneficios calculados
+- **💱 Selector de Divisas**: Cambia entre USD, EUR, GBP, JPY, CAD, AUD, CHF, MXN, BRL, ARS, COP, PEN
+- **📄 Descarga de PDF**: Genera reportes completos con todas las métricas e información
 
 ### 🛠️ **Funcionalidades Completas**
 1. **🏪 Gestión de Ventas**
@@ -63,6 +65,19 @@
    - Información de la cuenta
    - Configuraciones personales
    - Historial de actividad
+
+5. **💱 Sistema de Divisas**
+   - Cambio automático entre 12 divisas principales
+   - Conversión en tiempo real de todas las métricas
+   - Formateo automático según la divisa seleccionada
+   - Soporte para: USD, EUR, GBP, JPY, CAD, AUD, CHF, MXN, BRL, ARS, COP, PEN
+
+6. **📄 Generación de PDF**
+   - Reportes completos con todas las métricas
+   - Historial de ventas formateado
+   - Inventario detallado con valores
+   - Información en la divisa seleccionada
+   - Descarga instantánea con notificaciones visuales
 
 ## 🔧 **SI TIENES PROBLEMAS**
 

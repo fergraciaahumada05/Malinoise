@@ -448,7 +448,7 @@ class PDFSystem {
   async downloadTransactionHistory() {
     // Aquí obtendrías los datos de transacciones del usuario
     const mockData = [
-      { date: new Date(), description: 'Suscripción PreverIA Pro', amount: 79.99, status: 'Completado' },
+      { date: new Date(), description: 'Suscripción Malinoise Pro', amount: 79.99, status: 'Completado' },
       { date: new Date(Date.now() - 86400000), description: 'Consultoría IA', amount: 500.00, status: 'Completado' }
     ];
     

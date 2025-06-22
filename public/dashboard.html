@@ -4,10 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">    <title>Malinoise Web App - Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Socket.IO para actualizaciones en tiempo real -->
+      <!-- Socket.IO para actualizaciones en tiempo real -->
     <script src="https://cdn.socket.io/4.7.4/socket.io.min.js"></script>
-      <!-- Font Awesome para iconos -->
+    
+    <!-- jsPDF para generación de PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
+    <!-- Font Awesome para iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Auth API -->
@@ -127,16 +130,30 @@
 <body class="bg-slate-50">    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
         <nav class="container mx-auto container-padding py-3 flex justify-between items-center">
             <h1 class="text-xl sm:text-2xl font-bold text-teal-600">Malinoise Web App</h1>
-            
-            <div class="flex items-center space-x-2 sm:space-x-4">
+              <div class="flex items-center space-x-2 sm:space-x-4">
                 <!-- Selector de divisas -->
-                <div id="currency-selector-container" class="hidden sm:flex items-center space-x-2">
-                    <i class="fas fa-exchange-alt text-slate-500 text-sm"></i>
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-coins text-slate-500 text-sm"></i>
+                    <select id="currency-selector" class="bg-white border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500" aria-label="Selector de divisa">
+                        <option value="USD">USD ($)</option>
+                        <option value="EUR">EUR (€)</option>
+                        <option value="GBP">GBP (£)</option>
+                        <option value="JPY">JPY (¥)</option>
+                        <option value="CAD">CAD (C$)</option>
+                        <option value="AUD">AUD (A$)</option>
+                        <option value="CHF">CHF (₣)</option>
+                        <option value="MXN">MXN ($)</option>
+                        <option value="BRL">BRL (R$)</option>
+                        <option value="ARS">ARS ($)</option>
+                        <option value="COP">COP ($)</option>
+                        <option value="PEN">PEN (S/)</option>
+                    </select>
                 </div>
                 
                 <!-- Botón de descarga de reportes -->
-                <button onclick="downloadPDF('transactions')" class="hidden sm:inline-block bg-green-600 text-white font-semibold px-3 py-2 rounded-lg hover:bg-green-700 transition-colors shadow text-sm" title="Descargar Historial PDF">
-                    <i class="fas fa-file-pdf mr-1"></i> PDF
+                <button id="download-pdf-btn" class="bg-green-600 text-white font-semibold px-3 py-2 rounded-lg hover:bg-green-700 transition-colors shadow text-sm" title="Descargar Reporte PDF">
+                    <i class="fas fa-file-pdf mr-1"></i> 
+                    <span class="hidden sm:inline">PDF</span>
                 </button>
                 
                 <!-- Acceso a administración (solo CEO) -->
@@ -159,12 +176,10 @@
                     Gestiona tu negocio de forma eficiente. Los datos se sincronizan con tu aplicación móvil.
                 </p>
                 <p id="userInfo" class="text-xs sm:text-sm text-slate-500 mt-2"></p>
-            </div>
-
-            <div class="metrics-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-8 sm:mb-12">
+            </div>            <div class="metrics-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-8 sm:mb-12">
                 <div class="dashboard-card bg-white p-4 sm:p-6 rounded-xl shadow-lg text-center">
                     <p class="text-xs sm:text-sm text-slate-600">Ventas Totales (Mes)</p>
-                    <p id="totalSales" class="dashboard-metric text-3xl sm:text-4xl font-bold text-teal-600 mt-2">€0.00</p>
+                    <p id="totalSales" class="dashboard-metric text-3xl sm:text-4xl font-bold text-teal-600 mt-2" data-amount="5000">$5,000.00</p>
                 </div>
                 <div class="dashboard-card bg-white p-4 sm:p-6 rounded-xl shadow-lg text-center">
                     <p class="text-xs sm:text-sm text-slate-600">Productos en Stock</p>
@@ -172,7 +187,7 @@
                 </div>
                 <div class="dashboard-card bg-white p-4 sm:p-6 rounded-xl shadow-lg text-center lg:col-span-1 md:col-span-2 lg:col-span-1">
                     <p class="text-xs sm:text-sm text-slate-600">Ganancia Neta (Mes)</p>
-                    <p id="netProfit" class="dashboard-metric text-3xl sm:text-4xl font-bold text-teal-600 mt-2">€0.00</p>
+                    <p id="netProfit" class="dashboard-metric text-3xl sm:text-4xl font-bold text-teal-600 mt-2" data-amount="1500">$1,500.00</p>
                 </div>
             </div>
 
@@ -214,9 +229,8 @@
                         <div>
                             <label for="newSaleQuantity" class="block text-sm font-medium text-slate-700">Cantidad</label>
                             <input type="number" id="newSaleQuantity" class="mt-1 block w-full p-2 sm:p-3 border border-slate-300 rounded-md focus:ring-teal-500 focus:border-teal-500 text-sm sm:text-base" value="1" min="1">
-                        </div>
-                        <div>
-                            <label for="newSalePrice" class="block text-sm font-medium text-slate-700">Precio (€)</label>
+                        </div>                        <div>
+                            <label for="newSalePrice" class="block text-sm font-medium text-slate-700">Precio por unidad</label>
                             <input type="number" id="newSalePrice" class="mt-1 block w-full p-2 sm:p-3 border border-slate-300 rounded-md focus:ring-teal-500 focus:border-teal-500 text-sm sm:text-base" placeholder="Ej. 25.00" step="0.01">
                         </div>
                         <div class="col-span-full">
@@ -934,7 +948,361 @@
             if (logoutButton) {
                 logoutButton.addEventListener('click', logout);
             }        });
-    </script>    <!-- Script principal simple para desarrollo -->
+    </script>
+
+    <!-- Sistema de Divisas y PDF -->
+    <script>
+        // ============================================================
+        // SISTEMA DE DIVISAS GLOBAL
+        // ============================================================
+        
+        // Tasas de conversión (simuladas - en producción vendrían de una API)
+        const exchangeRates = {
+            USD: 1.0,       // Base
+            EUR: 0.85,      // Euro
+            GBP: 0.73,      // Libra Esterlina
+            JPY: 110.0,     // Yen Japonés
+            CAD: 1.25,      // Dólar Canadiense
+            AUD: 1.35,      // Dólar Australiano
+            CHF: 0.92,      // Franco Suizo
+            MXN: 20.0,      // Peso Mexicano
+            BRL: 5.5,       // Real Brasileño
+            ARS: 350.0,     // Peso Argentino
+            COP: 4000.0,    // Peso Colombiano
+            PEN: 3.8        // Sol Peruano
+        };
+
+        // Símbolos de divisas
+        const currencySymbols = {
+            USD: '$',
+            EUR: '€',
+            GBP: '£',
+            JPY: '¥',
+            CAD: 'C$',
+            AUD: 'A$',
+            CHF: '₣',
+            MXN: '$',
+            BRL: 'R$',
+            ARS: '$',
+            COP: '$',
+            PEN: 'S/'
+        };        // Sistema de divisas global
+        window.currencySystem = {
+            currentCurrency: localStorage.getItem('selectedCurrency') || 'USD',
+            userCurrency: localStorage.getItem('selectedCurrency') || 'USD',
+            
+            // Convertir entre divisas
+            convert: function(amount, fromCurrency, toCurrency) {
+                if (fromCurrency === toCurrency) {
+                    return Promise.resolve({
+                        original: { amount, currency: fromCurrency },
+                        converted: { amount, currency: toCurrency }
+                    });
+                }
+                
+                try {
+                    // Convertir a USD primero si no es USD
+                    const amountInUSD = fromCurrency === 'USD' ? amount : amount / exchangeRates[fromCurrency];
+                    
+                    // Convertir de USD a la divisa objetivo
+                    const convertedAmount = toCurrency === 'USD' ? amountInUSD : amountInUSD * exchangeRates[toCurrency];
+                    
+                    return Promise.resolve({
+                        original: { amount, currency: fromCurrency },
+                        converted: { amount: convertedAmount, currency: toCurrency }
+                    });
+                } catch (error) {
+                    console.error('Error en conversión de divisas:', error);
+                    return Promise.resolve({
+                        original: { amount, currency: fromCurrency },
+                        converted: { amount, currency: fromCurrency }
+                    });
+                }
+            },
+            
+            // Formatear cantidad con símbolo de divisa
+            formatAmount: function(amount, currency = null) {
+                const targetCurrency = currency || this.currentCurrency;
+                const symbol = currencySymbols[targetCurrency] || '$';
+                
+                // Formatear según la divisa
+                let formattedAmount;
+                if (targetCurrency === 'JPY') {
+                    // Yen sin decimales
+                    formattedAmount = Math.round(amount).toLocaleString();
+                } else {
+                    // Otras divisas con 2 decimales
+                    formattedAmount = amount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                }
+                
+                return `${symbol}${formattedAmount}`;
+            },
+              // Cambiar divisa actual
+            changeCurrency: function(newCurrency) {
+                this.currentCurrency = newCurrency;
+                this.userCurrency = newCurrency;
+                localStorage.setItem('selectedCurrency', newCurrency);
+                this.updateAllPrices();
+                
+                // Disparar evento personalizado
+                document.dispatchEvent(new CustomEvent('currency-changed', {
+                    detail: { currency: newCurrency }
+                }));
+            },
+              // Actualizar todos los precios en la página
+            updateAllPrices: function() {
+                const priceElements = document.querySelectorAll('[data-amount]');
+                priceElements.forEach(async element => {
+                    const baseAmount = parseFloat(element.getAttribute('data-amount'));
+                    const baseCurrency = element.getAttribute('data-currency') || 'USD';
+                    
+                    if (!isNaN(baseAmount)) {
+                        try {
+                            const converted = await this.convert(baseAmount, baseCurrency, this.currentCurrency);
+                            if (converted && converted.converted) {
+                                element.textContent = this.formatAmount(converted.converted.amount);
+                            } else {
+                                element.textContent = this.formatAmount(baseAmount, baseCurrency);
+                            }
+                        } catch (error) {
+                            console.error('Error actualizando precio:', error);
+                            element.textContent = this.formatAmount(baseAmount, baseCurrency);
+                        }
+                    }
+                });
+                
+                // Actualizar símbolo en inputs de precio
+                this.updatePriceInputPlaceholders();
+            },
+            
+            // Actualizar placeholders de inputs
+            updatePriceInputPlaceholders: function() {
+                const priceInputs = document.querySelectorAll('input[placeholder*="precio"], input[placeholder*="Precio"]');
+                const symbol = currencySymbols[this.currentCurrency] || '$';
+                priceInputs.forEach(input => {
+                    const placeholder = input.getAttribute('placeholder');
+                    if (placeholder) {
+                        input.setAttribute('placeholder', placeholder.replace(/[$€£¥₣RS\/C\$A\$]+/, symbol));
+                    }
+                });
+            }
+        };
+
+        // ============================================================
+        // SISTEMA DE GENERACIÓN DE PDF
+        // ============================================================
+        
+        window.pdfSystem = {
+            generatePDF: function(type = 'complete') {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+                
+                // Configuración inicial
+                const pageWidth = doc.internal.pageSize.width;
+                const margin = 20;
+                let yPosition = margin;
+                
+                // Información del usuario
+                const userEmail = localStorage.getItem('userEmail') || 'usuario@ejemplo.com';
+                const userName = localStorage.getItem('userName') || 'Usuario';
+                const currentDate = new Date().toLocaleDateString('es-ES');
+                const currentCurrency = window.currencySystem.currentCurrency;
+                
+                // Header del documento
+                doc.setFontSize(20);
+                doc.setTextColor(13, 148, 136); // Teal-600
+                doc.text('REPORTE EMPRESARIAL MALINOISE', pageWidth / 2, yPosition, { align: 'center' });
+                yPosition += 15;
+                
+                doc.setFontSize(12);
+                doc.setTextColor(0, 0, 0);
+                doc.text(`Usuario: ${userName} (${userEmail})`, margin, yPosition);
+                yPosition += 8;
+                doc.text(`Fecha: ${currentDate}`, margin, yPosition);
+                yPosition += 8;
+                doc.text(`Divisa: ${currentCurrency}`, margin, yPosition);
+                yPosition += 15;
+                
+                // Métricas principales
+                doc.setFontSize(16);
+                doc.setTextColor(13, 148, 136);
+                doc.text('MÉTRICAS PRINCIPALES', margin, yPosition);
+                yPosition += 12;
+                
+                doc.setFontSize(12);
+                doc.setTextColor(0, 0, 0);
+                
+                // Obtener métricas actuales
+                const totalSalesElement = document.getElementById('totalSales');
+                const totalProductsElement = document.getElementById('totalProductsCount');
+                const netProfitElement = document.getElementById('netProfit');
+                
+                const totalSales = totalSalesElement ? totalSalesElement.textContent : 'N/A';
+                const totalProducts = totalProductsElement ? totalProductsElement.textContent : 'N/A';
+                const netProfit = netProfitElement ? netProfitElement.textContent : 'N/A';
+                
+                doc.text(`• Ventas Totales (Mes): ${totalSales}`, margin, yPosition);
+                yPosition += 8;
+                doc.text(`• Productos en Stock: ${totalProducts}`, margin, yPosition);
+                yPosition += 8;
+                doc.text(`• Ganancia Neta (Mes): ${netProfit}`, margin, yPosition);
+                yPosition += 20;
+                
+                // Historial de ventas
+                doc.setFontSize(16);
+                doc.setTextColor(13, 148, 136);
+                doc.text('HISTORIAL DE VENTAS', margin, yPosition);
+                yPosition += 12;
+                
+                doc.setFontSize(10);
+                doc.setTextColor(0, 0, 0);
+                
+                // Headers de tabla
+                doc.text('Fecha', margin, yPosition);
+                doc.text('Producto', margin + 40, yPosition);
+                doc.text('Cantidad', margin + 100, yPosition);
+                doc.text('Precio Unit.', margin + 130, yPosition);
+                doc.text('Total', margin + 160, yPosition);
+                yPosition += 8;
+                
+                // Línea separadora
+                doc.line(margin, yPosition, pageWidth - margin, yPosition);
+                yPosition += 5;
+                
+                // Datos de ventas (simulados o reales)
+                const salesData = JSON.parse(localStorage.getItem('simulatedSales') || '[]');
+                if (salesData.length === 0) {
+                    // Datos de ejemplo si no hay ventas
+                    const exampleSales = [
+                        { date: currentDate, product: 'Producto Ejemplo 1', quantity: 2, price: 25.00, total: 50.00 },
+                        { date: currentDate, product: 'Producto Ejemplo 2', quantity: 1, price: 75.00, total: 75.00 }
+                    ];
+                    
+                    exampleSales.forEach(sale => {
+                        const convertedPrice = window.currencySystem.convert(sale.price, 'USD', currentCurrency);
+                        const convertedTotal = window.currencySystem.convert(sale.total, 'USD', currentCurrency);
+                        
+                        doc.text(sale.date, margin, yPosition);
+                        doc.text(sale.product.substring(0, 20), margin + 40, yPosition);
+                        doc.text(sale.quantity.toString(), margin + 100, yPosition);
+                        doc.text(window.currencySystem.formatAmount(convertedPrice), margin + 130, yPosition);
+                        doc.text(window.currencySystem.formatAmount(convertedTotal), margin + 160, yPosition);
+                        yPosition += 6;
+                    });
+                } else {
+                    salesData.slice(0, 15).forEach(sale => { // Limitar a 15 entradas
+                        doc.text(sale.date || currentDate, margin, yPosition);
+                        doc.text((sale.product || sale.name || 'N/A').substring(0, 20), margin + 40, yPosition);
+                        doc.text((sale.quantity || 1).toString(), margin + 100, yPosition);
+                        doc.text(window.currencySystem.formatAmount(sale.price || 0), margin + 130, yPosition);
+                        doc.text(window.currencySystem.formatAmount(sale.total || sale.price || 0), margin + 160, yPosition);
+                        yPosition += 6;
+                    });
+                }
+                
+                // Nueva página si es necesario
+                if (yPosition > 250) {
+                    doc.addPage();
+                    yPosition = margin;
+                }
+                
+                // Inventario
+                yPosition += 15;
+                doc.setFontSize(16);
+                doc.setTextColor(13, 148, 136);
+                doc.text('INVENTARIO ACTUAL', margin, yPosition);
+                yPosition += 12;
+                
+                doc.setFontSize(10);
+                doc.setTextColor(0, 0, 0);
+                
+                // Headers de inventario
+                doc.text('Producto', margin, yPosition);
+                doc.text('SKU', margin + 60, yPosition);
+                doc.text('Stock', margin + 100, yPosition);
+                doc.text('Precio', margin + 130, yPosition);
+                doc.text('Valor Total', margin + 160, yPosition);
+                yPosition += 8;
+                
+                doc.line(margin, yPosition, pageWidth - margin, yPosition);
+                yPosition += 5;
+                
+                // Datos de inventario
+                const inventoryData = JSON.parse(localStorage.getItem('simulatedProducts') || '[]');
+                if (inventoryData.length === 0) {
+                    doc.text('No hay productos en inventario', margin, yPosition);
+                    yPosition += 10;
+                } else {
+                    inventoryData.slice(0, 20).forEach(product => {
+                        const convertedPrice = window.currencySystem.convert(product.price || 0, 'USD', currentCurrency);
+                        const totalValue = convertedPrice * (product.stock || 0);
+                        
+                        doc.text((product.name || 'N/A').substring(0, 20), margin, yPosition);
+                        doc.text((product.sku || 'N/A').substring(0, 15), margin + 60, yPosition);
+                        doc.text((product.stock || 0).toString(), margin + 100, yPosition);
+                        doc.text(window.currencySystem.formatAmount(convertedPrice), margin + 130, yPosition);
+                        doc.text(window.currencySystem.formatAmount(totalValue), margin + 160, yPosition);
+                        yPosition += 6;
+                    });
+                }
+                
+                // Footer
+                yPosition = doc.internal.pageSize.height - 20;
+                doc.setFontSize(8);
+                doc.setTextColor(128, 128, 128);
+                doc.text('Generado por Malinoise Web App', pageWidth / 2, yPosition, { align: 'center' });
+                
+                // Descargar PDF
+                const fileName = `Malinoise_Reporte_${currentDate.replace(/\//g, '-')}.pdf`;
+                doc.save(fileName);
+            }
+        };
+
+        // ============================================================
+        // INICIALIZACIÓN
+        // ============================================================
+          document.addEventListener('DOMContentLoaded', function() {
+            // Configurar selector de divisas
+            const currencySelector = document.getElementById('currency-selector');
+            if (currencySelector) {
+                // Establecer divisa actual
+                currencySelector.value = window.currencySystem.currentCurrency;
+                
+                // Event listener para cambio de divisa
+                currencySelector.addEventListener('change', function() {
+                    window.currencySystem.changeCurrency(this.value);
+                });
+            }
+            
+            // Configurar botón de PDF
+            const pdfButton = document.getElementById('download-pdf-btn');
+            if (pdfButton) {
+                pdfButton.addEventListener('click', function() {
+                    // Notificación de descarga
+                    const notification = document.createElement('div');
+                    notification.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+                    notification.innerHTML = '<i class="fas fa-check mr-2"></i>Generando reporte PDF...';
+                    document.body.appendChild(notification);
+                    
+                    // Generar PDF
+                    setTimeout(() => {
+                        window.pdfSystem.generatePDF();
+                        notification.innerHTML = '<i class="fas fa-download mr-2"></i>¡Reporte descargado!';
+                        setTimeout(() => {
+                            document.body.removeChild(notification);
+                        }, 2000);
+                    }, 500);
+                });
+            }
+            
+            // Actualizar precios al cargar (con retraso para asegurar que todo esté cargado)
+            setTimeout(() => {
+                window.currencySystem.updateAllPrices();
+            }, 1000);
+        });
+    </script>
+    
+    <!-- Script principal simple para desarrollo -->
     <script src="/js/app-simple.js"></script>
     
     <!-- Script específico del dashboard -->

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administrador de Base de Datos - PreverIA</title>
+    <title>Administrador de Base de Datos - Malinoise</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -57,7 +57,7 @@
     <header class="bg-white shadow-sm border-b">
         <div class="container mx-auto px-6 py-4">
             <div class="flex justify-between items-center">
-                <h1 class="text-2xl font-bold text-teal-600">Administrador de Base de Datos - PreverIA</h1>
+                <h1 class="text-2xl font-bold text-teal-600">Administrador de Base de Datos - Malinoise</h1>
                 <div class="space-x-2">
                     <button onclick="location.href='index.html'" class="action-btn btn-secondary">Volver al Inicio</button>
                     <button onclick="location.href='dashboard.html'" class="action-btn btn-primary">Ir al Dashboard</button>
@@ -401,7 +401,7 @@
             const url = URL.createObjectURL(dataBlob);
             const link = document.createElement('a');
             link.href = url;
-            link.download = `preveria-backup-${new Date().toISOString().split('T')[0]}.json`;
+            link.download = `malinoise-backup-${new Date().toISOString().split('T')[0]}.json`;
             link.click();
             URL.revokeObjectURL(url);
             alert('Datos exportados exitosamente');
