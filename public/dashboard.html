@@ -7,9 +7,11 @@
     
     <!-- Socket.IO para actualizaciones en tiempo real -->
     <script src="https://cdn.socket.io/4.7.4/socket.io.min.js"></script>
-    
-    <!-- Font Awesome para iconos -->
+      <!-- Font Awesome para iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Auth API -->
+    <script src="js/auth-api.js"></script>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -383,18 +385,21 @@
         </div>
     </footer>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {            // Verificar si el usuario está autenticado
-            const isLoggedIn = localStorage.getItem('isLoggedIn');
-            const userEmail = localStorage.getItem('userEmail');
-            const userName = localStorage.getItem('userName');
-            
-            if (!isLoggedIn || !userEmail) {
-                // Si no está autenticado, redirigir a la página principal
+    <script>        document.addEventListener('DOMContentLoaded', () => {
+            // Verificar si el usuario está autenticado usando la API
+            if (!window.authAPI || !window.authAPI.isAuthenticated()) {
+                // Si no está autenticado, limpiar datos y redirigir
+                if (window.authAPI) {
+                    window.authAPI.clearAuthData();
+                }
                 alert('Debes iniciar sesión para acceder al dashboard.');
-                window.location.href = 'index.html';
+                window.location.href = '/';
                 return;
-            }            // Mostrar mensaje de bienvenida personalizado
+            }
+
+            // Obtener datos del usuario
+            const userEmail = localStorage.getItem('userEmail');
+            const userName = localStorage.getItem('userName');// Mostrar mensaje de bienvenida personalizado
             const welcomeMessage = document.querySelector('main h2');
             const userInfoElement = document.getElementById('userInfo');
             
@@ -913,17 +918,16 @@
                         setTimeout(() => addInitialExpenseMessage.classList.add('hidden'), 3000);
                     }
                 });
-            }
-
-            // Lógica de cerrar sesión (simulada)
+            }            // Lógica de cerrar sesión
             const logout = () => {
-                // Limpiar datos de autenticación
-                localStorage.removeItem('isLoggedIn'); 
-                localStorage.removeItem('userEmail');
+                // Limpiar todos los datos de autenticación usando la API
+                if (window.authAPI) {
+                    window.authAPI.clearAuthData();
+                }
                 
                 // Redirigir a la página principal
                 alert('Sesión cerrada. Serás redirigido a la página de inicio.');
-                window.location.href = 'index.html';
+                window.location.href = '/';
             };
 
             const logoutButton = document.getElementById('logoutButton');

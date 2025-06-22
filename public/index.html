@@ -52,10 +52,11 @@
     - **AI Assistant Chat -> Goal: Inform/Interact -> Presentation: Conversational Interface within Module.** User can type questions and get LLM-generated responses. Interaction: Text input, send button, scrolling chat history. Justification: Directly demonstrates the core AI assistant functionality using Gemini API. Method: HTML/Tailwind for UI, JavaScript for API call, chat history management, and loading state.
     -->
     
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
-
-    <!-- Custom CSS -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->    <!-- Custom CSS -->
     <link rel="stylesheet" href="css/custom.css">
+    
+    <!-- Auth API -->
+    <script src="js/auth-api.js"></script>
 
     <style>
         body {
@@ -223,7 +224,7 @@
 </head>
 <body class="bg-slate-50">    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
         <nav class="container mx-auto container-padding py-3 flex justify-between items-center">
-            <h1 class="text-xl sm:text-2xl font-bold text-teal-600">PreverIA</h1>
+            <h1 class="text-xl sm:text-2xl font-bold text-teal-600">MALINOISE</h1>
             
             <div class="hidden md:flex space-x-4 lg:space-x-6 items-center">
                 <a href="#vision" class="nav-link text-slate-600 hover:text-teal-600 transition-colors text-sm lg:text-base">Visión</a>
@@ -570,12 +571,11 @@
         </div>
     </footer>
 
-    <!-- JavaScript para funcionalidad interactiva -->    <script>
-        document.addEventListener('DOMContentLoaded', () => {            // Verificar si el usuario ya está autenticado
-            const isLoggedIn = localStorage.getItem('isLoggedIn');
-            if (isLoggedIn === 'true') {
+    <!-- JavaScript para funcionalidad interactiva -->    <script>        document.addEventListener('DOMContentLoaded', () => {
+            // Verificar autenticación y redirigir si es necesario
+            if (window.authAPI && window.authAPI.isAuthenticated()) {
                 // Si ya está autenticado, redirigir al dashboard
-                window.location.href = 'dashboard.html';
+                window.location.href = '/dashboard';
                 return;
             }
 
@@ -583,13 +583,11 @@
             const dashboardAccessBtn = document.getElementById('dashboardAccessBtn');
             if (dashboardAccessBtn) {
                 dashboardAccessBtn.addEventListener('click', () => {
-                    // Verificar nuevamente si está autenticado por si cambió durante la sesión
-                    const currentLoginStatus = localStorage.getItem('isLoggedIn');
-                    if (currentLoginStatus === 'true') {
-                        window.location.href = 'dashboard.html';
+                    // Verificar nuevamente si está autenticado
+                    if (window.authAPI && window.authAPI.isAuthenticated()) {
+                        window.location.href = '/dashboard';
                     } else {
                         // Si no está autenticado, ir a la sección de autenticación
-                        window.location.href = '#auth';
                         document.getElementById('auth').scrollIntoView({ behavior: 'smooth' });
                     }
                 });
@@ -887,7 +885,7 @@
             });            // ============================================================
             // LÓGICA DE REGISTRO
             // ============================================================
-            document.getElementById('registerButton').addEventListener('click', () => {
+            document.getElementById('registerButton').addEventListener('click', async () => {
                 const email = document.getElementById('registerEmail').value.trim();
                 const password = document.getElementById('registerPassword').value;
                 const confirmPassword = document.getElementById('confirmPassword').value;
@@ -897,7 +895,7 @@
                     showMessage(registerMessage, 'Por favor, completa todos los campos.', 'error');
                     return;
                 }
-                if (!isValidEmail(email)) {
+                if (!window.authAPI.isValidEmail(email)) {
                     showMessage(registerMessage, 'Por favor, introduce un correo electrónico válido.', 'error');
                     return;
                 }
@@ -908,36 +906,25 @@
                 if (password !== confirmPassword) {
                     showMessage(registerMessage, 'Las contraseñas no coinciden.', 'error');
                     return;
-                }                // Generar código de verificación de 6 dígitos
-                const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
-                
-                // Simulación de envío de código de verificación
-                showMessage(registerMessage, 'Enviando código de verificación...', 'success');
-                
-                // Simular tiempo de envío
-                setTimeout(() => {
-                    // Guardar código temporalmente para validación
-                    localStorage.setItem('tempVerificationCode', verificationCode);
+                }
+
+                try {
+                    showMessage(registerMessage, 'Creando cuenta y enviando código de verificación...', 'success');
+                    
+                    // Llamada real al backend para registro
+                    const response = await window.authAPI.registerUser(email, password);
+                    
+                    // Guardar email temporalmente para verificación
                     localStorage.setItem('tempUserEmail', email);
-                    localStorage.setItem('tempUserPassword', password);
                     
                     // Mostrar formulario de verificación
-                    showVerificationForm(email, verificationCode);
-                }, 1000);
-                
-                console.log('Intento de registro con:', { email, password });
-
-                // En una app real:
-                // auth.createUserWithEmailAndPassword(email, password)
-                //   .then((userCredential) => {
-                //     localStorage.setItem('isLoggedIn', 'true');
-                //     localStorage.setItem('userEmail', userCredential.user.email);
-                //     showMessage(registerMessage, '¡Registro exitoso! Redirigiendo al dashboard...', 'success');
-                //     setTimeout(() => window.location.href = 'dashboard.html', 2000);
-                //   })
-                //   .catch((error) => {
-                //     showMessage(registerMessage, `Error: ${error.message}`, 'error');
-                //   });
+                    showMessage(registerMessage, 'Código enviado a tu email. Revisa tu bandeja de entrada.', 'success');
+                    showVerificationForm(email, '------'); // No mostrar código real por seguridad
+                    
+                } catch (error) {
+                    console.error('Error en registro:', error);
+                    showMessage(registerMessage, error.message || 'Error al crear la cuenta. Inténtalo de nuevo.', 'error');
+                }
             });
 
             // ============================================================
@@ -1081,14 +1068,10 @@
                 
                 // Limpiar campo de entrada
                 document.getElementById('verificationCode').value = '';
-            }
-
-            // Event listener para verificar código
-            document.getElementById('verifyButton').addEventListener('click', () => {
+            }            // Event listener para verificar código
+            document.getElementById('verifyButton').addEventListener('click', async () => {
                 const enteredCode = document.getElementById('verificationCode').value.trim();
-                const correctCode = localStorage.getItem('tempVerificationCode');
                 const email = localStorage.getItem('tempUserEmail');
-                const password = localStorage.getItem('tempUserPassword');
                 const verificationMessage = document.getElementById('verificationMessage');
 
                 if (!enteredCode) {
@@ -1096,41 +1079,39 @@
                     return;
                 }
 
-                if (enteredCode !== correctCode) {
-                    showMessage(verificationMessage, 'Código incorrecto. Por favor, verifica el código enviado.', 'error');
+                if (enteredCode.length !== 6) {
+                    showMessage(verificationMessage, 'El código debe tener 6 dígitos.', 'error');
                     return;
                 }
 
-                // Código correcto - completar registro
-                showMessage(verificationMessage, '¡Código verificado! Completando registro...', 'success');
-                
-                setTimeout(() => {
-                    // Guardar datos de sesión
-                    localStorage.setItem('isLoggedIn', 'true');
-                    localStorage.setItem('userEmail', email);
-                    localStorage.setItem('userName', email.split('@')[0]);
+                try {
+                    showMessage(verificationMessage, 'Verificando código...', 'success');
+                    
+                    // Llamada real al backend para verificar código
+                    const response = await window.authAPI.verifyCode(email, enteredCode);
+                    
+                    // Guardar datos de autenticación
+                    window.authAPI.saveAuthData(response.token, email);
+                    localStorage.setItem('userName', response.user?.name || email.split('@')[0]);
                     localStorage.setItem('registrationDate', new Date().toISOString());
                     localStorage.setItem('loginMethod', 'register');
                     localStorage.setItem('isVerified', 'true');
                     
                     // Limpiar datos temporales
-                    localStorage.removeItem('tempVerificationCode');
                     localStorage.removeItem('tempUserEmail');
-                    localStorage.removeItem('tempUserPassword');
-                    
-                    // Guardar usuario en la base de datos de clientes
-                    saveUserToDatabase(email, email.split('@')[0]);
                     
                     showMessage(verificationMessage, '¡Registro completado! Redirigiendo al dashboard...', 'success');
                     
                     setTimeout(() => {
-                        window.location.href = 'dashboard.html';
+                        window.location.href = '/dashboard';
                     }, 1500);
-                }, 1000);
-            });
-
-            // Event listener para reenviar código
-            document.getElementById('resendCodeButton').addEventListener('click', () => {
+                    
+                } catch (error) {
+                    console.error('Error en verificación:', error);
+                    showMessage(verificationMessage, error.message || 'Código incorrecto. Verifica el código enviado a tu email.', 'error');
+                }
+            });            // Event listener para reenviar código
+            document.getElementById('resendCodeButton').addEventListener('click', async () => {
                 const email = localStorage.getItem('tempUserEmail');
                 const verificationMessage = document.getElementById('verificationMessage');
                 
@@ -1139,15 +1120,19 @@
                     return;
                 }
                 
-                // Generar nuevo código
-                const newVerificationCode = Math.floor(100000 + Math.random() * 900000).toString();
-                localStorage.setItem('tempVerificationCode', newVerificationCode);
-                
-                // Actualizar código mostrado
-                document.getElementById('demoCode').textContent = newVerificationCode;
-                
-                showMessage(verificationMessage, '¡Nuevo código enviado! Verifica tu email.', 'success');
-                setTimeout(() => verificationMessage.classList.add('hidden'), 3000);
+                try {
+                    showMessage(verificationMessage, 'Reenviando código...', 'success');
+                    
+                    // Llamada real al backend para reenviar código
+                    await window.authAPI.resendCode(email);
+                    
+                    showMessage(verificationMessage, '¡Nuevo código enviado! Revisa tu email.', 'success');
+                    setTimeout(() => verificationMessage.classList.add('hidden'), 3000);
+                    
+                } catch (error) {
+                    console.error('Error al reenviar código:', error);
+                    showMessage(verificationMessage, error.message || 'Error al reenviar código. Inténtalo de nuevo.', 'error');
+                }
             });
 
             /**
