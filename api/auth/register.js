@@ -83,7 +83,7 @@ async function sendVerificationEmail(email, code) {
   }
 }
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   // Solo permitir POST
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Método no permitido' });
