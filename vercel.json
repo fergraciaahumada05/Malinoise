@@ -14,10 +14,9 @@
     {
       "src": "/api/(.*)",
       "dest": "/server-simple.js"
-    },
-    {
+    },    {
       "src": "/admin",
-      "dest": "/database-admin.html"
+      "dest": "/public/admin.html"
     },
     {
       "src": "/dashboard",
