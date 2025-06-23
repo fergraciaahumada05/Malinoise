@@ -688,7 +688,9 @@
         .rounded-xl { border-radius: 12px; }
         
         .shadow { box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); }
-        .shadow-lg { box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); }
+        .btn-full-width {
+            width: 100%;
+        }
         
         /* Responsive */
         @media (min-width: 768px) {
@@ -886,11 +888,10 @@
             <h2 class="text-4xl font-bold text-center mb-8">Demo de Análisis Predictivo</h2>
             <div class="chart-container">
                 <h3 class="text-2xl font-bold mb-4">Predicciones de Ventas - Próximos 6 Meses</h3>
-                <div class="chart-controls">
-                    <button class="chart-btn active" onclick="updateChart('ventas')">Ventas</button>
-                    <button class="chart-btn" onclick="updateChart('inventario')">Inventario</button>
-                    <button class="chart-btn" onclick="updateChart('clientes')">Clientes</button>
-                    <button class="chart-btn" onclick="updateChart('ingresos')">Ingresos</button>
+                <div class="chart-controls">                    <button class="chart-btn active" onclick="updateChart('ventas', this)">Ventas</button>
+                    <button class="chart-btn" onclick="updateChart('inventario', this)">Inventario</button>
+                    <button class="chart-btn" onclick="updateChart('clientes', this)">Clientes</button>
+                    <button class="chart-btn" onclick="updateChart('ingresos', this)">Ingresos</button>
                 </div>
                 <div class="chart-canvas" id="chartCanvas">
                     🎯 Gráfico Interactivo de Análisis Predictivo
@@ -973,8 +974,7 @@
                 <div class="download-item">
                     <div class="platform-icon android">📱</div>
                     <h3 class="text-xl font-bold mb-2">Android</h3>
-                    <p class="mb-4">Compatible con Android 8.0+</p>
-                    <button class="download-btn" onclick="simulateDownload('android')">
+                    <p class="mb-4">Compatible con Android 8.0+</p>                    <button class="download-btn" onclick="simulateDownload('android', this)">
                         Descargar APK
                     </button>
                     <div class="progress-bar">
@@ -985,8 +985,7 @@
                 <div class="download-item">
                     <div class="platform-icon apple">🍎</div>
                     <h3 class="text-xl font-bold mb-2">iOS</h3>
-                    <p class="mb-4">Compatible con iOS 13.0+</p>
-                    <button class="download-btn" onclick="simulateDownload('ios')">
+                    <p class="mb-4">Compatible con iOS 13.0+</p>                    <button class="download-btn" onclick="simulateDownload('ios', this)">
                         App Store
                     </button>
                     <div class="progress-bar">
@@ -997,8 +996,7 @@
                 <div class="download-item">
                     <div class="platform-icon windows">💻</div>
                     <h3 class="text-xl font-bold mb-2">Windows</h3>
-                    <p class="mb-4">Compatible con Windows 10+</p>
-                    <button class="download-btn" onclick="simulateDownload('windows')">
+                    <p class="mb-4">Compatible con Windows 10+</p>                    <button class="download-btn" onclick="simulateDownload('windows', this)">
                         Descargar EXE
                     </button>
                     <div class="progress-bar">
@@ -1027,8 +1025,7 @@
                             <label for="loginPassword">Contraseña</label>
                             <input type="password" id="loginPassword" required>
                             <div class="error-message" id="loginPasswordError"></div>
-                        </div>
-                        <button type="submit" class="btn btn-primary" style="width: 100%;">
+                        </div>                        <button type="submit" class="btn btn-primary btn-full-width">
                             Iniciar Sesión
                         </button>
                         <div class="success-message" id="loginSuccess"></div>
@@ -1053,8 +1050,7 @@
                             <label for="registerPassword">Contraseña</label>
                             <input type="password" id="registerPassword" required>
                             <div class="error-message" id="registerPasswordError"></div>
-                        </div>
-                        <button type="submit" class="btn btn-primary" style="width: 100%;">
+                        </div>                        <button type="submit" class="btn btn-primary btn-full-width">
                             Crear Cuenta
                         </button>
                         <div class="success-message" id="registerSuccess"></div>
@@ -1149,17 +1145,22 @@
             
             content.classList.toggle('expanded');
             icon.classList.toggle('rotated');
-        }
-
-        // === GRÁFICO INTERACTIVO ===
-        function updateChart(type) {
+        }        // === GRÁFICO INTERACTIVO ===
+        function updateChart(type, buttonElement) {
             currentChart = type;
             
             // Actualizar botones activos
             document.querySelectorAll('.chart-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
-            event.target.classList.add('active');
+            
+            // Si no se pasa el elemento, lo buscamos por el tipo
+            if (!buttonElement) {
+                buttonElement = document.querySelector(`[onclick*="${type}"]`);
+            }
+            if (buttonElement) {
+                buttonElement.classList.add('active');
+            }
             
             // Simular actualización del gráfico
             const canvas = document.getElementById('chartCanvas');
@@ -1178,12 +1179,15 @@
                 
                 showNotification(`Gráfico actualizado: ${type}`, 'info');
             }, 500);
-        }
-
-        // === DESCARGAS SIMULADAS ===
-        function simulateDownload(platform) {
-            const button = event.target;
+        }        // === DESCARGAS SIMULADAS ===
+        function simulateDownload(platform, buttonElement) {
+            const button = buttonElement || event.target;
             const progressBar = document.getElementById(platform + 'Progress');
+            
+            if (!progressBar) {
+                showNotification(`Error: No se encontró la barra de progreso para ${platform}`, 'error');
+                return;
+            }
             
             button.disabled = true;
             button.textContent = 'Descargando...';
