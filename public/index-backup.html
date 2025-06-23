@@ -212,60 +212,40 @@
             animation: fadeInUp 1s ease 0.3s both;
         }
         
-        /* Nuevos estilos para hero mejorado */
-        .hero-gradient-text {
-            background: linear-gradient(135deg, #0d9488 0%, #0891b2 50%, #3b82f6 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .btn-primary-gradient {
-            background: linear-gradient(135deg, #0d9488 0%, #0891b2 100%);
-            border: none;
+        .btn {
+            display: inline-block;
             padding: 15px 30px;
+            border-radius: 8px;
+            text-decoration: none;
             font-weight: 600;
-            box-shadow: 0 4px 15px rgba(13, 148, 136, 0.3);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            margin: 5px;
         }
         
-        .btn-secondary-outline {
-            background: rgba(255, 255, 255, 0.9);
-            color: #0d9488;
-            border: 2px solid #0d9488;
-            padding: 15px 30px;
-            font-weight: 600;
+        .btn-primary {
+            background: white;
+            color: #0D9488;
+            animation: fadeInUp 1s ease 0.6s both;
         }
         
-        .scroll-indicator {
-            color: #64748b;
-            font-size: 24px;
+        .btn-primary:hover {
+            background: transparent;
+            color: white;
+            border-color: white;
+            transform: translateY(-2px);
         }
         
-        .price-suffix {
-            font-size: 16px;
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border-color: white;
         }
         
-        .btn-full-width {
-            width: 100%;
-        }
-        
-        @keyframes bounce {
-            0%, 20%, 53%, 80%, 100% {
-                transform: translate3d(0,0,0);
-            }
-            40%, 43% {
-                transform: translate3d(0,-10px,0);
-            }
-            70% {
-                transform: translate3d(0,-5px,0);
-            }
-            90% {
-                transform: translate3d(0,-2px,0);
-            }
-        }
-        
-        .animate-bounce {
-            animation: bounce 2s infinite;
+        .btn-secondary:hover {
+            background: white;
+            color: #0D9488;
+            transform: translateY(-2px);
         }
         
         /* Tarjetas y módulos */
@@ -369,8 +349,7 @@
         .features {
             animation: fadeInUp 0.6s ease-out;
         }
-        
-        @keyframes fadeInUp {
+          @keyframes fadeInUp {
             from {
                 opacity: 0;
                 transform: translateY(20px);
@@ -379,6 +358,387 @@
                 opacity: 1;
                 transform: translateY(0);
             }
+        }
+
+        /* Estilos para hero mejorado */
+        .hero .absolute {
+            position: absolute;
+        }
+        
+        .hero .bottom-8 {
+            bottom: 32px;
+        }
+        
+        .hero .left-1\/2 {
+            left: 50%;
+        }
+        
+        .hero .transform {
+            transform: translateX(-50%);
+        }
+        
+        .hero .-translate-x-1\/2 {
+            transform: translateX(-50%);
+        }
+
+        /* Estilos para módulos mejorados */
+        .max-w-3xl {
+            max-width: 48rem;
+        }
+        
+        .mx-auto {
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .space-y-1 > * + * {
+            margin-top: 0.25rem;
+        }
+        
+        .gap-4 {
+            gap: 1rem;
+        }
+        
+        .gap-6 {
+            gap: 1.5rem;
+        }
+        
+        .gap-8 {
+            gap: 2rem;
+        }
+        
+        .bg-gradient-to-br {
+            background-image: linear-gradient(to bottom right, var(--tw-gradient-stops));
+        }
+        
+        .bg-gradient-to-r {
+            background-image: linear-gradient(to right, var(--tw-gradient-stops));
+        }
+        
+        .from-teal-50 {
+            --tw-gradient-from: #f0fdfa;
+            --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(240, 253, 250, 0));
+        }
+        
+        .to-cyan-100 {
+            --tw-gradient-to: #cffafe;
+        }
+        
+        .from-amber-50 {
+            --tw-gradient-from: #fffbeb;
+            --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(255, 251, 235, 0));
+        }
+        
+        .to-orange-100 {
+            --tw-gradient-to: #ffedd5;
+        }
+        
+        .from-emerald-50 {
+            --tw-gradient-from: #ecfdf5;
+            --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(236, 253, 245, 0));
+        }
+        
+        .to-green-100 {
+            --tw-gradient-to: #dcfce7;
+        }
+        
+        .text-teal-600 {
+            color: #0d9488;
+        }
+        
+        .text-amber-600 {
+            color: #d97706;
+        }
+        
+        .text-emerald-600 {
+            color: #059669;
+        }
+        
+        .text-blue-600 {
+            color: #2563eb;
+        }
+        
+        .text-purple-600 {
+            color: #9333ea;
+        }
+        
+        .text-rose-600 {
+            color: #e11d48;
+        }
+        
+        .text-slate-600 {
+            color: #475569;
+        }
+        
+        .text-slate-700 {
+            color: #334155;
+        }
+        
+        .bg-teal-50 {
+            background-color: #f0fdfa;
+        }
+        
+        .bg-blue-50 {
+            background-color: #eff6ff;
+        }
+        
+        .bg-amber-50 {
+            background-color: #fffbeb;
+        }
+        
+        .bg-green-50 {
+            background-color: #f0fdf4;
+        }
+        
+        .bg-purple-50 {
+            background-color: #faf5ff;
+        }
+        
+        .bg-indigo-50 {
+            background-color: #eef2ff;
+        }
+        
+        .bg-cyan-50 {
+            background-color: #ecfeff;
+        }
+        
+        .bg-emerald-50 {
+            background-color: #ecfdf5;
+        }
+        
+        .bg-rose-50 {
+            background-color: #fff1f2;
+        }
+        
+        .bg-pink-50 {
+            background-color: #fdf2f8;
+        }
+        
+        .text-teal-800 {
+            color: #115e59;
+        }
+        
+        .text-blue-800 {
+            color: #1e40af;
+        }
+        
+        .text-amber-800 {
+            color: #92400e;
+        }
+        
+        .text-green-800 {
+            color: #166534;
+        }
+        
+        .text-purple-800 {
+            color: #6b21a8;
+        }
+        
+        .text-indigo-800 {
+            color: #3730a3;
+        }
+        
+        .text-cyan-800 {
+            color: #155e75;
+        }
+        
+        .text-emerald-800 {
+            color: #065f46;
+        }
+        
+        .text-rose-800 {
+            color: #9f1239;
+        }
+        
+        .text-pink-800 {
+            color: #9d174d;
+        }
+        
+        .border-dashed {
+            border-style: dashed;
+        }
+        
+        .border-teal-300 {
+            border-color: #5eead4;
+        }
+        
+        .border-amber-300 {
+            border-color: #fcd34d;
+        }
+        
+        .border-purple-300 {
+            border-color: #c4b5fd;
+        }
+        
+        .border-blue-300 {
+            border-color: #93c5fd;
+        }
+        
+        .border-emerald-300 {
+            border-color: #6ee7b7;
+        }
+        
+        .border-rose-300 {
+            border-color: #fda4af;
+        }
+        
+        .from-teal-500 {
+            --tw-gradient-from: #14b8a6;
+            --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(20, 184, 166, 0));
+        }
+        
+        .to-cyan-600 {
+            --tw-gradient-to: #0891b2;
+        }
+        
+        .from-amber-500 {
+            --tw-gradient-from: #f59e0b;
+            --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(245, 158, 11, 0));
+        }
+        
+        .to-orange-600 {
+            --tw-gradient-to: #ea580c;
+        }
+        
+        .from-purple-500 {
+            --tw-gradient-from: #a855f7;
+            --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(168, 85, 247, 0));
+        }
+        
+        .to-indigo-600 {
+            --tw-gradient-to: #4f46e5;
+        }
+        
+        .from-blue-500 {
+            --tw-gradient-from: #3b82f6;
+            --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(59, 130, 246, 0));
+        }
+        
+        .from-emerald-500 {
+            --tw-gradient-from: #10b981;
+            --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(16, 185, 129, 0));
+        }
+        
+        .to-green-600 {
+            --tw-gradient-to: #16a34a;
+        }
+        
+        .from-rose-500 {
+            --tw-gradient-from: #f43f5e;
+            --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(244, 63, 94, 0));
+        }
+        
+        .to-pink-600 {
+            --tw-gradient-to: #db2777;
+        }
+        
+        .bg-teal-600 {
+            background-color: #0d9488;
+        }
+        
+        .bg-amber-600 {
+            background-color: #d97706;
+        }
+        
+        .bg-purple-600 {
+            background-color: #9333ea;
+        }
+        
+        .bg-blue-600 {
+            background-color: #2563eb;
+        }
+        
+        .bg-emerald-600 {
+            background-color: #059669;
+        }
+        
+        .bg-rose-600 {
+            background-color: #e11d48;
+        }
+        
+        .hover\:bg-teal-700:hover {
+            background-color: #0f766e;
+        }
+        
+        .hover\:bg-amber-700:hover {
+            background-color: #b45309;
+        }
+        
+        .hover\:bg-purple-700:hover {
+            background-color: #7c3aed;
+        }
+        
+        .hover\:bg-blue-700:hover {
+            background-color: #1d4ed8;
+        }
+        
+        .hover\:bg-emerald-700:hover {
+            background-color: #047857;
+        }
+        
+        .hover\:bg-rose-700:hover {
+            background-color: #be185d;
+        }
+        
+        .flex-1 {
+            flex: 1 1 0%;
+        }
+        
+        .items-start {
+            align-items: flex-start;
+        }
+        
+        .text-5xl {
+            font-size: 3rem;
+            line-height: 1;
+        }
+        
+        .text-white\/90 {
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .text-white\/80 {
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .text-white\/60 {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .bg-white\/20 {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .rounded-2xl {
+            border-radius: 1rem;
+        }
+        
+        .rounded-full {
+            border-radius: 9999px;
+        }
+        
+        .inline-block {
+            display: inline-block;
+        }
+        
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(-25%);
+                animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+            }
+            50% {
+                transform: none;
+                animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+            }
+        }
+        
+        .animate-bounce {
+            animation: bounce 1s infinite;
+        }
+        
+        /* Botón de ancho completo para formularios */
+        .btn-full-width {
+            width: 100%;
         }
         
         /* Sección del gráfico */
@@ -739,6 +1099,45 @@
             animation: float 3s ease-in-out infinite;
         }
         
+        /* Utilidades */
+        .hidden {
+            display: none !important;
+        }
+        
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+        
+        .text-sm { font-size: 14px; }
+        .text-lg { font-size: 18px; }
+        .text-xl { font-size: 20px; }
+        .text-2xl { font-size: 24px; }
+        .text-3xl { font-size: 30px; }
+        .text-4xl { font-size: 36px; }
+        
+        .font-bold { font-weight: bold; }
+        .font-semibold { font-weight: 600; }
+        
+        .mb-4 { margin-bottom: 16px; }
+        .mb-6 { margin-bottom: 24px; }
+        .mb-8 { margin-bottom: 32px; }
+        .mt-4 { margin-top: 16px; }
+        .mt-6 { margin-top: 24px; }
+        .mt-8 { margin-top: 32px; }
+        
+        .p-4 { padding: 16px; }
+        .p-6 { padding: 24px; }
+        .py-4 { padding-top: 16px; padding-bottom: 16px; }
+        .px-4 { padding-left: 16px; padding-right: 16px; }
+        
+        .rounded { border-radius: 6px; }
+        .rounded-lg { border-radius: 8px; }
+        .rounded-xl { border-radius: 12px; }
+        
+        .shadow { box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); }
+        .shadow-lg { box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); }
+        
         /* Responsive */
         @media (min-width: 768px) {
             .container {
@@ -809,148 +1208,136 @@
             <a href="#descargas">Descargas</a>
             <a href="#auth">Acceso</a>
         </div>
-    </header>    <!-- Sección Hero -->
+    </header>    <!-- Sección Hero Mejorada -->
     <section id="vision" class="hero">
         <div class="container">
             <div class="hero-content text-center">
-                <div class="mb-8">
-                    <span class="inline-block bg-gradient-to-r from-teal-100 to-blue-100 text-teal-800 px-4 py-2 rounded-full text-sm font-semibold mb-4">
-                        🚀 Potenciado por IA de Última Generación
+                <div class="mb-6">
+                    <span class="inline-block bg-white/20 text-white px-4 py-2 rounded-full text-sm font-semibold mb-4">
+                        🚀 La IA que impulsa +10,000 empresas
                     </span>
                 </div>
                 
-                <h1 class="hero-gradient-text">
-                    Tu Asistente de Negocios Inteligente
-                </h1>
+                <h1>Tu Asistente de Negocios Inteligente</h1>
+                <p>Revoluciona tu empresa con análisis predictivo, gestión inteligente de inventario y automatización avanzada con IA que aprende y se adapta a tu negocio 24/7</p>
                 
-                <p class="text-xl text-slate-600 max-w-4xl mx-auto mb-8">
-                    Revoluciona tu empresa con análisis predictivo avanzado, gestión inteligente de inventario y automatización empresarial. 
-                    Más de <strong>10,000+ empresas</strong> ya confían en Malinoise para optimizar sus operaciones.
-                </p>
-                
-                <!-- Estadísticas Hero -->
-                <div class="grid-cols-3 mb-10 max-w-2xl mx-auto">
+                <!-- Estadísticas de confianza -->
+                <div class="flex justify-center gap-8 mb-8 text-white/90">
                     <div class="text-center">
-                        <div class="text-3xl font-bold text-teal-600 mb-1">95%</div>
-                        <div class="text-sm text-slate-600">Precisión IA</div>
+                        <div class="text-2xl font-bold">95%</div>
+                        <div class="text-sm">Precisión IA</div>
                     </div>
                     <div class="text-center">
-                        <div class="text-3xl font-bold text-blue-600 mb-1">10K+</div>
-                        <div class="text-sm text-slate-600">Empresas</div>
+                        <div class="text-2xl font-bold">10K+</div>
+                        <div class="text-sm">Empresas</div>
                     </div>
                     <div class="text-center">
-                        <div class="text-3xl font-bold text-indigo-600 mb-1">24/7</div>
-                        <div class="text-sm text-slate-600">Monitoreo</div>
+                        <div class="text-2xl font-bold">24/7</div>
+                        <div class="text-sm">Automático</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold">+40%</div>
+                        <div class="text-sm">ROI Promedio</div>
                     </div>
                 </div>
-                
+
                 <!-- Claims de confianza -->
-                <div class="flex justify-center items-center gap-6 mb-8 text-sm text-slate-500 flex-wrap">
-                    <span class="flex items-center gap-1">
-                        <span class="text-green-500">✓</span> ISO 27001 Certificado
-                    </span>
-                    <span class="flex items-center gap-1">
-                        <span class="text-green-500">✓</span> GDPR Compliant
-                    </span>
-                    <span class="flex items-center gap-1">
-                        <span class="text-green-500">✓</span> 99.9% Uptime
-                    </span>
-                    <span class="flex items-center gap-1">
-                        <span class="text-green-500">✓</span> Soporte 24/7
-                    </span>
+                <div class="flex justify-center gap-6 mb-8 text-sm text-white/80">
+                    <span>✅ Sin contratos largos</span>
+                    <span>✅ Setup en 24 horas</span>
+                    <span>✅ Soporte 24/7</span>
+                    <span>✅ ROI garantizado</span>
                 </div>
                 
-                <div class="flex gap-4 justify-center">
-                    <a href="#demo" class="btn btn-primary btn-primary-gradient">
-                        🎯 Ver Demo Interactivo
-                    </a>
-                    <a href="#modulos" class="btn btn-secondary btn-secondary-outline">
-                        📊 Explorar Módulos
-                    </a>
+                <div class="flex justify-center gap-4">
+                    <a href="#demo" class="btn btn-primary animate-pulse">🎮 Ver Demo Interactivo</a>
+                    <a href="#modulos" class="btn btn-secondary">📊 Explorar Módulos</a>
                 </div>
-                
+
                 <!-- Indicador de scroll -->
-                <div class="mt-16 animate-bounce">
-                    <div class="scroll-indicator">⬇</div>
-                    <div class="text-xs text-slate-500 mt-2">Descubre el poder de la IA</div>
+                <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white/60 animate-bounce">
+                    <div class="text-sm mb-2">Descubre más</div>
+                    <div class="text-2xl">↓</div>
                 </div>
             </div>
         </div>
-    </section><!-- Sección Módulos Interactivos -->
+    </section><!-- Sección Módulos Interactivos Mejorada -->
     <section id="modulos">
         <div class="container">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold mb-6">Módulos Inteligentes de Próxima Generación</h2>
+            <!-- Header de la sección -->
+            <div class="text-center mb-8">
+                <h2 class="text-4xl font-bold mb-4">Módulos Inteligentes de IA</h2>
                 <p class="text-xl text-slate-600 max-w-3xl mx-auto">
-                    Descubre cómo cada módulo de Malinoise transforma aspectos específicos de tu negocio 
-                    con tecnología de IA avanzada y análisis predictivo en tiempo real.
+                    Descubre cómo nuestros 6 módulos revolucionarios transforman completamente la gestión empresarial con inteligencia artificial avanzada
                 </p>
-                
-                <!-- Estadísticas Globales -->
-                <div class="grid-cols-3 mt-12 mb-8">
-                    <div class="text-center">
-                        <div class="text-3xl font-bold text-teal-600">95%</div>
-                        <div class="text-sm text-slate-600">Precisión Predictiva</div>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-3xl font-bold text-teal-600">60%</div>
-                        <div class="text-sm text-slate-600">Reducción de Costos</div>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-3xl font-bold text-teal-600">24/7</div>
-                        <div class="text-sm text-slate-600">Monitoreo Automático</div>
-                    </div>
+            </div>
+
+            <!-- Estadísticas generales -->
+            <div class="grid-cols-3 mb-8 text-center">
+                <div class="bg-gradient-to-br from-teal-50 to-cyan-100 p-6 rounded-xl">
+                    <div class="text-3xl font-bold text-teal-600 mb-2">95%</div>
+                    <div class="text-sm text-slate-600">Precisión en Predicciones</div>
+                </div>
+                <div class="bg-gradient-to-br from-amber-50 to-orange-100 p-6 rounded-xl">
+                    <div class="text-3xl font-bold text-amber-600 mb-2">40%</div>
+                    <div class="text-sm text-slate-600">Reducción de Costos</div>
+                </div>
+                <div class="bg-gradient-to-br from-emerald-50 to-green-100 p-6 rounded-xl">
+                    <div class="text-3xl font-bold text-emerald-600 mb-2">24/7</div>
+                    <div class="text-sm text-slate-600">Monitoreo Automático</div>
                 </div>
             </div>
-            
+
             <div class="grid-cols-1">
                 <!-- Módulo 1: Análisis Predictivo -->
                 <div class="card card-expandable" onclick="toggleCard(this)">
                     <div class="expand-icon">▼</div>
-                    <h3 class="text-2xl font-bold mb-4">📊 Análisis Predictivo Avanzado</h3>
+                    <div class="flex items-start gap-4">
+                        <div class="text-5xl">📊</div>
+                        <div class="flex-1">
+                            <h3 class="text-2xl font-bold mb-2">Análisis Predictivo Avanzado</h3>
+                            <div class="text-sm text-teal-600 font-semibold mb-3">🎯 Precisión del 95% • 🚀 ROI del 250%</div>
+                        </div>
+                    </div>
                     <div class="card-content">
-                        <p class="mb-6">Anticipa tendencias del mercado y comportamientos de clientes con algoritmos de machine learning de última generación que aprenden continuamente de tus datos.</p>
+                        <p class="mb-6 text-lg text-slate-700">Anticipa tendencias del mercado y comportamientos de clientes con algoritmos de machine learning de última generación que procesan millones de datos en tiempo real.</p>
                         
                         <!-- Grid de características principales -->
-                        <div class="grid-cols-2 mb-6">
-                            <div>
-                                <h4 class="font-semibold text-lg mb-3 text-teal-700">🎯 Características Principales</h4>
-                                <ul class="features">
-                                    <li>Predicción de demanda con 95% de precisión</li>
-                                    <li>Análisis de comportamiento del cliente</li>
-                                    <li>Forecasting de ventas automático</li>
-                                    <li>Detección de anomalías en tiempo real</li>
-                                    <li>Reportes predictivos personalizados</li>
-                                    <li>Modelos de machine learning adaptativos</li>
+                        <div class="grid-cols-2 gap-4 mb-6">
+                            <div class="bg-teal-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-teal-800 mb-2">🔮 Predicción Inteligente</h4>
+                                <ul class="text-sm text-slate-600 space-y-1">
+                                    <li>• Demanda de productos con 95% precisión</li>
+                                    <li>• Comportamiento del cliente futuro</li>
+                                    <li>• Tendencias de mercado emergentes</li>
                                 </ul>
                             </div>
-                            <div>
-                                <h4 class="font-semibold text-lg mb-3 text-teal-700">📈 Beneficios Cuantificables</h4>
-                                <ul class="features">
-                                    <li>Aumento del 35% en eficiencia operativa</li>
-                                    <li>Reducción del 40% en errores de pronóstico</li>
-                                    <li>Mejora del 50% en satisfacción del cliente</li>
-                                    <li>ROI promedio del 300% en 6 meses</li>
-                                    <li>Tiempo de implementación: 2-4 semanas</li>
-                                    <li>Soporte 24/7 con expertos en IA</li>
+                            <div class="bg-blue-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-blue-800 mb-2">⚡ Tiempo Real</h4>
+                                <ul class="text-sm text-slate-600 space-y-1">
+                                    <li>• Análisis instantáneo de datos</li>
+                                    <li>• Alertas automáticas inteligentes</li>
+                                    <li>• Dashboard en vivo 24/7</li>
                                 </ul>
                             </div>
                         </div>
-                        
+
+                        <!-- Beneficios -->
+                        <div class="bg-gradient-to-r from-teal-500 to-cyan-600 text-white p-4 rounded-lg mb-6">
+                            <h4 class="font-bold mb-2">💡 Beneficios Comprobados</h4>
+                            <div class="grid-cols-3 gap-4 text-sm">
+                                <div>📈 +32% Ventas</div>
+                                <div>⏰ -60% Tiempo Análisis</div>
+                                <div>💰 -25% Costos Operativos</div>
+                            </div>
+                        </div>
+
                         <!-- Demo interactivo -->
-                        <div class="bg-slate-50 p-4 rounded-lg mb-4">
-                            <h5 class="font-semibold mb-2">🔬 Demo Interactivo:</h5>
-                            <button onclick="demoFunction('predictivo')" class="btn btn-primary btn-sm">
-                                Simular Análisis Predictivo
+                        <div class="border-2 border-dashed border-teal-300 p-4 rounded-lg text-center">
+                            <button onclick="demoFunction('predictivo')" class="bg-teal-600 text-white px-6 py-2 rounded-lg hover:bg-teal-700 transition-all">
+                                🎮 Ver Demo Interactivo
                             </button>
-                            <div id="demo-predictivo" class="mt-3 text-sm text-slate-600"></div>
-                        </div>
-                        
-                        <div class="bg-gradient-to-r from-teal-50 to-blue-50 p-4 rounded-lg">
-                            <p class="text-sm text-slate-700">
-                                <strong>💡 Caso de Éxito:</strong> Una empresa retail aumentó sus ventas en un 28% 
-                                utilizando nuestras predicciones de demanda estacional con IA.
-                            </p>
+                            <p class="text-sm text-slate-500 mt-2">Prueba las predicciones en tiempo real</p>
                         </div>
                     </div>
                 </div>
@@ -958,48 +1345,49 @@
                 <!-- Módulo 2: Gestión de Inventario -->
                 <div class="card card-expandable" onclick="toggleCard(this)">
                     <div class="expand-icon">▼</div>
-                    <h3 class="text-2xl font-bold mb-4">📦 Gestión Inteligente de Inventario</h3>
+                    <div class="flex items-start gap-4">
+                        <div class="text-5xl">📦</div>
+                        <div class="flex-1">
+                            <h3 class="text-2xl font-bold mb-2">Gestión Inteligente de Inventario</h3>
+                            <div class="text-sm text-amber-600 font-semibold mb-3">📊 -15% Stock Muerto • 🎯 +89% Rotación</div>
+                        </div>
+                    </div>
                     <div class="card-content">
-                        <p class="mb-6">Optimiza tu inventario con IA que aprende de patrones históricos, tendencias del mercado y factores externos para mantener el equilibrio perfecto entre disponibilidad y costos.</p>
+                        <p class="mb-6 text-lg text-slate-700">Revoluciona tu inventario con IA que aprende automáticamente de patrones históricos, estacionalidad y tendencias del mercado para optimizar cada decisión de stock.</p>
                         
-                        <div class="grid-cols-2 mb-6">
-                            <div>
-                                <h4 class="font-semibold text-lg mb-3 text-purple-700">⚡ Automatización Inteligente</h4>
-                                <ul class="features">
-                                    <li>Reposición automática con IA predictiva</li>
-                                    <li>Optimización de stock por producto/región</li>
-                                    <li>Alertas inteligentes de sobre-stock y desabasto</li>
-                                    <li>Integración directa con proveedores</li>
-                                    <li>Análisis de rotación en tiempo real</li>
-                                    <li>Gestión de inventario multi-almacén</li>
+                        <div class="grid-cols-2 gap-4 mb-6">
+                            <div class="bg-amber-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-amber-800 mb-2">🤖 Automatización Total</h4>
+                                <ul class="text-sm text-slate-600 space-y-1">
+                                    <li>• Reposición automática inteligente</li>
+                                    <li>• Órdenes de compra automáticas</li>
+                                    <li>• Integración directa con proveedores</li>
                                 </ul>
                             </div>
-                            <div>
-                                <h4 class="font-semibold text-lg mb-3 text-purple-700">💰 Optimización de Costos</h4>
-                                <ul class="features">
-                                    <li>Reducción del 45% en costos de almacenamiento</li>
-                                    <li>Eliminación del 90% de productos obsoletos</li>
-                                    <li>Mejora del 60% en rotación de inventario</li>
-                                    <li>Ahorro promedio de $50K anuales por almacén</li>
-                                    <li>Reducción del 80% en tiempo de gestión manual</li>
-                                    <li>Dashboard en tiempo real con KPIs avanzados</li>
+                            <div class="bg-green-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-green-800 mb-2">📈 Optimización Avanzada</h4>
+                                <ul class="text-sm text-slate-600 space-y-1">
+                                    <li>• Análisis ABC multicriteria</li>
+                                    <li>• Punto de reorden dinámico</li>
+                                    <li>• Gestión de caducidades</li>
                                 </ul>
                             </div>
                         </div>
-                        
-                        <div class="bg-slate-50 p-4 rounded-lg mb-4">
-                            <h5 class="font-semibold mb-2">📊 Simulador de Inventario:</h5>
-                            <button onclick="demoFunction('inventario')" class="btn btn-primary btn-sm">
-                                Calcular Optimización de Stock
+
+                        <div class="bg-gradient-to-r from-amber-500 to-orange-600 text-white p-4 rounded-lg mb-6">
+                            <h4 class="font-bold mb-2">🏆 Resultados Garantizados</h4>
+                            <div class="grid-cols-3 gap-4 text-sm">
+                                <div>📉 -40% Costos Storage</div>
+                                <div>🎯 +95% Disponibilidad</div>
+                                <div>⚡ -70% Tiempo Gestión</div>
+                            </div>
+                        </div>
+
+                        <div class="border-2 border-dashed border-amber-300 p-4 rounded-lg text-center">
+                            <button onclick="demoFunction('inventario')" class="bg-amber-600 text-white px-6 py-2 rounded-lg hover:bg-amber-700 transition-all">
+                                📱 Simular Gestión de Stock
                             </button>
-                            <div id="demo-inventario" class="mt-3 text-sm text-slate-600"></div>
-                        </div>
-                        
-                        <div class="bg-gradient-to-r from-purple-50 to-pink-50 p-4 rounded-lg">
-                            <p class="text-sm text-slate-700">
-                                <strong>🏆 Resultado Destacado:</strong> Cadena de farmacias redujo costos de inventario 
-                                en $2.3M anuales manteniendo 99.8% de disponibilidad de productos críticos.
-                            </p>
+                            <p class="text-sm text-slate-500 mt-2">Experimenta la optimización automática</p>
                         </div>
                     </div>
                 </div>
@@ -1007,48 +1395,49 @@
                 <!-- Módulo 3: Automatización de Procesos -->
                 <div class="card card-expandable" onclick="toggleCard(this)">
                     <div class="expand-icon">▼</div>
-                    <h3 class="text-2xl font-bold mb-4">⚙️ Automatización de Procesos Empresariales</h3>
+                    <div class="flex items-start gap-4">
+                        <div class="text-5xl">⚙️</div>
+                        <div class="flex-1">
+                            <h3 class="text-2xl font-bold mb-2">Automatización de Procesos RPA</h3>
+                            <div class="text-sm text-purple-600 font-semibold mb-3">🚀 -80% Tiempo Manual • 🎯 99.9% Precisión</div>
+                        </div>
+                    </div>
                     <div class="card-content">
-                        <p class="mb-6">Transforma la eficiencia operativa con robotic process automation (RPA) y flujos de trabajo inteligentes que se adaptan dinámicamente a las necesidades de tu empresa.</p>
+                        <p class="mb-6 text-lg text-slate-700">Elimina tareas repetitivas para siempre con robots de software que trabajan 24/7 sin errores, integrándose perfectamente con todos tus sistemas existentes.</p>
                         
-                        <div class="grid-cols-2 mb-6">
-                            <div>
-                                <h4 class="font-semibold text-lg mb-3 text-orange-700">🤖 RPA Inteligente</h4>
-                                <ul class="features">
-                                    <li>Automatización de facturas y pagos</li>
-                                    <li>Flujos de trabajo adaptativos y personalizables</li>
-                                    <li>Integración nativa con sistemas existentes</li>
-                                    <li>Bots conversacionales para atención al cliente</li>
-                                    <li>Automatización de reportes y documentación</li>
-                                    <li>Procesamiento inteligente de documentos</li>
+                        <div class="grid-cols-2 gap-4 mb-6">
+                            <div class="bg-purple-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-purple-800 mb-2">🤖 Bots Inteligentes</h4>
+                                <ul class="text-sm text-slate-600 space-y-1">
+                                    <li>• Procesamiento de facturas</li>
+                                    <li>• Conciliación bancaria automática</li>
+                                    <li>• Generación de reportes</li>
                                 </ul>
                             </div>
-                            <div>
-                                <h4 class="font-semibold text-lg mb-3 text-orange-700">⚡ Impacto Empresarial</h4>
-                                <ul class="features">
-                                    <li>Reducción del 70% en tareas manuales</li>
-                                    <li>Aumento del 85% en velocidad de procesos</li>
-                                    <li>Eliminación del 95% de errores humanos</li>
-                                    <li>Liberación de 20+ horas semanales por empleado</li>
-                                    <li>ROI del 400% en el primer año</li>
-                                    <li>Escalabilidad automática según demanda</li>
+                            <div class="bg-indigo-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-indigo-800 mb-2">🔄 Flujos Personalizados</h4>
+                                <ul class="text-sm text-slate-600 space-y-1">
+                                    <li>• Workflows visuales drag & drop</li>
+                                    <li>• Reglas de negocio flexibles</li>
+                                    <li>• Integración con 500+ apps</li>
                                 </ul>
                             </div>
                         </div>
-                        
-                        <div class="bg-slate-50 p-4 rounded-lg mb-4">
-                            <h5 class="font-semibold mb-2">⚡ Demo de Automatización:</h5>
-                            <button onclick="demoFunction('automatizacion')" class="btn btn-primary btn-sm">
-                                Simular Flujo Automatizado
+
+                        <div class="bg-gradient-to-r from-purple-500 to-indigo-600 text-white p-4 rounded-lg mb-6">
+                            <h4 class="font-bold mb-2">⚡ Impacto Inmediato</h4>
+                            <div class="grid-cols-3 gap-4 text-sm">
+                                <div>⏱️ -80% Tiempo Tareas</div>
+                                <div>🎯 99.9% Sin Errores</div>
+                                <div>💸 -50% Costos Admin</div>
+                            </div>
+                        </div>
+
+                        <div class="border-2 border-dashed border-purple-300 p-4 rounded-lg text-center">
+                            <button onclick="demoFunction('automatizacion')" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition-all">
+                                🎯 Ver Automatización en Acción
                             </button>
-                            <div id="demo-automatizacion" class="mt-3 text-sm text-slate-600"></div>
-                        </div>
-                        
-                        <div class="bg-gradient-to-r from-orange-50 to-yellow-50 p-4 rounded-lg">
-                            <p class="text-sm text-slate-700">
-                                <strong>🚀 Transformación Real:</strong> Empresa de servicios financieros automatizó 
-                                200+ procesos manuales, liberando a 45 empleados para tareas estratégicas de mayor valor.
-                            </p>
+                            <p class="text-sm text-slate-500 mt-2">Diseña tu primer flujo automatizado</p>
                         </div>
                     </div>
                 </div>
@@ -1056,48 +1445,49 @@
                 <!-- Módulo 4: CRM Inteligente -->
                 <div class="card card-expandable" onclick="toggleCard(this)">
                     <div class="expand-icon">▼</div>
-                    <h3 class="text-2xl font-bold mb-4">👥 CRM Inteligente de Nueva Generación</h3>
+                    <div class="flex items-start gap-4">
+                        <div class="text-5xl">👥</div>
+                        <div class="flex-1">
+                            <h3 class="text-2xl font-bold mb-2">CRM Inteligente con IA</h3>
+                            <div class="text-sm text-blue-600 font-semibold mb-3">📈 +45% Conversiones • 🎯 85% Satisfacción</div>
+                        </div>
+                    </div>
                     <div class="card-content">
-                        <p class="mb-6">Revoluciona la gestión de relaciones con clientes usando IA para personalizar experiencias, predecir comportamientos y maximizar el lifetime value de cada cliente.</p>
+                        <p class="mb-6 text-lg text-slate-700">Transforma relaciones con clientes usando IA que personaliza cada interacción, predice necesidades y automatiza el journey completo del cliente para maximizar conversiones.</p>
                         
-                        <div class="grid-cols-2 mb-6">
-                            <div>
-                                <h4 class="font-semibold text-lg mb-3 text-blue-700">🎯 IA Customer-Centric</h4>
-                                <ul class="features">
-                                    <li>Segmentación automática con machine learning</li>
-                                    <li>Scoring predictivo de leads y oportunidades</li>
-                                    <li>Campañas de marketing hiper-personalizadas</li>
-                                    <li>Análisis de sentimiento en tiempo real</li>
-                                    <li>Predicción de churn con 92% de precisión</li>
-                                    <li>Recomendaciones de productos con IA</li>
+                        <div class="grid-cols-2 gap-4 mb-6">
+                            <div class="bg-blue-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-blue-800 mb-2">🧠 IA Conversacional</h4>
+                                <ul class="text-sm text-slate-600 space-y-1">
+                                    <li>• Chatbots con GPT avanzado</li>
+                                    <li>• Scoring automático de leads</li>
+                                    <li>• Predicción de intención de compra</li>
                                 </ul>
                             </div>
-                            <div>
-                                <h4 class="font-semibold text-lg mb-3 text-blue-700">📊 Resultados Medibles</h4>
-                                <ul class="features">
-                                    <li>Aumento del 45% en tasa de conversión</li>
-                                    <li>Mejora del 60% en retención de clientes</li>
-                                    <li>Incremento del 35% en customer lifetime value</li>
-                                    <li>Reducción del 50% en tiempo de respuesta</li>
-                                    <li>Aumento del 40% en satisfacción del cliente</li>
-                                    <li>Crecimiento del 25% en ventas por cliente</li>
+                            <div class="bg-cyan-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-cyan-800 mb-2">🎯 Personalización 360°</h4>
+                                <ul class="text-sm text-slate-600 space-y-1">
+                                    <li>• Segmentación automática avanzada</li>
+                                    <li>• Campañas personalizadas 1:1</li>
+                                    <li>• Análisis de sentimiento en tiempo real</li>
                                 </ul>
                             </div>
                         </div>
-                        
-                        <div class="bg-slate-50 p-4 rounded-lg mb-4">
-                            <h5 class="font-semibold mb-2">🔮 Predictor de Cliente:</h5>
-                            <button onclick="demoFunction('crm')" class="btn btn-primary btn-sm">
-                                Analizar Perfil de Cliente
+
+                        <div class="bg-gradient-to-r from-blue-500 to-cyan-600 text-white p-4 rounded-lg mb-6">
+                            <h4 class="font-bold mb-2">🎯 Crecimiento Acelerado</h4>
+                            <div class="grid-cols-3 gap-4 text-sm">
+                                <div>📈 +45% Conversiones</div>
+                                <div>🔄 -65% Churn Rate</div>
+                                <div>💰 +38% LTV Cliente</div>
+                            </div>
+                        </div>
+
+                        <div class="border-2 border-dashed border-blue-300 p-4 rounded-lg text-center">
+                            <button onclick="demoFunction('crm')" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-all">
+                                👤 Probar CRM Inteligente
                             </button>
-                            <div id="demo-crm" class="mt-3 text-sm text-slate-600"></div>
-                        </div>
-                        
-                        <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg">
-                            <p class="text-sm text-slate-700">
-                                <strong>🎯 Éxito Comprobado:</strong> E-commerce B2B incrementó su tasa de retención 
-                                del 65% al 89% usando nuestro sistema de predicción de churn y campañas personalizadas.
-                            </p>
+                            <p class="text-sm text-slate-500 mt-2">Experimenta la personalización con IA</p>
                         </div>
                     </div>
                 </div>
@@ -1105,48 +1495,49 @@
                 <!-- Módulo 5: Finanzas Predictivas -->
                 <div class="card card-expandable" onclick="toggleCard(this)">
                     <div class="expand-icon">▼</div>
-                    <h3 class="text-2xl font-bold mb-4">💰 Finanzas Predictivas e Inteligencia de Riesgo</h3>
+                    <div class="flex items-start gap-4">
+                        <div class="text-5xl">💰</div>
+                        <div class="flex-1">
+                            <h3 class="text-2xl font-bold mb-2">Finanzas Predictivas Avanzadas</h3>
+                            <div class="text-sm text-emerald-600 font-semibold mb-3">💹 +28% Rentabilidad • 🛡️ 99% Detección Fraude</div>
+                        </div>
+                    </div>
                     <div class="card-content">
-                        <p class="mb-6">Optimiza la gestión financiera con análisis predictivos avanzados, automatización contable y sistemas de detección de riesgos que protegen y hacen crecer tu capital.</p>
+                        <p class="mb-6 text-lg text-slate-700">Optimiza completamente tu gestión financiera con IA que predice flujos de caja, detecta fraudes al instante y automatiza toda la contabilidad con precisión bancaria.</p>
                         
-                        <div class="grid-cols-2 mb-6">
-                            <div>
-                                <h4 class="font-semibold text-lg mb-3 text-green-700">💡 Inteligencia Financiera</h4>
-                                <ul class="features">
-                                    <li>Proyecciones de flujo de caja con IA</li>
-                                    <li>Análisis de riesgo crediticio automatizado</li>
-                                    <li>Optimización de precios dinámicos</li>
-                                    <li>Detección de fraudes financieros en tiempo real</li>
-                                    <li>Reportes financieros automatizados y compliance</li>
-                                    <li>Modelos de valoración empresarial predictivos</li>
+                        <div class="grid-cols-2 gap-4 mb-6">
+                            <div class="bg-emerald-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-emerald-800 mb-2">📊 Análisis Predictivo</h4>
+                                <ul class="text-sm text-slate-600 space-y-1">
+                                    <li>• Proyecciones de flujo de caja</li>
+                                    <li>• Análisis de riesgo crediticio</li>
+                                    <li>• Optimización de precios dinámicos</li>
                                 </ul>
                             </div>
-                            <div>
-                                <h4 class="font-semibold text-lg mb-3 text-green-700">📈 Optimización de Capital</h4>
-                                <ul class="features">
-                                    <li>Mejora del 30% en precisión de pronósticos</li>
-                                    <li>Reducción del 80% en tiempo de cierre contable</li>
-                                    <li>Detección del 99.5% de transacciones fraudulentas</li>
-                                    <li>Aumento del 25% en márgenes de ganancia</li>
-                                    <li>Reducción del 90% en errores contables</li>
-                                    <li>Optimización de cartera con riesgo calculado</li>
+                            <div class="bg-green-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-green-800 mb-2">🛡️ Seguridad Total</h4>
+                                <ul class="text-sm text-slate-600 space-y-1">
+                                    <li>• Detección de fraudes en tiempo real</li>
+                                    <li>• Alertas automáticas de anomalías</li>
+                                    <li>• Auditoría blockchain integrada</li>
                                 </ul>
                             </div>
                         </div>
-                        
-                        <div class="bg-slate-50 p-4 rounded-lg mb-4">
-                            <h5 class="font-semibold mb-2">💹 Simulador Financiero:</h5>
-                            <button onclick="demoFunction('finanzas')" class="btn btn-primary btn-sm">
-                                Proyectar Flujo de Caja
+
+                        <div class="bg-gradient-to-r from-emerald-500 to-green-600 text-white p-4 rounded-lg mb-6">
+                            <h4 class="font-bold mb-2">💎 Rentabilidad Maximizada</h4>
+                            <div class="grid-cols-3 gap-4 text-sm">
+                                <div>💹 +28% ROI</div>
+                                <div>⏱️ -90% Tiempo Contable</div>
+                                <div>🔒 99.9% Seguridad</div>
+                            </div>
+                        </div>
+
+                        <div class="border-2 border-dashed border-emerald-300 p-4 rounded-lg text-center">
+                            <button onclick="demoFunction('finanzas')" class="bg-emerald-600 text-white px-6 py-2 rounded-lg hover:bg-emerald-700 transition-all">
+                                📈 Simular Análisis Financiero
                             </button>
-                            <div id="demo-finanzas" class="mt-3 text-sm text-slate-600"></div>
-                        </div>
-                        
-                        <div class="bg-gradient-to-r from-green-50 to-emerald-50 p-4 rounded-lg">
-                            <p class="text-sm text-slate-700">
-                                <strong>💎 Caso Premium:</strong> Fintech mejoró sus decisiones de crédito con IA, 
-                                reduciendo morosidad del 8.5% al 2.1% y aumentando aprobaciones válidas en 40%.
-                            </p>
+                            <p class="text-sm text-slate-500 mt-2">Proyecta tu flujo de caja futuro</p>
                         </div>
                     </div>
                 </div>
@@ -1154,65 +1545,65 @@
                 <!-- Módulo 6: Business Intelligence -->
                 <div class="card card-expandable" onclick="toggleCard(this)">
                     <div class="expand-icon">▼</div>
-                    <h3 class="text-2xl font-bold mb-4">📈 Business Intelligence & Analytics 360°</h3>
+                    <div class="flex items-start gap-4">
+                        <div class="text-5xl">📈</div>
+                        <div class="flex-1">
+                            <h3 class="text-2xl font-bold mb-2">Business Intelligence 360°</h3>
+                            <div class="text-sm text-rose-600 font-semibold mb-3">📊 Datos en Tiempo Real • 🎯 +60% Mejores Decisiones</div>
+                        </div>
+                    </div>
                     <div class="card-content">
-                        <p class="mb-6">Transforma datos complejos en insights estratégicos accionables con dashboards interactivos, análisis predictivo y sistemas de alertas inteligentes que impulsan la toma de decisiones.</p>
+                        <p class="mb-6 text-lg text-slate-700">Convierte montañas de datos en insights accionables con dashboards inteligentes que se actualizan en tiempo real y revelan oportunidades ocultas de negocio.</p>
                         
-                        <div class="grid-cols-2 mb-6">
-                            <div>
-                                <h4 class="font-semibold text-lg mb-3 text-indigo-700">🔍 Analytics Avanzado</h4>
-                                <ul class="features">
-                                    <li>Dashboards interactivos en tiempo real</li>
-                                    <li>KPIs inteligentes y adaptativos</li>
-                                    <li>Análisis de competencia automatizado</li>
-                                    <li>Integración con 200+ fuentes de datos</li>
-                                    <li>Alertas inteligentes de negocio</li>
-                                    <li>Visualizaciones dinámicas con drill-down</li>
+                        <div class="grid-cols-2 gap-4 mb-6">
+                            <div class="bg-rose-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-rose-800 mb-2">📊 Dashboards Dinámicos</h4>
+                                <ul class="text-sm text-slate-600 space-y-1">
+                                    <li>• Visualizaciones interactivas 3D</li>
+                                    <li>• KPIs adaptativos inteligentes</li>
+                                    <li>• Drill-down automático</li>
                                 </ul>
                             </div>
-                            <div>
-                                <h4 class="font-semibold text-lg mb-3 text-indigo-700">🚀 Ventaja Competitiva</h4>
-                                <ul class="features">
-                                    <li>Decisiones 75% más rápidas y precisas</li>
-                                    <li>Identificación de oportunidades en tiempo real</li>
-                                    <li>Reducción del 60% en tiempo de análisis</li>
-                                    <li>Aumento del 50% en eficiencia operativa</li>
-                                    <li>Visibilidad 360° del rendimiento empresarial</li>
-                                    <li>Predicciones de mercado con 90% de precisión</li>
+                            <div class="bg-pink-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-pink-800 mb-2">🔍 Insights Automáticos</h4>
+                                <ul class="text-sm text-slate-600 space-y-1">
+                                    <li>• Análisis de competencia automático</li>
+                                    <li>• Detección de oportunidades</li>
+                                    <li>• Alertas inteligentes de negocio</li>
                                 </ul>
                             </div>
                         </div>
-                        
-                        <div class="bg-slate-50 p-4 rounded-lg mb-4">
-                            <h5 class="font-semibold mb-2">📊 Dashboard Inteligente:</h5>
-                            <button onclick="demoFunction('bi')" class="btn btn-primary btn-sm">
-                                Generar Insights en Vivo
+
+                        <div class="bg-gradient-to-r from-rose-500 to-pink-600 text-white p-4 rounded-lg mb-6">
+                            <h4 class="font-bold mb-2">🚀 Ventaja Competitiva</h4>
+                            <div class="grid-cols-3 gap-4 text-sm">
+                                <div>⚡ Decisiones 10x Más Rápidas</div>
+                                <div>🎯 +60% Precisión</div>
+                                <div>📈 +35% Crecimiento</div>
+                            </div>
+                        </div>
+
+                        <div class="border-2 border-dashed border-rose-300 p-4 rounded-lg text-center">
+                            <button onclick="demoFunction('bi')" class="bg-rose-600 text-white px-6 py-2 rounded-lg hover:bg-rose-700 transition-all">
+                                📊 Explorar Dashboard Inteligente
                             </button>
-                            <div id="demo-bi" class="mt-3 text-sm text-slate-600"></div>
-                        </div>
-                        
-                        <div class="bg-gradient-to-r from-indigo-50 to-purple-50 p-4 rounded-lg">
-                            <p class="text-sm text-slate-700">
-                                <strong>🏅 Transformación Completa:</strong> Multinacional de retail integró 50+ sistemas 
-                                de datos, reduciendo tiempo de reportes de 2 semanas a 15 minutos y mejorando decisiones estratégicas.
-                            </p>
+                            <p class="text-sm text-slate-500 mt-2">Visualiza datos en tiempo real</p>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            <!-- CTA Final de Módulos -->
-            <div class="text-center mt-16 bg-gradient-to-r from-teal-50 to-blue-50 p-8 rounded-2xl">
+
+            <!-- Call to Action final -->
+            <div class="text-center mt-12 p-8 bg-gradient-to-r from-teal-600 to-cyan-600 rounded-2xl text-white">
                 <h3 class="text-2xl font-bold mb-4">¿Listo para Transformar tu Negocio?</h3>
-                <p class="text-lg text-slate-600 mb-6">
-                    Cada módulo trabaja de forma independiente o integrada para crear un ecosistema 
-                    empresarial inteligente que evoluciona con tu negocio.
-                </p>
+                <p class="mb-6">Más de 10,000 empresas ya confían en Malinoise para impulsar su crecimiento</p>
                 <div class="flex gap-4 justify-center">
-                    <button onclick="demoFunction('integracion')" class="btn btn-primary">
-                        Ver Integración Completa
-                    </button>
-                    <a href="#demo" class="btn btn-secondary">Explorar Demo Interactivo</a>
+                    <a href="#demo" class="bg-white text-teal-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-all">
+                        🎮 Ver Demo Completo
+                    </a>
+                    <a href="#auth" class="bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-teal-600 transition-all">
+                        🚀 Comenzar Gratis
+                    </a>
                 </div>
             </div>
         </div>
@@ -1287,7 +1678,7 @@
                 
                 <div class="pricing-card featured">
                     <h3 class="text-2xl font-bold mb-4">Premium</h3>
-                    <div class="price">$99<span class="price-suffix">/mes</span></div>
+                    <div class="price">$99<span class="text-sm">/mes</span></div>
                     <ul class="features">
                         <li>IA predictiva completa</li>
                         <li>Reportes ilimitados</li>
@@ -1365,8 +1756,7 @@
                             <label for="loginPassword">Contraseña</label>
                             <input type="password" id="loginPassword" required>
                             <div class="error-message" id="loginPasswordError"></div>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-full-width">
+                        </div>                        <button type="submit" class="btn btn-primary btn-full-width">
                             Iniciar Sesión
                         </button>
                         <div class="success-message" id="loginSuccess"></div>
@@ -1391,8 +1781,7 @@
                             <label for="registerPassword">Contraseña</label>
                             <input type="password" id="registerPassword" required>
                             <div class="error-message" id="registerPasswordError"></div>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-full-width">
+                        </div>                        <button type="submit" class="btn btn-primary btn-full-width">
                             Crear Cuenta
                         </button>
                         <div class="success-message" id="registerSuccess"></div>
@@ -1478,15 +1867,55 @@
                     header.style.boxShadow = 'none';
                 }
             });
-        }
+        }        // === DEMOS INTERACTIVOS DE MÓDULOS ===
+        function demoFunction(moduleType) {
+            const demos = {
+                'predictivo': {
+                    title: '🔮 Demo: Análisis Predictivo',
+                    message: 'Generando predicciones con IA...\n📊 Analizando 50,000 datos históricos\n🎯 Precisión: 95.2%\n📈 Ventas proyectadas: +32% próximos 6 meses'
+                },
+                'inventario': {
+                    title: '📦 Demo: Gestión de Inventario',
+                    message: 'Optimizando stock inteligentemente...\n🤖 Calculando puntos de reorden\n📊 Rotación actual: 8.5x/año\n💡 Recomendación: Reducir stock producto A en 15%'
+                },
+                'automatizacion': {
+                    title: '⚙️ Demo: Automatización RPA',
+                    message: 'Robot procesando facturas...\n📄 22 facturas procesadas en 3 segundos\n✅ 100% sin errores\n💰 Ahorro estimado: $2,400/mes'
+                },
+                'crm': {
+                    title: '👥 Demo: CRM Inteligente',
+                    message: 'Analizando comportamiento de clientes...\n🎯 Lead Score: Cliente A (95/100)\n📧 Campaña personalizada generada\n💰 Probabilidad de compra: 87%'
+                },
+                'finanzas': {
+                    title: '💰 Demo: Finanzas Predictivas',
+                    message: 'Proyectando flujo de caja...\n📈 Ingresos Q1: $125,000 (+18%)\n⚠️ Alerta: Pago proveedor en 3 días\n💎 Rentabilidad proyectada: +28%'
+                },
+                'bi': {
+                    title: '📊 Demo: Business Intelligence',
+                    message: 'Generando insights en tiempo real...\n📈 KPI Principal: +15% vs mes anterior\n🔍 Oportunidad detectada: Mercado B\n⚡ 47 alertas inteligentes activas'
+                }
+            };
 
-        // === TARJETAS EXPANDIBLES ===
-        function toggleCard(cardElement) {
-            const content = cardElement.querySelector('.card-content');
-            const icon = cardElement.querySelector('.expand-icon');
-            
-            content.classList.toggle('expanded');
-            icon.classList.toggle('rotated');
+            const demo = demos[moduleType];
+            if (demo) {
+                // Mostrar simulación de carga
+                const button = event.target;
+                const originalText = button.textContent;
+                
+                button.disabled = true;
+                button.textContent = '⏳ Cargando...';
+                button.style.background = '#94A3B8';
+                
+                setTimeout(() => {
+                    alert(`${demo.title}\n\n${demo.message}\n\n🎉 Demo completado exitosamente!`);
+                    
+                    button.disabled = false;
+                    button.textContent = originalText;
+                    button.style.background = '';
+                    
+                    showNotification(`Demo ${moduleType} ejecutado con éxito`, 'success');
+                }, 1500);
+            }
         }
 
         // === GRÁFICO INTERACTIVO ===
@@ -1677,113 +2106,6 @@
                 observer.observe(el);
             });
         }
-
-        // === DEMOS INTERACTIVOS DE MÓDULOS ===
-        function demoFunction(moduleType) {
-            const demoContainer = document.getElementById(`demo-${moduleType}`);
-            if (!demoContainer) return;
-            
-            demoContainer.innerHTML = '<span class="text-orange-500">⏳ Procesando...</span>';
-            
-            setTimeout(() => {
-                let result = '';
-                
-                switch(moduleType) {
-                    case 'predictivo':
-                        result = `
-                            <div class="bg-white p-3 rounded border-l-4 border-teal-500">
-                                <strong>📊 Análisis Completado:</strong><br>
-                                • Predicción de ventas Q1 2025: +28% vs Q4 2024<br>
-                                • Productos estrella identificados: 12 items<br>
-                                • Probabilidad de éxito: 94.3%<br>
-                                • Recomendación: Aumentar stock un 15% en categoría Premium
-                            </div>
-                        `;
-                        break;
-                    case 'inventario':
-                        result = `
-                            <div class="bg-white p-3 rounded border-l-4 border-purple-500">
-                                <strong>📦 Optimización Calculada:</strong><br>
-                                • Stock actual: $247K → Stock óptimo: $189K<br>
-                                • Ahorro proyectado: $58K (23.5%)<br>
-                                • Productos sobre-stock: 8 items (reducir 40%)<br>
-                                • Puntos de reposición ajustados automáticamente
-                            </div>
-                        `;
-                        break;
-                    case 'automatizacion':
-                        result = `
-                            <div class="bg-white p-3 rounded border-l-4 border-orange-500">
-                                <strong>⚙️ Flujo Simulado:</strong><br>
-                                • Facturas procesadas: 150/150 ✅<br>
-                                • Tiempo total: 2.3 minutos (vs 4.5 horas manual)<br>
-                                • Errores detectados y corregidos: 3<br>
-                                • Ahorro semanal estimado: 37.5 horas
-                            </div>
-                        `;
-                        break;
-                    case 'crm':
-                        result = `
-                            <div class="bg-white p-3 rounded border-l-4 border-blue-500">
-                                <strong>👤 Perfil Analizado:</strong><br>
-                                • Probabilidad de compra: 87% (Alto valor)<br>
-                                • Productos recomendados: 5 items personalizados<br>
-                                • Riesgo de churn: 12% (Bajo)<br>
-                                • Estrategia sugerida: Cross-selling premium
-                            </div>
-                        `;
-                        break;
-                    case 'finanzas':
-                        result = `
-                            <div class="bg-white p-3 rounded border-l-4 border-green-500">
-                                <strong>💰 Proyección Financiera:</strong><br>
-                                • Flujo de caja 6 meses: +$2.3M (15% mejora)<br>
-                                • Riesgo detectado: Mínimo (2.1%)<br>
-                                • Optimización de precios: +8% margen promedio<br>
-                                • ROI proyectado: 340% en 12 meses
-                            </div>
-                        `;
-                        break;
-                    case 'bi':
-                        result = `
-                            <div class="bg-white p-3 rounded border-l-4 border-indigo-500">
-                                <strong>📊 Insights Generados:</strong><br>
-                                • KPIs críticos monitoreados: 24/24 ✅<br>
-                                • Oportunidades identificadas: 7 de alto impacto<br>
-                                • Alertas automáticas configuradas: 15<br>
-                                • Dashboard actualizado en tiempo real
-                            </div>
-                        `;
-                        break;
-                    case 'integracion':
-                        result = `
-                            <div class="bg-white p-3 rounded border-l-4 border-gradient-to-r from-teal-500 to-blue-500">
-                                <strong>🚀 Ecosistema Integrado:</strong><br>
-                                • Módulos sincronizados: 6/6 ✅<br>
-                                • Eficiencia operativa: +78% vs sistemas separados<br>
-                                • Datos centralizados: 100% visibilidad<br>
-                                • ROI del ecosistema completo: +450%
-                            </div>
-                        `;
-                        break;
-                    default:
-                        result = '<span class="text-green-600">✅ Demo ejecutado exitosamente</span>';
-                }
-                
-                demoContainer.innerHTML = result;
-                
-                // Efecto de aparición
-                demoContainer.style.opacity = '0';
-                demoContainer.style.transform = 'translateY(10px)';
-                setTimeout(() => {
-                    demoContainer.style.transition = 'all 0.3s ease';
-                    demoContainer.style.opacity = '1';
-                    demoContainer.style.transform = 'translateY(0)';
-                }, 50);
-                
-            }, 1500 + Math.random() * 1000); // Simular tiempo de procesamiento variable
-        }
-
     </script>
 </body>
 </html>
