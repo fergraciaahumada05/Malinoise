@@ -195,7 +195,7 @@ async function createPostgreSQLTables() {
  */
 
 async function createSQLiteTables() {
-    await db.exec(`
+    await database.exec(`
         CREATE TABLE IF NOT EXISTS users (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT NOT NULL,
@@ -210,7 +210,7 @@ async function createSQLiteTables() {
         )
     `);
 
-    await db.exec(`
+    await database.exec(`
         CREATE TABLE IF NOT EXISTS sessions (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
@@ -261,25 +261,25 @@ async function sendEmail(to, subject, html) {
 // Funciones de base de datos universales
 async function queryDB(query, params = []) {
     if (isPostgreSQL) {
-        const result = await db.query(query, params);
+        const result = await database.query(query, params);
         return result.rows;
     } else {
         if (query.includes('RETURNING')) {
             // Para SQLite, necesitamos manejar RETURNING diferente
             const insertQuery = query.replace(/ RETURNING.*$/, '');
-            const result = await db.run(insertQuery, params);
+            const result = await database.run(insertQuery, params);
             return [{ id: result.lastID }];
         }
-        return await db.all(query, params);
+        return await database.all(query, params);
     }
 }
 
 async function runDB(query, params = []) {
     if (isPostgreSQL) {
-        const result = await db.query(query, params);
+        const result = await database.query(query, params);
         return result;
     } else {
-        return await db.run(query, params);
+        return await database.run(query, params);
     }
 }
 
@@ -554,10 +554,9 @@ app.get('/dashboard', (req, res) => {
 app.get('/api/health', async (req, res) => {
     try {
         let dbInfo = {};
-        
-        if (isPostgreSQL) {
-            const result = await db.query('SELECT NOW() as current_time, version() as version');
-            const userCount = await db.query('SELECT COUNT(*) as total_users FROM users');
+          if (isPostgreSQL) {
+            const result = await database.query('SELECT NOW() as current_time, version() as version');
+            const userCount = await database.query('SELECT COUNT(*) as total_users FROM users');
             dbInfo = {
                 type: 'PostgreSQL',
                 timestamp: result.rows[0].current_time,
@@ -565,8 +564,8 @@ app.get('/api/health', async (req, res) => {
                 total_users: parseInt(userCount.rows[0].total_users)
             };
         } else {
-            const result = await db.get('SELECT datetime("now") as current_time');
-            const userCount = await db.get('SELECT COUNT(*) as total_users FROM users');
+            const result = await database.get('SELECT datetime("now") as current_time');
+            const userCount = await database.get('SELECT COUNT(*) as total_users FROM users');
             dbInfo = {
                 type: 'SQLite',
                 timestamp: result.current_time,

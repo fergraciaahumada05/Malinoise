@@ -1,14 +1,78 @@
-/* CSS Personalizado para Malinoise - Optimizado para todos los dispositivos */
+/* 
+============================================================================
+MALINOISE - ESTILOS PERSONALIZADOS OPTIMIZADOS
+============================================================================
+
+Autor: Malinoise Team
+Descripción: Estilos responsivos y optimizados para la aplicación web Malinoise
+Versión: 2.0.0
+Última actualización: 2024
+
+ÍNDICE:
+1. Configuración base responsive
+2. Tipografía escalable  
+3. Navegación y menús
+4. Tarjetas de módulos
+5. Gráficos y controles
+6. Formularios de autenticación
+7. Chat del asistente IA
+8. Utilidades y animaciones
+9. Optimizaciones de rendimiento
+
+============================================================================
+*/
 
 /* ================================
-   CONFIGURACIÓN BASE RESPONSIVE
+   1. CONFIGURACIÓN BASE RESPONSIVE
    ================================ */
 
+/* Reset y configuración táctil mejorada */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 /* Mejoras de interacción táctil para dispositivos móviles */
-@media (hover: none) and (pointer: coarse) {
-    .module-card, .download-btn, .tech-item, .nav-link {
+@media (hover: none) and (pointer: coarse) {    .module-card, 
+    .download-btn, 
+    .tech-item, 
+    .nav-link,
+    .chart-control-btn,
+    .auth-button {
         -webkit-tap-highlight-color: rgba(13, 148, 136, 0.2);
         touch-action: manipulation;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+    
+    /* Mejores áreas de toque para elementos pequeños */
+    button,
+    .clickable {
+        min-height: 44px;
+        min-width: 44px;
+    }
+}
+
+/* Contenedores principales con padding adaptativo */
+.container-padding {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+    .container-padding {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .container-padding {
+        padding-left: 2rem;
+        padding-right: 2rem;
     }
 }
 

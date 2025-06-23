@@ -3,90 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Malinoise - Visión de la Aplicación</title>
+    <meta name="description" content="Malinoise - Tu asistente de negocios inteligente con IA para análisis predictivo, gestión de inventario y automatización empresarial.">
+    <meta name="keywords" content="IA, negocios, análisis predictivo, gestión empresarial, automatización">
+    <meta name="author" content="Malinoise Team">
     
-    <!-- Tailwind CSS CDN -->
+    <title>Malinoise - Tu Asistente de Negocios Inteligente</title>
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" as="style">
+    
+    <!-- CDN Libraries - Optimized loading -->
     <script src="https://cdn.tailwindcss.com"></script>
-      <!-- Chart.js para gráficos interactivos -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+    <script src="https://cdn.socket.io/4.7.4/socket.io.min.js" defer></script>
     
-    <!-- Socket.IO para actualizaciones en tiempo real -->
-    <script src="https://cdn.socket.io/4.7.4/socket.io.min.js"></script>
-    
-    <!-- Font Awesome para iconos -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous">
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">    
     <!-- 
-    Chosen Palette: Calm Harmony
-    - Background: bg-slate-50 (#F8FAFC)
-    - Text: text-slate-800 (#1E293B), text-slate-600 (#475569)
-    - Primary Accent: bg-teal-600 (#0D9488), text-white
-    - Secondary Accent: bg-slate-200 (#E2E8F0)
-    - Chart/Highlight: Teal, Amber
-    -->
-      <!-- 
-    Application Structure Plan: 
-    He diseñado esta SPA con una estructura temática y navegable, en lugar de un documento lineal. El objetivo es permitir a los interesados (inversores, equipo) explorar rápidamente las áreas clave del plan.
-    1.  **Navegación Fija Superior:** Permite saltar instantáneamente a las secciones principales (Visión, Módulos, Tecnología, Modelo de Negocio, Descargas, Autenticación). Esto facilita el acceso a la información sin necesidad de hacer scroll largo.
-    2.  **Sección de Visión (Hero):** Captura la atención inmediatamente con la propuesta de valor única y los nombres sugeridos.
-    3.  **Sección de Módulos Interactivos:** El núcleo del plan. Usé una cuadrícula de tarjetas con iconos para presentar los 6 módulos principales. Al hacer clic, cada tarjeta revela sus características detalladas. Esta interacción de "revelación progresiva" evita abrumar al usuario con texto y le permite enfocarse en un módulo a la vez.
-    4.  **Sección de Demostración Visual (Gráfico IA):** Un gráfico interactivo de Chart.js para visualizar el concepto de "Análisis Predictivo". Esto transforma una idea abstracta en algo tangible y demuestra el valor de la IA.
-    5.  **Secciones de Soporte (Tecnología y Monetización):** Presentan información de apoyo de manera visual. El stack tecnológico se muestra como un diagrama de flujo simple hecho con HTML/Tailwind y el modelo de negocio como una tabla de comparación clara.
-    6.  **Sección de Descargas:** Permite a los usuarios visualizar las opciones de descarga de la aplicación para diferentes plataformas.    7.  **Sección de Autenticación:** Muestra las opciones principales para gestionar el acceso de usuario, ahora con formularios interactivos.
-    Esta estructura está pensada para contar una historia coherente y convincente sobre la aplicación, guiando al usuario desde la gran visión hasta los detalles de implementación, todo de forma interactiva y digerible.
-    -->
-      <!--
-    Visualization & Content Choices:
-    - **App Vision -> Goal: Inform -> Presentation: Hero Section.** Un bloque grande y centrado con el título "Malinoise" (uno de los nombres sugeridos) para darle una identidad concreta.
-    - **App Modules -> Goal: Organize -> Presentation: Interactive Cards.** Cada uno de los 6 módulos del informe se convierte en una tarjeta. Interaction: Clic para expandir y ver detalles. Justification: Evita un muro de texto, fomenta la exploración. Method: HTML/Tailwind para las tarjetas, JS para la funcionalidad de acordeón.
-    - **Predictive AI -> Goal: Compare/Change -> Presentation: Line Chart.** Muestra ventas históricas vs. predicción de IA. Interaction: Botones para activar/desactivar la visualización de la predicción y las anomalías. Justification: Hace tangible el beneficio más innovador de la app. Library: Chart.js.
-    - **Tech Stack -> Goal: Organize -> Presentation: HTML/CSS Diagram.** Un diagrama de flujo visual. Justification: Más atractivo y fácil de entender que una lista con viñetas. Method: Tailwind Flexbox y bordes.
-    - **Monetization Model -> Goal: Compare -> Presentation: Comparison Table.** Tabla Freemium vs. Premium. Justification: Formato estándar y efectivo para comparar planes. Method: HTML/Tailwind.
-    - **Roadmap -> Goal: Change -> Presentation: Horizontal Timeline.** Muestra el desarrollo iterativo. Justification: Visualiza el progreso en el tiempo. Method: HTML/Tailwind Flexbox.    - **Downloads -> Goal: Inform -> Presentation: Platform Buttons.** Clear calls to action for different device types. Method: HTML/Tailwind buttons and simple layout.
-    - **Authentication -> Goal: Inform/Organize -> Presentation: Dynamic Forms.** Interactive forms for Login, Register, and Password Recovery. Interaction: Buttons to switch between forms, basic client-side validation for passwords. Justification: Provides a tangible representation of user authentication flows. Method: HTML/Tailwind forms, JavaScript for form visibility toggle and validation.
-    - **AI Assistant Chat -> Goal: Inform/Interact -> Presentation: Conversational Interface within Module.** User can type questions and get LLM-generated responses. Interaction: Text input, send button, scrolling chat history. Justification: Directly demonstrates the core AI assistant functionality using Gemini API. Method: HTML/Tailwind for UI, JavaScript for API call, chat history management, and loading state.
+    ============================================================================
+    DISEÑO Y ARQUITECTURA DEL PROYECTO MALINOISE
+    ============================================================================
+    
+    PALETA DE COLORES:
+    - Fondo principal: bg-slate-50 (#F8FAFC)
+    - Texto: text-slate-800 (#1E293B), text-slate-600 (#475569)
+    - Acento principal: bg-teal-600 (#0D9488)
+    - Acento secundario: bg-slate-200 (#E2E8F0)
+    - Resaltados: Teal, Amber
+    
+    ARQUITECTURA SPA:
+    1. Navegación sticky con scroll activo
+    2. Sección Hero - Propuesta de valor principal
+    3. Módulos interactivos - 6 tarjetas expandibles
+    4. Demo IA - Gráfico interactivo con Chart.js
+    5. Stack tecnológico - Diagrama visual
+    6. Modelo de negocio - Comparación Freemium vs Premium
+    7. Descargas - Plataformas con animaciones
+    8. Autenticación - Formularios dinámicos con validación
+    
+    RESPONSIVE DESIGN:
+    - Mobile-first approach
+    - Breakpoints: 320px, 640px, 768px, 1024px, 1280px
+    - Optimizado para touch y interacciones táctiles
+    - Tipografía escalable y espaciado adaptativo
     -->
     
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->    <!-- Custom CSS -->
+    <!-- Custom Styles and Scripts -->
     <link rel="stylesheet" href="css/custom.css">
-    
-    <!-- Auth API -->
-    <script src="js/auth-api.js"></script>
-
-    <style>
+    <script src="js/auth-api.js" defer></script>    <style>
+        /* 
+        ============================================================================
+        ESTILOS CRÍTICOS INLINE - OPTIMIZACIÓN DE RENDERIZADO
+        ============================================================================ 
+        */
+        
         body {
             font-family: 'Inter', sans-serif;
             background-color: #F8FAFC;
             color: #1E293B;
         }
+        
+        /* Contenedor responsivo para gráficos */
         .chart-container {
             position: relative;
             width: 100%;
             max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
+            margin: 0 auto;
             height: 300px;
-            max-height: 400px;
         }
+        
         @media (min-width: 768px) {
             .chart-container {
                 height: 400px;
             }
         }
+        
+        /* Estados de navegación */
         .nav-link-active {
             color: #0D9488;
             font-weight: 600;
-        }        .module-card-icon {
+        }
+        
+        /* Iconos de módulos */
+        .module-card-icon {
             font-size: 2.5rem;
             line-height: 1;
         }
         
-        /* Animaciones para descarga */
+        /* Animaciones de descarga optimizadas */
         @keyframes downloadProgress {
             0% { width: 0%; }
             100% { width: 100%; }
@@ -133,7 +142,8 @@
         .download-card:hover .download-icon {
             animation: bounce 1s;
         }
-          .download-complete {
+        
+        .download-complete {
             background: linear-gradient(135deg, #0D9488, #14B8A6);
             color: white;
         }
@@ -146,15 +156,18 @@
             font-size: 0.875rem;
             font-weight: 500;
         }
+        
         .form-message.success {
-            background-color: #D1FAE5; /* green-100 */
-            color: #065F46; /* green-800 */
+            background-color: #D1FAE5;
+            color: #065F46;
         }
+        
         .form-message.error {
-            background-color: #FEE2E2; /* red-100 */
-            color: #991B1B; /* red-800 */
+            background-color: #FEE2E2;
+            color: #991B1B;
         }
-          /* Estilos para el chat del asistente IA */
+        
+        /* Chat del asistente IA */
         .chat-container {
             height: 300px;
             overflow-y: auto;
@@ -166,25 +179,30 @@
             flex-direction: column;
             gap: 0.75rem;
         }
+        
         .chat-message {
             padding: 0.5rem 0.75rem;
             border-radius: 0.5rem;
             max-width: 80%;
         }
+        
         .chat-message.user {
-            background-color: #DCFCE7; /* green-100 */
+            background-color: #DCFCE7;
             align-self: flex-end;
         }
+        
         .chat-message.ai {
-            background-color: #E0F2FE; /* blue-100 */
+            background-color: #E0F2FE;
             align-self: flex-start;
-        }        .chat-loading-indicator {
+        }
+        
+        .chat-loading-indicator {
             align-self: flex-start;
             color: #475569;
             font-style: italic;
         }
         
-        /* Mejoras para interacciones táctiles */
+        /* Optimizaciones para dispositivos táctiles */
         @media (hover: none) and (pointer: coarse) {
             .module-card:hover,
             .download-card:hover {
@@ -222,45 +240,58 @@
         }
     </style>
 </head>
-<body class="bg-slate-50">    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
-        <nav class="container mx-auto container-padding py-3 flex justify-between items-center">
+<body class="bg-slate-50">    <!-- 
+    ============================================================================
+    HEADER Y NAVEGACIÓN PRINCIPAL
+    ============================================================================ 
+    -->
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm" role="banner">
+        <nav class="container mx-auto container-padding py-3 flex justify-between items-center" role="navigation" aria-label="Navegación principal">
             <h1 class="text-xl sm:text-2xl font-bold text-teal-600">MALINOISE</h1>
             
+            <!-- Navegación Desktop -->
             <div class="hidden md:flex space-x-4 lg:space-x-6 items-center">
-                <a href="#vision" class="nav-link text-slate-600 hover:text-teal-600 transition-colors text-sm lg:text-base">Visión</a>
-                <a href="#modules" class="nav-link text-slate-600 hover:text-teal-600 transition-colors text-sm lg:text-base">Módulos</a>
-                <a href="#demo" class="nav-link text-slate-600 hover:text-teal-600 transition-colors text-sm lg:text-base">Demo IA</a>
-                <a href="#tech" class="nav-link text-slate-600 hover:text-teal-600 transition-colors text-sm lg:text-base">Tecnología</a>
-                <a href="#model" class="nav-link text-slate-600 hover:text-teal-600 transition-colors text-sm lg:text-base">Modelo de Negocio</a>
-                <a href="#downloads" class="nav-link text-slate-600 hover:text-teal-600 transition-colors text-sm lg:text-base">Descargas</a>
-                <a href="#auth" class="nav-link text-slate-600 hover:text-teal-600 transition-colors text-sm lg:text-base">Autenticación</a>
+                <a href="#vision" class="nav-link text-slate-600 hover:text-teal-600 transition-colors text-sm lg:text-base" aria-label="Ir a la sección Visión">Visión</a>
+                <a href="#modules" class="nav-link text-slate-600 hover:text-teal-600 transition-colors text-sm lg:text-base" aria-label="Ir a la sección Módulos">Módulos</a>
+                <a href="#demo" class="nav-link text-slate-600 hover:text-teal-600 transition-colors text-sm lg:text-base" aria-label="Ir a la demostración de IA">Demo IA</a>
+                <a href="#tech" class="nav-link text-slate-600 hover:text-teal-600 transition-colors text-sm lg:text-base" aria-label="Ir a la sección Tecnología">Tecnología</a>
+                <a href="#model" class="nav-link text-slate-600 hover:text-teal-600 transition-colors text-sm lg:text-base" aria-label="Ir al modelo de negocio">Modelo de Negocio</a>
+                <a href="#downloads" class="nav-link text-slate-600 hover:text-teal-600 transition-colors text-sm lg:text-base" aria-label="Ir a la sección Descargas">Descargas</a>
+                <a href="#auth" class="nav-link text-slate-600 hover:text-teal-600 transition-colors text-sm lg:text-base" aria-label="Ir a la sección Autenticación">Autenticación</a>
                 
                 <!-- Selector de divisas -->
-                <div id="currency-selector-container" class="flex items-center space-x-2">
-                    <i class="fas fa-exchange-alt text-slate-500 text-sm"></i>
+                <div id="currency-selector-container" class="flex items-center space-x-2" aria-label="Selector de divisas">
+                    <i class="fas fa-exchange-alt text-slate-500 text-sm" aria-hidden="true"></i>
                 </div>
             </div>
 
+            <!-- Navegación móvil -->
             <div class="md:hidden flex items-center space-x-2">
                 <!-- Selector de divisas móvil -->
-                <div id="currency-selector-mobile" class="flex items-center">
-                    <i class="fas fa-exchange-alt text-slate-500 text-sm mr-1"></i>
+                <div id="currency-selector-mobile" class="flex items-center" aria-label="Selector de divisas móvil">
+                    <i class="fas fa-exchange-alt text-slate-500 text-sm mr-1" aria-hidden="true"></i>
                 </div>
                 
-                <button id="mobile-menu-button" class="text-slate-600 focus:outline-none p-2" title="Abrir menú de navegación">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                <button id="mobile-menu-button" class="text-slate-600 focus:outline-none p-2" 
+                        aria-label="Abrir menú de navegación" 
+                        aria-expanded="false" 
+                        aria-controls="mobile-menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
                 </button>
             </div>
         </nav>
         
-        <div id="mobile-menu" class="mobile-menu hidden md:hidden">
-            <a href="#vision" class="mobile-menu-item block text-slate-600 hover:bg-slate-100 hover:text-teal-600">Visión</a>
-            <a href="#modules" class="mobile-menu-item block text-slate-600 hover:bg-slate-100 hover:text-teal-600">Módulos</a>
-            <a href="#demo" class="mobile-menu-item block text-slate-600 hover:bg-slate-100 hover:text-teal-600">Demo IA</a>
-            <a href="#tech" class="mobile-menu-item block text-slate-600 hover:bg-slate-100 hover:text-teal-600">Tecnología</a>
-            <a href="#model" class="mobile-menu-item block text-slate-600 hover:bg-slate-100 hover:text-teal-600">Modelo de Negocio</a>
-            <a href="#downloads" class="mobile-menu-item block text-slate-600 hover:bg-slate-100 hover:text-teal-600">Descargas</a>
-            <a href="#auth" class="mobile-menu-item block text-slate-600 hover:bg-slate-100 hover:text-teal-600">Autenticación</a>
+        <!-- Menú móvil -->
+        <div id="mobile-menu" class="mobile-menu hidden md:hidden" role="menu" aria-labelledby="mobile-menu-button">
+            <a href="#vision" class="mobile-menu-item block text-slate-600 hover:bg-slate-100 hover:text-teal-600" role="menuitem">Visión</a>
+            <a href="#modules" class="mobile-menu-item block text-slate-600 hover:bg-slate-100 hover:text-teal-600" role="menuitem">Módulos</a>
+            <a href="#demo" class="mobile-menu-item block text-slate-600 hover:bg-slate-100 hover:text-teal-600" role="menuitem">Demo IA</a>
+            <a href="#tech" class="mobile-menu-item block text-slate-600 hover:bg-slate-100 hover:text-teal-600" role="menuitem">Tecnología</a>
+            <a href="#model" class="mobile-menu-item block text-slate-600 hover:bg-slate-100 hover:text-teal-600" role="menuitem">Modelo de Negocio</a>
+            <a href="#downloads" class="mobile-menu-item block text-slate-600 hover:bg-slate-100 hover:text-teal-600" role="menuitem">Descargas</a>
+            <a href="#auth" class="mobile-menu-item block text-slate-600 hover:bg-slate-100 hover:text-teal-600" role="menuitem">Autenticación</a>
         </div>
     </header><main>        <!-- Sección de Visión (Hero) -->
         <section id="vision" class="hero-section py-16 sm:py-20 md:py-24 lg:py-32">
@@ -620,7 +651,7 @@
             mobileMenuButton.addEventListener('click', () => {
                 mobileMenu.classList.toggle('hidden');
             });
-            
+
             document.querySelectorAll('#mobile-menu a').forEach(link => {
                 link.addEventListener('click', () => {
                     mobileMenu.classList.add('hidden');
@@ -856,15 +887,15 @@
             // LÓGICA DE INICIO DE SESIÓN CON API REAL
             // ============================================================
             document.getElementById('loginButton').addEventListener('click', async () => {
-                const email = document.getElementById('loginEmail').value.trim();
+                const loginEmailValue = document.getElementById('loginEmail').value.trim();
                 const password = document.getElementById('loginPassword').value;
                 
                 // Validación básica del lado del cliente
-                if (!email || !password) {
+                if (!loginEmailValue || !password) {
                     showMessage(loginMessage, 'Por favor, introduce correo y contraseña.', 'error');
                     return;
                 }
-                if (!isValidEmail(email)) {
+                if (!isValidEmail(loginEmailValue)) {
                     showMessage(loginMessage, 'Por favor, introduce un correo electrónico válido.', 'error');
                     return;
                 }
@@ -873,12 +904,12 @@
                     showMessage(loginMessage, 'Iniciando sesión...', 'success');
                     
                     // Usar la función de autenticación híbrida
-                    const result = await loginUser(email, password);
+                    const result = await loginUser(loginEmailValue, password);
                     
                     // Guardar datos de sesión
                     localStorage.setItem('isLoggedIn', 'true');
                     localStorage.setItem('userEmail', result.user.email);
-                    localStorage.setItem('userName', result.user.name || email.split('@')[0]);
+                    localStorage.setItem('userName', result.user.name || loginEmailValue.split('@')[0]);
                     localStorage.setItem('authToken', result.token);
                     localStorage.setItem('lastLoginDate', new Date().toISOString());
                     localStorage.setItem('loginMethod', 'login');
@@ -898,9 +929,11 @@
                     console.error('❌ Error en login:', error);
                     showMessage(loginMessage, error.message || 'Error al iniciar sesión. Intenta de nuevo.', 'error');
                 }
-            });            // ============================================================
+            });
+            // ============================================================
             // LÓGICA DE REGISTRO
-            // ============================================================            document.getElementById('registerButton').addEventListener('click', async () => {
+            // ============================================================
+            document.getElementById('registerButton').addEventListener('click', async () => {
                 const nameElement = document.getElementById('registerName');
                 const emailElement = document.getElementById('registerEmail');
                 const passwordElement = document.getElementById('registerPassword');
@@ -915,7 +948,7 @@
                 
                 const name = nameElement ? nameElement.value.trim() : '';
                 const email = emailElement ? emailElement.value.trim() : '';
-                const password = passwordElement ? passwordElement.value : '';
+                const regPassword = passwordElement ? passwordElement.value : '';
                 const confirmPassword = confirmPasswordElement ? confirmPasswordElement.value : '';
                 
                 console.log('Valores capturados:');
@@ -923,11 +956,11 @@
                 console.log('- Nombre después de trim:', `"${name}"`);
                 console.log('- Longitud del nombre:', name.length);
                 console.log('- Email:', `"${email}"`);
-                console.log('- Password presente:', password ? 'SÍ' : 'NO');
+                console.log('- Password presente:', regPassword ? 'SÍ' : 'NO');
                 console.log('- Confirm presente:', confirmPassword ? 'SÍ' : 'NO');
 
                 // Validación del lado del cliente
-                if (!name || !email || !password || !confirmPassword) {
+                if (!name || !email || !regPassword || !confirmPassword) {
                     console.log('❌ Falla en validación: campos vacíos');
                     showMessage(registerMessage, 'Por favor, completa todos los campos.', 'error');
                     return;
@@ -941,12 +974,12 @@
                     showMessage(registerMessage, 'Por favor, introduce un correo electrónico válido.', 'error');
                     return;
                 }
-                if (password.length < 6) {
+                if (regPassword.length < 6) {
                     console.log('❌ Falla en validación: contraseña muy corta');
                     showMessage(registerMessage, 'La contraseña debe tener al menos 6 caracteres.', 'error');
                     return;
                 }
-                if (password !== confirmPassword) {
+                if (regPassword !== confirmPassword) {
                     console.log('❌ Falla en validación: contraseñas no coinciden');
                     showMessage(registerMessage, 'Las contraseñas no coinciden.', 'error');
                     return;
@@ -957,7 +990,7 @@
                     showMessage(registerMessage, 'Creando cuenta y enviando código de verificación...', 'success');
                     
                     // Llamada real al backend para registro con nombre
-                    const response = await window.authAPI.registerUser(email, password, name);
+                    const response = await window.authAPI.registerUser(email, regPassword, name);
                     
                     // Guardar email temporalmente para verificación
                     localStorage.setItem('tempUserEmail', email);
@@ -1338,7 +1371,7 @@
                 messageElement.textContent = text;
                 messageElement.className = `form-message ${type}`;
                 messageElement.classList.remove('hidden');
-            }        });
+            });
     </script>    <!-- Script principal simple para desarrollo -->
     <script src="/js/app-simple.js"></script>
     
