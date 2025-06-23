@@ -1,0 +1,20 @@
+{
+  "version": 2,
+  "name": "malinoise-web",
+  "builds": [
+    {
+      "src": "server-hybrid.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/server-hybrid.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/public/$1"
+    }
+  ]
+}

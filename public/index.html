@@ -55,6 +55,7 @@
     
     <!-- Custom Styles and Scripts -->
     <link rel="stylesheet" href="css/custom.css">
+    <script src="js/auth-api-demo.js" defer></script>
     <script src="js/auth-api.js" defer></script>    <style>
         /* 
         ============================================================================
@@ -501,7 +502,21 @@
             <a href="#downloads" class="mobile-menu-item block text-slate-600 hover:bg-slate-100 hover:text-teal-600" role="menuitem">Descargas</a>
             <a href="#auth" class="mobile-menu-item block text-slate-600 hover:bg-slate-100 hover:text-teal-600" role="menuitem">Autenticación</a>
         </div>
-    </header><main>        <!-- Sección de Visión (Hero) -->
+    </header><main>        <!-- Banner de Modo Demo -->
+        <div id="demo-banner" class="bg-gradient-to-r from-blue-500 to-teal-500 text-white text-center py-3 px-4 relative">
+            <div class="container mx-auto">
+                <p class="text-sm sm:text-base font-medium">
+                    🚀 <strong>Modo Demo Activado</strong> - Credenciales de prueba: 
+                    <code class="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">demo@malinoise.com</code> / 
+                    <code class="bg-white bg-opacity-20 px-2 py-1 rounded text-xs">demo123</code>
+                </p>
+                <button onclick="this.parentElement.parentElement.style.display='none'" 
+                        class="absolute right-2 top-1/2 transform -translate-y-1/2 text-white hover:text-gray-200 text-xl leading-none"
+                        aria-label="Cerrar banner">×</button>
+            </div>
+        </div>
+        
+        <!-- Sección de Visión (Hero) -->
         <section id="vision" class="hero-section py-16 sm:py-20 md:py-24 lg:py-32">
             <div class="container mx-auto container-padding text-center">
                 <h2 class="hero-title text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-800 mb-4 sm:mb-6 animate-on-scroll">Tu Asistente de Negocios Inteligente</h2>
