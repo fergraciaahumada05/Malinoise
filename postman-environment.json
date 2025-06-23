@@ -1,0 +1,37 @@
+{
+  "id": "malinoise-development",
+  "name": "Malinoise Development",
+  "values": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:5000",
+      "enabled": true,
+      "type": "default"
+    },
+    {
+      "key": "test_email",
+      "value": "test@malinoise.com",
+      "enabled": true,
+      "type": "default"
+    },
+    {
+      "key": "test_password",
+      "value": "123456",
+      "enabled": true,
+      "type": "default"
+    },
+    {
+      "key": "test_name",
+      "value": "Usuario Test",
+      "enabled": true,
+      "type": "default"
+    },
+    {
+      "key": "auth_token",
+      "value": "",
+      "enabled": true,
+      "type": "secret"
+    }
+  ],
+  "_postman_variable_scope": "environment"
+}

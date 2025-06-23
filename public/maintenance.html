@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mantenimiento Programado - Malinoise</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Auto-refresh cada 5 minutos implementado vía JavaScript -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .maintenance-bg {
+            background: linear-gradient(135deg, #1e40af 0%, #3730a3 50%, #581c87 100%);
+        }
+        
+        .progress-bar {
+            animation: progress 20s linear infinite;
+        }
+        
+        @keyframes progress {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+        
+        .pulse-icon {
+            animation: pulse-scale 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse-scale {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .countdown-timer {
+            background: rgba(255, 255, 255, 0.1);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body class="maintenance-bg min-h-screen flex items-center justify-center text-white">
+    
+    <!-- Contenedor Principal -->
+    <div class="max-w-4xl mx-auto px-4 py-8 text-center">
+        
+        <!-- Icono Principal -->
+        <div class="mb-8">
+            <div class="w-32 h-32 mx-auto bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center pulse-icon">
+                <i class="fas fa-tools text-5xl text-white"></i>
+            </div>
+        </div>
+
+        <!-- Título -->
+        <h1 class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">
+            🚧 En Mantenimiento
+        </h1>
+        
+        <!-- Mensaje Principal -->
+        <div class="mb-8">
+            <h2 class="text-2xl md:text-3xl font-semibold mb-4 text-white">
+                Estamos Mejorando Malinoise Para Ti
+            </h2>
+            <p class="text-lg md:text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed">
+                Nuestro equipo está trabajando en importantes actualizaciones para ofrecerte una experiencia aún mejor. 
+                Volveremos pronto con nuevas funcionalidades y mejoras de rendimiento.
+            </p>
+        </div>
+
+        <!-- Tiempo Estimado -->
+        <div class="countdown-timer rounded-2xl p-6 mb-8 max-w-md mx-auto">
+            <h3 class="text-lg font-semibold mb-4 text-white">
+                <i class="far fa-clock mr-2"></i>
+                Tiempo Estimado de Finalización
+            </h3>
+            <div id="countdown" class="text-3xl font-bold text-yellow-400 mb-2">
+                --:--:--
+            </div>
+            <p class="text-sm text-blue-100">
+                Actualizándose automáticamente cada 5 minutos
+            </p>
+        </div>
+
+        <!-- Barra de Progreso -->
+        <div class="mb-8">
+            <div class="w-full bg-white/20 rounded-full h-3 mb-2">
+                <div class="progress-bar bg-gradient-to-r from-yellow-400 to-orange-500 h-3 rounded-full"></div>
+            </div>
+            <p class="text-sm text-blue-100">
+                Progreso de actualización...
+            </p>
+        </div>
+
+        <!-- Estado de Servicios -->
+        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 mb-8 border border-white/20">
+            <h3 class="text-xl font-semibold mb-4 text-white">
+                <i class="fas fa-server mr-2"></i>
+                Estado de Servicios
+            </h3>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="flex flex-col items-center p-3 bg-white/5 rounded-lg">
+                    <div class="w-3 h-3 bg-yellow-400 rounded-full mb-2 animate-pulse"></div>
+                    <span class="text-sm font-medium text-white">Servidor Web</span>
+                    <span class="text-xs text-blue-200">Actualizando</span>
+                </div>
+                <div class="flex flex-col items-center p-3 bg-white/5 rounded-lg">
+                    <div class="w-3 h-3 bg-green-400 rounded-full mb-2"></div>
+                    <span class="text-sm font-medium text-white">Base de Datos</span>
+                    <span class="text-xs text-blue-200">Operativa</span>
+                </div>
+                <div class="flex flex-col items-center p-3 bg-white/5 rounded-lg">
+                    <div class="w-3 h-3 bg-yellow-400 rounded-full mb-2 animate-pulse"></div>
+                    <span class="text-sm font-medium text-white">API</span>
+                    <span class="text-xs text-blue-200">Mantenimiento</span>
+                </div>
+                <div class="flex flex-col items-center p-3 bg-white/5 rounded-lg">
+                    <div class="w-3 h-3 bg-green-400 rounded-full mb-2"></div>
+                    <span class="text-sm font-medium text-white">CDN</span>
+                    <span class="text-xs text-blue-200">Operativo</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Actualizaciones y Mejoras -->
+        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 mb-8 border border-white/20">
+            <h3 class="text-xl font-semibold mb-4 text-white">
+                <i class="fas fa-rocket mr-2"></i>
+                Novedades en Esta Actualización
+            </h3>
+            <div class="grid md:grid-cols-2 gap-4 text-left">
+                <div class="flex items-start space-x-3">
+                    <i class="fas fa-check-circle text-green-400 mt-1"></i>
+                    <div>
+                        <h4 class="font-medium text-white">Sistema de IA Mejorado</h4>
+                        <p class="text-sm text-blue-200">Nuevos algoritmos de análisis predictivo</p>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-3">
+                    <i class="fas fa-check-circle text-green-400 mt-1"></i>
+                    <div>
+                        <h4 class="font-medium text-white">Interfaz Optimizada</h4>
+                        <p class="text-sm text-blue-200">Mejor experiencia móvil y desktop</p>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-3">
+                    <i class="fas fa-check-circle text-green-400 mt-1"></i>
+                    <div>
+                        <h4 class="font-medium text-white">Seguridad Reforzada</h4>
+                        <p class="text-sm text-blue-200">Protocolos de autenticación avanzados</p>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-3">
+                    <i class="fas fa-check-circle text-green-400 mt-1"></i>
+                    <div>
+                        <h4 class="font-medium text-white">Nuevos Reportes</h4>
+                        <p class="text-sm text-blue-200">Dashboards analíticos mejorados</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contacto y Redes Sociales -->
+        <div class="text-center">
+            <p class="text-lg font-medium text-white mb-4">
+                ¿Necesitas asistencia urgente?
+            </p>
+            <div class="flex justify-center gap-6 mb-6">
+                <a href="mailto:support@malinoise.com" class="flex items-center px-4 py-2 bg-white/20 rounded-lg hover:bg-white/30 transition-all">
+                    <i class="fas fa-envelope mr-2"></i>
+                    Soporte
+                </a>
+                <a href="tel:+1234567890" class="flex items-center px-4 py-2 bg-white/20 rounded-lg hover:bg-white/30 transition-all">
+                    <i class="fas fa-phone mr-2"></i>
+                    Emergencias
+                </a>
+                <a href="#" class="flex items-center px-4 py-2 bg-white/20 rounded-lg hover:bg-white/30 transition-all">
+                    <i class="fab fa-twitter mr-2"></i>
+                    Actualizaciones
+                </a>
+            </div>
+            
+            <!-- Información de la Empresa -->
+            <div class="text-sm text-blue-200">
+                <p>&copy; 2025 Malinoise. Todos los derechos reservados.</p>
+                <p>Sistema de Desarrollo y Análisis Empresarial con IA</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Configurar countdown (ejemplo: 2 horas)
+        let maintenanceEnd = new Date();
+        maintenanceEnd.setHours(maintenanceEnd.getHours() + 2);
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = maintenanceEnd.getTime() - now;
+
+            if (distance > 0) {
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById('countdown').innerHTML = 
+                    `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            } else {
+                document.getElementById('countdown').innerHTML = 'Finalizando...';
+                // Redirigir automáticamente cuando termine
+                setTimeout(() => {
+                    window.location.href = '/';
+                }, 3000);
+            }
+        }
+
+        // Actualizar countdown cada segundo
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Efecto de entrada
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 0.8s ease-in-out';
+                document.body.style.opacity = '1';
+            }, 200);
+        });
+
+        // Notificación de estado de red
+        window.addEventListener('online', function() {
+            console.log('Conexión restaurada - verificando estado del servidor...');
+        });
+
+        window.addEventListener('offline', function() {
+            console.log('Sin conexión a internet');
+        });
+
+        // Auto-refresh cada 5 minutos (300000 ms)
+        setTimeout(() => {
+            window.location.reload();
+        }, 300000);
+    </script>
+</body>
+</html>

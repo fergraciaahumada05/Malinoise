@@ -100,8 +100,7 @@
             0% { width: 0%; }
             100% { width: 100%; }
         }
-        
-        @keyframes bounce {
+          @keyframes bounce {
             0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
             40% { transform: translateY(-10px); }
             60% { transform: translateY(-5px); }
@@ -112,12 +111,206 @@
             50% { opacity: 0.7; }
         }
         
-        .download-card {
+        /* ===== ANIMACIONES AVANZADAS RESTAURADAS ===== */
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(13, 148, 136, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(13, 148, 136, 0.8); }
+        }
+        
+        @keyframes rotate360 {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        
+        /* ===== CLASES DE ANIMACIÓN ===== */
+        
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .animate-slide-up {
+            animation: slideInUp 0.6s ease-out;
+        }
+        
+        .animate-slide-left {
+            animation: slideInLeft 0.6s ease-out;
+        }
+        
+        .animate-slide-right {
+            animation: slideInRight 0.6s ease-out;
+        }
+        
+        .animate-fade-scale {
+            animation: fadeInScale 0.5s ease-out;
+        }
+        
+        .animate-glow {
+            animation: glow 2s infinite;
+        }
+        
+        .animate-rotate {
+            animation: rotate360 2s linear infinite;
+        }
+        
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+          .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Delays para animaciones escalonadas */
+        .animate-delay-1 {
+            animation-delay: 0.5s;
+        }
+        
+        .animate-delay-2 {
+            animation-delay: 1s;
+        }
+        
+        .animate-delay-3 {
+            animation-delay: 1.5s;
+        }
+        
+        /* ===== EFECTOS HOVER MEJORADOS ===== */
+        
+        .hover-lift {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .hover-glow {
             transition: all 0.3s ease;
         }
         
+        .hover-glow:hover {
+            box-shadow: 0 0 30px rgba(13, 148, 136, 0.4);
+            border-color: #0D9488;
+        }
+        
+        .hover-scale {
+            transition: transform 0.2s ease;
+        }
+        
+        .hover-scale:hover {
+            transform: scale(1.05);
+        }
+        
+        .hover-rotate {
+            transition: transform 0.3s ease;
+        }
+        
+        .hover-rotate:hover {
+            transform: rotate(5deg);
+        }
+        
+        /* ===== EFECTOS DE MÓDULOS INTERACTIVOS ===== */
+        
+        .module-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: center;
+        }
+        
+        .module-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .module-card.expanded {
+            transform: scale(1.03);
+            z-index: 10;
+        }
+        
+        .module-icon {
+            transition: all 0.3s ease;
+        }
+        
+        .module-card:hover .module-icon {
+            transform: scale(1.1) rotate(5deg);
+            color: #0D9488;
+        }
+        
+        .module-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+        }
+        
+        .module-details.expanded {
+            max-height: 300px;
+            padding-top: 1rem;
+        }
+          .download-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: center;
+        }
+        
         .download-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
         }
         
         .download-progress {
@@ -125,27 +318,42 @@
             bottom: 0;
             left: 0;
             height: 4px;
-            background: linear-gradient(90deg, #0D9488, #14B8A6);
+            background: linear-gradient(90deg, #0D9488, #14B8A6, #22D3EE);
             border-radius: 0 0 12px 12px;
             width: 0%;
             transition: width 0.3s ease;
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
         }
         
         .downloading {
             animation: pulse 1.5s infinite;
+            border-color: #0D9488;
         }
         
         .download-icon {
-            transition: transform 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .download-card:hover .download-icon {
             animation: bounce 1s;
+            color: #0D9488;
+            transform: scale(1.1);
         }
         
         .download-complete {
             background: linear-gradient(135deg, #0D9488, #14B8A6);
             color: white;
+            animation: glow 2s infinite;
+        }
+        
+        .download-complete .download-icon {
+            animation: rotate360 1s ease-in-out;
         }
         
         /* Estilos para formularios de autenticación */
@@ -296,24 +504,30 @@
     </header><main>        <!-- Sección de Visión (Hero) -->
         <section id="vision" class="hero-section py-16 sm:py-20 md:py-24 lg:py-32">
             <div class="container mx-auto container-padding text-center">
-                <h2 class="hero-title text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-800 mb-4 sm:mb-6">Tu Asistente de Negocios Inteligente</h2>                <p class="hero-subtitle text-base sm:text-lg md:text-xl text-slate-600 max-w-3xl mx-auto mb-6 sm:mb-8 leading-relaxed">
+                <h2 class="hero-title text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-800 mb-4 sm:mb-6 animate-on-scroll">Tu Asistente de Negocios Inteligente</h2>
+                
+                <div class="animate-float text-6xl sm:text-7xl md:text-8xl mb-6 sm:mb-8" aria-hidden="true">🤖</div>
+                
+                <p class="hero-subtitle text-base sm:text-lg md:text-xl text-slate-600 max-w-3xl mx-auto mb-6 sm:mb-8 leading-relaxed animate-on-scroll">
                     Una plataforma integral que no solo organiza el presente de tu negocio, sino que anticipa el futuro, convirtiendo datos en decisiones estratégicas para minimizar pérdidas y maximizar el crecimiento.
-                </p>                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                    <a href="#modules" class="inline-block bg-teal-600 text-white font-semibold px-6 sm:px-8 py-3 sm:py-4 rounded-lg hover:bg-teal-700 transition-colors shadow-lg hover:shadow-xl text-sm sm:text-base">Explora las Funcionalidades</a>
-                    <button id="dashboardAccessBtn" class="inline-block bg-slate-200 text-slate-800 font-semibold px-6 sm:px-8 py-3 sm:py-4 rounded-lg hover:bg-slate-300 transition-colors shadow hover:shadow-lg text-sm sm:text-base">Acceder al Dashboard</button>
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center animate-on-scroll">
+                    <a href="#modules" class="inline-block bg-teal-600 text-white font-semibold px-6 sm:px-8 py-3 sm:py-4 rounded-lg hover:bg-teal-700 transition-colors shadow-lg hover:shadow-xl text-sm sm:text-base hover-lift">Explora las Funcionalidades</a>
+                    <button id="dashboardAccessBtn" class="inline-block bg-slate-200 text-slate-800 font-semibold px-6 sm:px-8 py-3 sm:py-4 rounded-lg hover:bg-slate-300 transition-colors shadow hover:shadow-lg text-sm sm:text-base hover-lift">Acceder al Dashboard</button>
                 </div>
             </div>
         </section>        <!-- Sección de Módulos Interactivos -->
         <section id="modules" class="section-padding py-16 sm:py-20 bg-white">
             <div class="container mx-auto container-padding">
-                <div class="text-center mb-8 sm:mb-12">
+                <div class="text-center mb-8 sm:mb-12 animate-on-scroll">
                     <h3 class="section-title text-2xl sm:text-3xl md:text-4xl font-bold text-slate-800 mb-3 sm:mb-4">Módulos y Funcionalidades Clave</h3>
                     <p class="text-base sm:text-lg text-slate-600">Un ecosistema completo para potenciar cada área de tu emprendimiento. <span class="mobile-hidden">Haz clic en cada módulo para ver los detalles.</span></p>
                 </div>
                 <div class="modules-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">                    
-                    <div class="module-card bg-slate-50 p-4 sm:p-6 rounded-xl shadow-sm cursor-pointer hover:shadow-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-teal-600" data-module="1" tabindex="0">
+                    <div class="module-card bg-slate-50 p-4 sm:p-6 rounded-xl shadow-sm cursor-pointer hover:shadow-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-teal-600 hover-lift animate-on-scroll" data-module="1" tabindex="0">
                         <div class="flex items-center space-x-3 sm:space-x-4">
-                            <div class="module-card-icon text-3xl sm:text-4xl">📈</div>
+                            <div class="module-icon module-card-icon text-3xl sm:text-4xl">📈</div>
                             <h4 class="module-title text-lg sm:text-xl font-semibold text-slate-800">Gestión del Negocio</h4>
                         </div>
                         <p class="text-slate-600 mt-2 text-sm sm:text-base">La base de operaciones para configurar, monitorear y controlar tu negocio.</p>
@@ -325,9 +539,9 @@
                         </div>
                     </div>
                     
-                    <div class="module-card bg-slate-50 p-6 rounded-xl shadow-sm cursor-pointer hover:shadow-lg transition-shadow" data-module="2">
+                    <div class="module-card bg-slate-50 p-6 rounded-xl shadow-sm cursor-pointer hover:shadow-lg transition-all duration-300 hover-lift animate-on-scroll" data-module="2">
                         <div class="flex items-center space-x-4">
-                           <div class="module-card-icon">📦</div>
+                           <div class="module-icon module-card-icon">📦</div>
                             <h4 class="text-xl font-semibold text-slate-800">Inventario Inteligente</h4>
                         </div>
                         <p class="text-slate-600 mt-2">Optimiza tu stock con alertas y sugerencias automáticas.</p>
@@ -339,9 +553,9 @@
                         </div>
                     </div>
 
-                    <div class="module-card bg-slate-50 p-6 rounded-xl shadow-sm cursor-pointer hover:shadow-lg transition-shadow" data-module="3">
+                    <div class="module-card bg-slate-50 p-6 rounded-xl shadow-sm cursor-pointer hover:shadow-lg transition-all duration-300 hover-lift animate-on-scroll" data-module="3">
                         <div class="flex items-center space-x-4">
-                            <div class="module-card-icon">🔮</div>
+                            <div class="module-icon module-card-icon">🔮</div>
                             <h4 class="text-xl font-semibold text-slate-800">Análisis Predictivo</h4>
                         </div>
                         <p class="text-slate-600 mt-2">Anticípate a los problemas y oportunidades con el poder de la IA.</p>
@@ -351,9 +565,9 @@
                             <p>✓ Simulación de escenarios de negocio</p>
                             <p>✓ Recomendaciones proactivas para evitar pérdidas</p>
                         </div>
-                    </div>                    <div class="module-card bg-slate-50 p-6 rounded-xl shadow-sm cursor-pointer hover:shadow-lg transition-shadow" data-module="4">
+                    </div>                    <div class="module-card bg-slate-50 p-6 rounded-xl shadow-sm cursor-pointer hover:shadow-lg transition-all duration-300 hover-lift animate-on-scroll" data-module="4">
                         <div class="flex items-center space-x-4">
-                            <div class="module-card-icon">🤖</div>
+                            <div class="module-icon module-card-icon animate-glow">🤖</div>
                             <h4 class="text-xl font-semibold text-slate-800">Asistente IA ✨</h4>
                         </div>
                         <p class="text-slate-600 mt-2">Tu consejero estratégico personal, disponible 24/7. ¡Pruébalo abajo!</p>
@@ -364,7 +578,7 @@
                             <p>✓ Automatización de informes a petición</p>
 
                             <!-- Sección del chat del Asistente IA -->
-                            <div class="mt-4 p-4 border border-teal-200 bg-white rounded-lg shadow-inner">
+                            <div class="mt-4 p-4 border border-teal-200 bg-white rounded-lg shadow-inner hover-glow">
                                 <h5 class="text-base font-semibold text-teal-700 mb-3">Chatea con tu Asistente ✨</h5>
                                 <div id="aiAssistantChat" class="chat-container">
                                     <!-- Los mensajes del chat se insertarán aquí -->
@@ -372,7 +586,7 @@
                                 </div>
                                 <div class="flex mt-4 gap-2">
                                     <input type="text" id="aiAssistantInput" placeholder="Haz una pregunta a tu asistente..." class="flex-1 p-2 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-teal-500 text-slate-800">
-                                    <button id="sendAiMessage" class="bg-teal-600 text-white font-semibold px-4 py-2 rounded-lg hover:bg-teal-700 transition-colors shadow">
+                                    <button id="sendAiMessage" class="bg-teal-600 text-white font-semibold px-4 py-2 rounded-lg hover:bg-teal-700 transition-colors shadow hover-scale">
                                         Enviar
                                     </button>
                                 </div>
@@ -381,9 +595,9 @@
                         </div>
                     </div>
 
-                    <div class="module-card bg-slate-50 p-6 rounded-xl shadow-sm cursor-pointer hover:shadow-lg transition-shadow" data-module="5">
+                    <div class="module-card bg-slate-50 p-6 rounded-xl shadow-sm cursor-pointer hover:shadow-lg transition-all duration-300 hover-lift animate-on-scroll" data-module="5">
                         <div class="flex items-center space-x-4">
-                            <div class="module-card-icon">⚙️</div>
+                            <div class="module-icon module-card-icon">⚙️</div>
                             <h4 class="text-xl font-semibold text-slate-800">Automatización</h4>
                         </div>
                         <p class="text-slate-600 mt-2">Ahorra tiempo y reduce errores automatizando tareas repetitivas.</p>
@@ -395,9 +609,9 @@
                         </div>
                     </div>
 
-                    <div class="module-card bg-slate-50 p-6 rounded-xl shadow-sm cursor-pointer hover:shadow-lg transition-shadow" data-module="6">
+                    <div class="module-card bg-slate-50 p-6 rounded-xl shadow-sm cursor-pointer hover:shadow-lg transition-all duration-300 hover-lift animate-on-scroll" data-module="6">
                         <div class="flex items-center space-x-4">
-                            <div class="module-card-icon">🔔</div>
+                            <div class="module-icon module-card-icon">🔔</div>
                             <h4 class="text-xl font-semibold text-slate-800">Alertas Inteligentes</h4>
                         </div>
                         <p class="text-slate-600 mt-2">Mantente informado de lo importante, sin el ruido innecesario.</p>
@@ -410,23 +624,22 @@
                     </div>
                 </div>
             </div>
-        </section>
-          <!-- Sección de Demostración Visual (Gráfico IA) -->
+        </section>          <!-- Sección de Demostración Visual (Gráfico IA) -->
         <section id="demo" class="section-padding py-16 sm:py-20">
             <div class="container mx-auto container-padding">
-                <div class="text-center mb-8 sm:mb-12">
+                <div class="text-center mb-8 sm:mb-12 animate-on-scroll">
                     <h3 class="section-title text-2xl sm:text-3xl md:text-4xl font-bold text-slate-800 mb-3 sm:mb-4">El Poder de la Predicción en Acción</h3>
                     <p class="text-sm sm:text-base lg:text-lg text-slate-600">Este gráfico simula cómo Malinoise analiza tus ventas, predice tendencias y detecta anomalías, permitiéndote actuar a tiempo. <span class="mobile-hidden">Interactúa con los botones para ver las capacidades de la IA.</span></p>
                 </div>
-                <div class="bg-white p-4 sm:p-6 rounded-xl shadow-lg">
+                <div class="bg-white p-4 sm:p-6 rounded-xl shadow-lg hover-lift animate-on-scroll">
                     <div class="chart-container">
                         <canvas id="salesChart"></canvas>
                     </div>
                     <div class="chart-controls mt-4 sm:mt-6 flex justify-center items-center flex-wrap gap-3 sm:gap-4">
-                        <button id="togglePrediction" class="chart-control-btn bg-teal-600 text-white text-xs sm:text-sm font-semibold px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg hover:bg-teal-700 transition-colors flex items-center justify-center">
+                        <button id="togglePrediction" class="chart-control-btn bg-teal-600 text-white text-xs sm:text-sm font-semibold px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg hover:bg-teal-700 transition-colors flex items-center justify-center hover-scale">
                             <span class="mobile-hidden">Ocultar </span>Predicción IA
                         </button>
-                        <button id="toggleAnomaly" class="chart-control-btn bg-amber-500 text-white text-xs sm:text-sm font-semibold px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg hover:bg-amber-600 transition-colors flex items-center justify-center">
+                        <button id="toggleAnomaly" class="chart-control-btn bg-amber-500 text-white text-xs sm:text-sm font-semibold px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg hover:bg-amber-600 transition-colors flex items-center justify-center hover-scale">
                             <span class="mobile-hidden">Ocultar </span>Anomalías
                         </button>
                     </div>
@@ -435,20 +648,21 @@
         </section>        <!-- Sección de Tecnología -->
         <section id="tech" class="section-padding py-16 sm:py-20 bg-white">
             <div class="container mx-auto container-padding">
-                <div class="text-center mb-8 sm:mb-12">
+                <div class="text-center mb-8 sm:mb-12 animate-on-scroll">
                     <h3 class="section-title text-2xl sm:text-3xl md:text-4xl font-bold text-slate-800 mb-3 sm:mb-4">Tecnología Escalable y Segura</h3>
                     <p class="text-sm sm:text-base lg:text-lg text-slate-600">Construimos sobre una base moderna y robusta para garantizar rendimiento y fiabilidad.</p>
                 </div>
                 <div class="max-w-4xl mx-auto space-y-6 sm:space-y-8">
-                     <div class="tech-item text-center p-4 sm:p-6 bg-slate-50 rounded-xl">
+                     <div class="tech-item text-center p-4 sm:p-6 bg-slate-50 rounded-xl hover-lift animate-on-scroll">
+                        <div class="text-4xl mb-3 animate-float">📱</div>
                         <h4 class="font-semibold text-base sm:text-lg text-teal-600">Frontend (App Móvil)</h4>
                         <p class="text-xl sm:text-2xl font-bold mt-1">React Native</p>
                         <p class="text-slate-600 text-xs sm:text-sm mt-1">Para una experiencia nativa y fluida en iOS y Android.</p>
                     </div>
                     <div class="flex justify-center mobile-hidden">
                         <div class="h-6 sm:h-8 w-px bg-slate-300"></div>
-                    </div>
-                    <div class="tech-item text-center p-4 sm:p-6 bg-slate-50 rounded-xl">
+                    </div>                    <div class="tech-item text-center p-4 sm:p-6 bg-slate-50 rounded-xl hover-lift animate-on-scroll">
+                        <div class="text-4xl mb-3 animate-float animate-delay-1">☁️</div>
                         <h4 class="font-semibold text-base sm:text-lg text-teal-600">Backend & Base de Datos</h4>
                         <p class="text-xl sm:text-2xl font-bold mt-1">Firebase / AWS Amplify</p>
                         <p class="text-slate-600 text-xs sm:text-sm mt-1">Servicios en la nube para sincronización en tiempo real, autenticación y escalabilidad.</p>
@@ -456,7 +670,8 @@
                     <div class="flex justify-center mobile-hidden">
                         <div class="h-6 sm:h-8 w-px bg-slate-300"></div>
                     </div>
-                    <div class="tech-item text-center p-4 sm:p-6 bg-slate-50 rounded-xl">
+                    <div class="tech-item text-center p-4 sm:p-6 bg-slate-50 rounded-xl hover-lift animate-on-scroll">
+                        <div class="text-4xl mb-3 animate-float animate-delay-2">🧠</div>
                         <h4 class="font-semibold text-base sm:text-lg text-teal-600">Inteligencia Artificial</h4>
                         <p class="text-xl sm:text-2xl font-bold mt-1">Google Cloud AI / AWS AI</p>
                         <p class="text-slate-600 text-xs sm:text-sm mt-1">APIs y modelos optimizados para análisis predictivo y el asistente conversacional.</p>
@@ -466,14 +681,17 @@
         </section>        <!-- Sección de Modelo de Negocio -->
         <section id="model" class="section-padding py-16 sm:py-20">
              <div class="container mx-auto container-padding">
-                <div class="text-center mb-8 sm:mb-12">
+                <div class="text-center mb-8 sm:mb-12 animate-on-scroll">
                     <h3 class="section-title text-2xl sm:text-3xl md:text-4xl font-bold text-slate-800 mb-3 sm:mb-4">Modelo de Negocio Flexible</h3>
                     <p class="text-sm sm:text-base lg:text-lg text-slate-600">Un plan para crecer contigo. Empieza gratis y desbloquea más poder cuando lo necesites.</p>
                 </div>
                 <div class="pricing-table grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-4xl mx-auto">
-                    <div class="pricing-column border border-slate-200 rounded-xl p-6 sm:p-8 bg-white shadow-sm">
-                        <h4 class="pricing-header text-xl sm:text-2xl font-bold text-slate-800 mb-2">Freemium</h4>
-                        <p class="text-slate-600 text-sm sm:text-base mb-4 sm:mb-6">Ideal para empezar y organizar tu negocio.</p>
+                    <div class="pricing-column border border-slate-200 rounded-xl p-6 sm:p-8 bg-white shadow-sm hover-lift animate-on-scroll">
+                        <div class="text-center mb-4">
+                            <div class="text-5xl mb-3">💡</div>
+                            <h4 class="pricing-header text-xl sm:text-2xl font-bold text-slate-800 mb-2">Freemium</h4>
+                            <p class="text-slate-600 text-sm sm:text-base mb-4 sm:mb-6">Ideal para empezar y organizar tu negocio.</p>
+                        </div>
                         <ul class="space-y-2 sm:space-y-3 text-slate-600 text-sm sm:text-base">
                             <li class="pricing-cell flex items-center"><span class="text-teal-500 mr-3 text-lg">✔</span>Gestión de negocio básica</li>
                             <li class="pricing-cell flex items-center"><span class="text-teal-500 mr-3 text-lg">✔</span>Inventario con alertas</li>
@@ -481,10 +699,13 @@
                             <li class="pricing-cell flex items-center"><span class="text-teal-500 mr-3 text-lg">✔</span>Notificaciones estándar</li>
                         </ul>
                     </div>
-                     <div class="pricing-column border-2 border-teal-500 rounded-xl p-6 sm:p-8 bg-white shadow-lg relative">
+                     <div class="pricing-column border-2 border-teal-500 rounded-xl p-6 sm:p-8 bg-white shadow-lg relative hover-lift animate-glow animate-on-scroll">
                         <div class="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 bg-teal-500 text-white text-xs font-bold px-3 py-1 rounded-full mobile-hidden">MÁS POPULAR</div>
-                        <h4 class="pricing-header text-xl sm:text-2xl font-bold text-slate-800 mb-2">Premium</h4>
-                        <p class="text-slate-600 text-sm sm:text-base mb-4 sm:mb-6">Para emprendedores que buscan optimizar y predecir.</p>
+                        <div class="text-center mb-4">
+                            <div class="text-5xl mb-3 animate-glow">⭐</div>
+                            <h4 class="pricing-header text-xl sm:text-2xl font-bold text-slate-800 mb-2">Premium</h4>
+                            <p class="text-slate-600 text-sm sm:text-base mb-4 sm:mb-6">Para emprendedores que buscan optimizar y predecir.</p>
+                        </div>
                         <ul class="space-y-2 sm:space-y-3 text-slate-600 text-sm sm:text-base">
                             <li class="pricing-cell flex items-center"><span class="text-teal-500 mr-3 text-lg">✔</span>Todo lo de Freemium</li>
                             <li class="pricing-cell flex items-center font-semibold"><span class="text-teal-500 mr-3 text-lg">✔</span>Análisis Predictivo IA</li>
@@ -498,33 +719,35 @@
         </section><!-- Sección de Descargas con Animaciones -->
         <section id="downloads" class="section-padding py-16 sm:py-20 bg-white">
             <div class="container mx-auto container-padding text-center">
-                <h3 class="section-title text-2xl sm:text-3xl md:text-4xl font-bold text-slate-800 mb-3 sm:mb-4">Descarga Malinoise en tu Dispositivo</h3>
-                <p class="text-sm sm:text-base lg:text-lg text-slate-600 max-w-2xl mx-auto mb-8 sm:mb-12">
-                    Malinoise estará disponible en todas tus plataformas preferidas. Accede a tu negocio desde cualquier lugar, manteniendo tus datos sincronizados.
-                </p>
+                <div class="animate-on-scroll">
+                    <h3 class="section-title text-2xl sm:text-3xl md:text-4xl font-bold text-slate-800 mb-3 sm:mb-4">Descarga Malinoise en tu Dispositivo</h3>
+                    <p class="text-sm sm:text-base lg:text-lg text-slate-600 max-w-2xl mx-auto mb-8 sm:mb-12">
+                        Malinoise estará disponible en todas tus plataformas preferidas. Accede a tu negocio desde cualquier lugar, manteniendo tus datos sincronizados.
+                    </p>
+                </div>
                 <div class="downloads-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-4xl mx-auto">
-                    <div class="download-card relative flex flex-col items-center p-4 sm:p-6 bg-slate-50 rounded-xl shadow-md hover:shadow-lg cursor-pointer transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-teal-600" data-platform="desktop" tabindex="0">
+                    <div class="download-card relative flex flex-col items-center p-4 sm:p-6 bg-slate-50 rounded-xl shadow-md hover:shadow-lg cursor-pointer transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-teal-600 hover-lift animate-on-scroll" data-platform="desktop" tabindex="0">
                         <span class="download-icon text-4xl sm:text-5xl mb-2 sm:mb-3">💻</span>
                         <span class="text-base sm:text-lg font-semibold text-slate-800">Escritorio</span>
                         <span class="text-xs sm:text-sm text-slate-600 mb-2">Windows/macOS</span>
                         <div class="download-status text-xs text-slate-500 mobile-center">Toca para descargar</div>
                         <div class="download-progress"></div>
                     </div>
-                    <div class="download-card relative flex flex-col items-center p-4 sm:p-6 bg-slate-50 rounded-xl shadow-md hover:shadow-lg cursor-pointer transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-teal-600" data-platform="ios" tabindex="0">
+                    <div class="download-card relative flex flex-col items-center p-4 sm:p-6 bg-slate-50 rounded-xl shadow-md hover:shadow-lg cursor-pointer transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-teal-600 hover-lift animate-on-scroll" data-platform="ios" tabindex="0">
                         <span class="download-icon text-4xl sm:text-5xl mb-2 sm:mb-3">📱</span>
                         <span class="text-base sm:text-lg font-semibold text-slate-800">iOS</span>
                         <span class="text-xs sm:text-sm text-slate-600 mb-2">iPhone</span>
                         <div class="download-status text-xs text-slate-500 mobile-center">Toca para descargar</div>
                         <div class="download-progress"></div>
                     </div>
-                    <div class="download-card relative flex flex-col items-center p-4 sm:p-6 bg-slate-50 rounded-xl shadow-md hover:shadow-lg cursor-pointer transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-teal-600" data-platform="ipad" tabindex="0">
+                    <div class="download-card relative flex flex-col items-center p-4 sm:p-6 bg-slate-50 rounded-xl shadow-md hover:shadow-lg cursor-pointer transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-teal-600 hover-lift animate-on-scroll" data-platform="ipad" tabindex="0">
                         <span class="download-icon text-4xl sm:text-5xl mb-2 sm:mb-3">📱</span>
                         <span class="text-base sm:text-lg font-semibold text-slate-800">iPad</span>
                         <span class="text-xs sm:text-sm text-slate-600 mb-2">Tablet Apple</span>
                         <div class="download-status text-xs text-slate-500 mobile-center">Toca para descargar</div>
                         <div class="download-progress"></div>
                     </div>
-                    <div class="download-card relative flex flex-col items-center p-4 sm:p-6 bg-slate-50 rounded-xl shadow-md hover:shadow-lg cursor-pointer transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-teal-600" data-platform="android" tabindex="0">
+                    <div class="download-card relative flex flex-col items-center p-4 sm:p-6 bg-slate-50 rounded-xl shadow-md hover:shadow-lg cursor-pointer transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-teal-600 hover-lift animate-on-scroll" data-platform="android" tabindex="0">
                         <span class="download-icon text-4xl sm:text-5xl mb-2 sm:mb-3">🤖</span>
                         <span class="text-base sm:text-lg font-semibold text-slate-800">Android</span>
                         <span class="text-xs sm:text-sm text-slate-600 mb-2">Teléfono/Tablet</span>
@@ -536,11 +759,13 @@
         </section>        <!-- Sección de Autenticación con Formularios Dinámicos -->
         <section id="auth" class="section-padding py-16 sm:py-20">
             <div class="container mx-auto container-padding text-center">
-                <h3 class="section-title text-2xl sm:text-3xl md:text-4xl font-bold text-slate-800 mb-3 sm:mb-4">Accede a tu Cuenta Malinoise</h3>
-                <p class="text-sm sm:text-base lg:text-lg text-slate-600 max-w-2xl mx-auto mb-6 sm:mb-8">
-                    Gestiona tu negocio de forma segura. Inicia sesión o regístrate para comenzar a transformar tus operaciones.
-                </p>
-                <div class="auth-container max-w-sm sm:max-w-md mx-auto p-6 sm:p-8 bg-white rounded-xl shadow-lg">
+                <div class="animate-on-scroll">
+                    <h3 class="section-title text-2xl sm:text-3xl md:text-4xl font-bold text-slate-800 mb-3 sm:mb-4">Accede a tu Cuenta Malinoise</h3>
+                    <p class="text-sm sm:text-base lg:text-lg text-slate-600 max-w-2xl mx-auto mb-6 sm:mb-8">
+                        Gestiona tu negocio de forma segura. Inicia sesión o regístrate para comenzar a transformar tus operaciones.
+                    </p>
+                </div>
+                <div class="auth-container max-w-sm sm:max-w-md mx-auto p-6 sm:p-8 bg-white rounded-xl shadow-lg hover-lift animate-on-scroll">
                     <div class="auth-tabs flex justify-center mb-4 sm:mb-6 border-b border-slate-200 flex-wrap">
                         <button id="showLogin" class="auth-tab px-3 sm:px-4 py-2 text-xs sm:text-sm text-slate-600 font-semibold border-b-2 border-transparent hover:border-teal-600 transition-colors">Iniciar Sesión</button>
                         <button id="showRegister" class="auth-tab px-3 sm:px-4 py-2 text-xs sm:text-sm text-slate-600 font-semibold border-b-2 border-transparent hover:border-teal-600 transition-colors">Registrarse</button>
@@ -656,15 +881,49 @@
                 link.addEventListener('click', () => {
                     mobileMenu.classList.add('hidden');
                 });
-            });
-
-            // Funcionalidad de las tarjetas de módulos (acordeón)
+            });            // Funcionalidad de las tarjetas de módulos (acordeón) mejorada
             const moduleCards = document.querySelectorAll('.module-card');
             moduleCards.forEach(card => {
                 card.addEventListener('click', () => {
                     const details = card.querySelector('.module-details');
-                    details.classList.toggle('hidden');
-                    card.classList.toggle('bg-white');
+                    const icon = card.querySelector('.module-icon');
+                    
+                    // Toggle del contenido con animaciones mejoradas
+                    if (details.classList.contains('hidden')) {
+                        // Expandir
+                        details.classList.remove('hidden');
+                        card.classList.add('expanded');
+                        card.classList.add('bg-white');
+                        card.classList.remove('bg-slate-50');
+                        
+                        if (icon) {
+                            icon.style.transform = 'scale(1.1) rotate(10deg)';
+                            icon.style.color = '#0D9488';
+                        }
+                        
+                        // Usar requestAnimationFrame para animación suave
+                        requestAnimationFrame(() => {
+                            details.style.maxHeight = details.scrollHeight + 'px';
+                        });
+                        
+                    } else {
+                        // Contraer
+                        details.style.maxHeight = '0px';
+                        card.classList.remove('expanded');
+                        card.classList.remove('bg-white');
+                        card.classList.add('bg-slate-50');
+                        
+                        if (icon) {
+                            icon.style.transform = 'scale(1) rotate(0deg)';
+                            icon.style.color = '';
+                        }
+                        
+                        // Esperar a que termine la animación antes de ocultar
+                        setTimeout(() => {
+                            details.classList.add('hidden');
+                            details.style.maxHeight = '';
+                        }, 400);
+                    }
                 });
             });
 
@@ -755,9 +1014,7 @@
                 e.target.textContent = isVisible ? 'Mostrar Anomalías' : 'Ocultar Anomalías';
                 e.target.classList.toggle('bg-slate-400', isVisible);
                 e.target.classList.toggle('bg-amber-500', !isVisible);
-            });
-
-            // Navegación activa por scroll
+            });            // Navegación activa por scroll
             const navLinks = document.querySelectorAll('.nav-link');
             const sections = document.querySelectorAll('main section');
 
@@ -776,6 +1033,102 @@
                         link.classList.add('nav-link-active');                    }
                 });
             });
+
+            // ============================================================
+            // SISTEMA DE ANIMACIONES DE SCROLL
+            // ============================================================
+            
+            /**
+             * Configura el observador de intersección para las animaciones de scroll
+             */
+            function initScrollAnimations() {
+                const observerOptions = {
+                    threshold: 0.1,
+                    rootMargin: '0px 0px -50px 0px'
+                };
+
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            // Una vez visible, ya no necesitamos observarlo
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, observerOptions);
+
+                // Observar todos los elementos con la clase animate-on-scroll
+                const elementsToAnimate = document.querySelectorAll('.animate-on-scroll');
+                elementsToAnimate.forEach(element => {
+                    observer.observe(element);
+                });
+            }
+
+            /**
+             * Mejora la funcionalidad de los módulos con efectos visuales
+             */
+            function enhanceModuleInteractions() {
+                const moduleCards = document.querySelectorAll('.module-card');
+                
+                moduleCards.forEach((card, index) => {
+                    // Agregar delay escalonado para la animación inicial
+                    card.style.animationDelay = `${index * 0.1}s`;
+                    
+                    // Efectos hover mejorados
+                    card.addEventListener('mouseenter', () => {
+                        const icon = card.querySelector('.module-icon');
+                        if (icon) {
+                            icon.style.transform = 'scale(1.1) rotate(5deg)';
+                            icon.style.transition = 'transform 0.3s ease';
+                        }
+                    });
+                    
+                    card.addEventListener('mouseleave', () => {
+                        const icon = card.querySelector('.module-icon');
+                        if (icon && !card.classList.contains('expanded')) {
+                            icon.style.transform = 'scale(1) rotate(0deg)';
+                        }
+                    });
+                });
+            }
+
+            /**
+             * Añade efectos de partículas flotantes al hero
+             */
+            function addFloatingParticles() {
+                const heroSection = document.querySelector('#vision');
+                if (!heroSection) return;
+                
+                // Crear contenedor de partículas
+                const particlesContainer = document.createElement('div');
+                particlesContainer.className = 'absolute inset-0 overflow-hidden pointer-events-none';
+                particlesContainer.style.zIndex = '0';
+                
+                // Crear partículas
+                for (let i = 0; i < 6; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'absolute opacity-10 text-teal-500';
+                    particle.innerHTML = ['💡', '📈', '🤖', '⚡', '🎯', '✨'][i];
+                    particle.style.fontSize = '2rem';
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.top = Math.random() * 100 + '%';
+                    particle.style.animationDelay = Math.random() * 5 + 's';
+                    particle.classList.add('animate-float');
+                    
+                    particlesContainer.appendChild(particle);
+                }
+                
+                // Hacer el hero section relativo para contener las partículas
+                heroSection.style.position = 'relative';
+                heroSection.insertBefore(particlesContainer, heroSection.firstChild);
+            }
+
+            // Inicializar todas las mejoras
+            initScrollAnimations();
+            enhanceModuleInteractions();
+            addFloatingParticles();
+            
+            console.log('✨ Animaciones y efectos visuales inicializados correctamente');
             
             // Funcionalidad de animación de descarga
             const downloadCards = document.querySelectorAll('.download-card');
@@ -1371,7 +1724,8 @@
                 messageElement.textContent = text;
                 messageElement.className = `form-message ${type}`;
                 messageElement.classList.remove('hidden');
-            });
+            }
+        });
     </script>    <!-- Script principal simple para desarrollo -->
     <script src="/js/app-simple.js"></script>
     

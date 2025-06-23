@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página No Encontrada - Malinoise</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+        }
+        
+        .floating-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .pulse-glow {
+            animation: pulse-glow 2s infinite;
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(13, 148, 136, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(13, 148, 136, 0.6); }
+        }
+        
+        .loading-dots {
+            animation: loading-dots 1.5s infinite;
+        }
+        
+        @keyframes loading-dots {
+            0%, 20% { content: ''; }
+            40% { content: '.'; }
+            60% { content: '..'; }
+            80%, 100% { content: '...'; }
+        }
+        
+        .maintenance-mode {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen flex items-center justify-center text-white">
+    <!-- Contenedor Principal -->
+    <div class="max-w-4xl mx-auto px-4 py-8 text-center">
+        
+        <!-- Logo/Icono Flotante -->
+        <div class="floating-animation mb-8">
+            <div class="w-32 h-32 mx-auto bg-gradient-to-br from-teal-400 to-teal-600 rounded-full flex items-center justify-center pulse-glow">
+                <i class="fas fa-robot text-4xl text-white"></i>
+            </div>
+        </div>
+
+        <!-- Título Principal -->
+        <h1 class="text-6xl md:text-8xl font-bold mb-4 bg-gradient-to-r from-teal-400 to-cyan-400 bg-clip-text text-transparent">
+            404
+        </h1>
+        
+        <!-- Subtítulo -->
+        <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-slate-200">
+            ¡Oops! Página No Encontrada
+        </h2>
+        
+        <!-- Descripción -->
+        <p class="text-lg md:text-xl text-slate-300 mb-8 max-w-2xl mx-auto leading-relaxed">
+            La página que buscas no existe o ha sido movida. 
+            <span class="text-teal-400 font-medium">Malinoise</span> está en constante evolución para ofrecerte la mejor experiencia.
+        </p>
+
+        <!-- Estado del Sistema -->
+        <div class="bg-slate-800/50 backdrop-blur-sm rounded-2xl p-6 mb-8 border border-slate-700">
+            <div class="grid md:grid-cols-3 gap-4 text-center">
+                <div class="flex flex-col items-center">
+                    <div class="w-3 h-3 bg-green-400 rounded-full mb-2 animate-pulse"></div>
+                    <span class="text-sm text-slate-300">Servidor Online</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="w-3 h-3 bg-green-400 rounded-full mb-2 animate-pulse"></div>
+                    <span class="text-sm text-slate-300">Base de Datos OK</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="w-3 h-3 bg-yellow-400 rounded-full mb-2 animate-pulse"></div>
+                    <span class="text-sm text-slate-300">En Desarrollo</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botones de Acción -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+            <a href="/" class="inline-flex items-center px-6 py-3 bg-teal-600 hover:bg-teal-700 rounded-lg font-medium transition-all duration-300 transform hover:scale-105">
+                <i class="fas fa-home mr-2"></i>
+                Ir al Inicio
+            </a>
+            <a href="/dashboard" class="inline-flex items-center px-6 py-3 bg-slate-700 hover:bg-slate-600 rounded-lg font-medium transition-all duration-300 transform hover:scale-105">
+                <i class="fas fa-tachometer-alt mr-2"></i>
+                Dashboard
+            </a>
+            <button onclick="history.back()" class="inline-flex items-center px-6 py-3 bg-slate-700 hover:bg-slate-600 rounded-lg font-medium transition-all duration-300 transform hover:scale-105">
+                <i class="fas fa-arrow-left mr-2"></i>
+                Volver Atrás
+            </button>
+        </div>
+
+        <!-- Información de Contacto -->
+        <div class="text-center text-slate-400">
+            <p class="mb-2">¿Necesitas ayuda?</p>
+            <div class="flex justify-center gap-6">
+                <a href="mailto:support@malinoise.com" class="hover:text-teal-400 transition-colors">
+                    <i class="fas fa-envelope mr-1"></i>
+                    Soporte
+                </a>
+                <a href="#" class="hover:text-teal-400 transition-colors">
+                    <i class="fas fa-question-circle mr-1"></i>
+                    FAQ
+                </a>
+                <a href="#" class="hover:text-teal-400 transition-colors">
+                    <i class="fas fa-bug mr-1"></i>
+                    Reportar Error
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modo Mantenimiento (Oculto por defecto) -->
+    <div id="maintenanceMode" class="fixed inset-0 maintenance-mode flex items-center justify-center text-white hidden z-50">
+        <div class="max-w-2xl mx-auto px-4 py-8 text-center">
+            <div class="floating-animation mb-8">
+                <div class="w-24 h-24 mx-auto bg-white/20 rounded-full flex items-center justify-center">
+                    <i class="fas fa-tools text-3xl text-white"></i>
+                </div>
+            </div>
+            
+            <h1 class="text-4xl md:text-6xl font-bold mb-4">
+                🚧 En Mantenimiento
+            </h1>
+            
+            <p class="text-xl mb-6">
+                Estamos actualizando Malinoise para ofrecerte una mejor experiencia.
+            </p>
+            
+            <div class="bg-white/20 backdrop-blur-sm rounded-lg p-4 mb-6">
+                <p class="text-sm">
+                    Tiempo estimado de mantenimiento: 
+                    <span class="font-semibold" id="maintenanceTime">30 minutos</span>
+                </p>
+            </div>
+            
+            <p class="text-sm text-white/80">
+                Gracias por tu paciencia. Vuelve pronto.
+            </p>
+        </div>
+    </div>
+
+    <!-- JavaScript para Funcionalidades Dinámicas -->
+    <script>
+        // Funciones para activar modo mantenimiento
+        function enableMaintenanceMode() {
+            document.getElementById('maintenanceMode').classList.remove('hidden');
+        }
+
+        function disableMaintenanceMode() {
+            document.getElementById('maintenanceMode').classList.add('hidden');
+        }
+
+        // Detectar si está en modo mantenimiento por parámetro URL
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('maintenance') === 'true') {
+            enableMaintenanceMode();
+        }
+
+        // Auto-refresh cada 30 segundos si está en mantenimiento
+        if (urlParams.get('maintenance') === 'true') {
+            setTimeout(() => {
+                window.location.reload();
+            }, 30000);
+        }
+
+        // Efectos visuales adicionales
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animación de entrada
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 0.5s ease-in-out';
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+
+        // Manejo de errores de red
+        window.addEventListener('online', function() {
+            if (document.getElementById('networkStatus')) {
+                document.getElementById('networkStatus').textContent = 'Conexión restaurada';
+                document.getElementById('networkStatus').className = 'text-green-400';
+            }
+        });
+
+        window.addEventListener('offline', function() {
+            if (document.getElementById('networkStatus')) {
+                document.getElementById('networkStatus').textContent = 'Sin conexión';
+                document.getElementById('networkStatus').className = 'text-red-400';
+            }
+        });
+    </script>
+</body>
+</html>

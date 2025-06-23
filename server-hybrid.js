@@ -33,7 +33,7 @@ require('dotenv').config();
 
 // Inicializar aplicación Express
 const app = express();
-const PORT = process.env.PORT || 3333;
+const PORT = process.env.PORT || 5000;
 
 // ============================================================================
 // CONFIGURACIÓN DE MIDDLEWARES PRINCIPALES
@@ -47,7 +47,8 @@ app.use(cors({
     origin: [
         'http://localhost:3000', 
         'http://localhost:3333', 
-        'http://localhost:8000', 
+        'http://localhost:8000',
+        'http://localhost:9000', 
         'https://*.vercel.app', 
         'https://*.railway.app',
         'https://*.herokuapp.com'
@@ -245,6 +246,16 @@ function generateCode() {
 
 async function sendEmail(to, subject, html) {
     try {
+        // Verificar si estamos en modo desarrollo
+        if (process.env.EMAIL_MODE === 'development') {
+            console.log('📧 [MODO DESARROLLO] Email simulado:');
+            console.log('   📮 Para:', to);
+            console.log('   📝 Asunto:', subject);
+            console.log('   📄 Contenido HTML:', html);
+            return; // No enviar email real en desarrollo
+        }
+        
+        // Modo producción: enviar email real
         await transporter.sendMail({
             from: process.env.EMAIL_FROM || `Malinoise <${process.env.EMAIL_USER}>`,
             to,
@@ -548,6 +559,34 @@ app.get('/dashboard', (req, res) => {
 });
 
 // ============================================================================
+// RUTAS DE ERROR Y MANTENIMIENTO
+// ============================================================================
+
+// Página 404 personalizada
+app.get('/404', (req, res) => {
+    res.status(404).sendFile(path.join(__dirname, 'public', '404.html'));
+});
+
+// Página de mantenimiento
+app.get('/maintenance', (req, res) => {
+    res.status(503).sendFile(path.join(__dirname, 'public', 'maintenance.html'));
+});
+
+// Middleware para activar modo mantenimiento
+app.use('/api/*', (req, res, next) => {
+    // Verificar si está en modo mantenimiento
+    if (process.env.MAINTENANCE_MODE === 'true') {
+        return res.status(503).json({
+            error: 'Servicio en mantenimiento',
+            message: 'La API está temporalmente fuera de servicio por mantenimiento programado.',
+            estimated_time: process.env.MAINTENANCE_ETA || '2 horas',
+            maintenance_page: '/maintenance'
+        });
+    }
+    next();
+});
+
+// ============================================================================
 // RUTA DE SALUD
 // ============================================================================
 
@@ -606,6 +645,47 @@ async function installSQLiteIfNeeded() {
         console.log('✅ SQLite instalado exitosamente');
     }
 }
+
+// ============================================================================
+// MIDDLEWARE DE MANEJO DE ERRORES
+// ============================================================================
+
+// Middleware para rutas no encontradas (404)
+app.use('*', (req, res) => {
+    // Si es una petición de API, devolver JSON
+    if (req.originalUrl.startsWith('/api/')) {
+        return res.status(404).json({
+            error: 'Endpoint no encontrado',
+            message: `La ruta ${req.originalUrl} no existe`,
+            available_endpoints: [
+                '/api/health',
+                '/api/auth/register', 
+                '/api/auth/verify',
+                '/api/auth/login',
+                '/api/auth/forgot-password',
+                '/api/auth/reset-password'
+            ]
+        });
+    }
+    
+    // Para rutas de páginas, mostrar página 404 personalizada
+    res.status(404).sendFile(path.join(__dirname, 'public', '404.html'));
+});
+
+// Middleware de manejo de errores generales
+app.use((error, req, res, next) => {
+    console.error('❌ Error no manejado:', error);
+    
+    if (req.originalUrl.startsWith('/api/')) {
+        return res.status(500).json({
+            error: 'Error interno del servidor',
+            message: 'Ha ocurrido un error inesperado',
+            timestamp: new Date().toISOString()
+        });
+    }
+    
+    res.status(500).sendFile(path.join(__dirname, 'public', '404.html'));
+});
 
 // ============================================================================
 // INICIALIZACIÓN DEL SERVIDOR
