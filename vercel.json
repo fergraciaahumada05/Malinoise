@@ -1,16 +1,15 @@
 {
   "version": 2,
-  "name": "malinoise-web",
   "builds": [
     {
-      "src": "server-hybrid.js",
-      "use": "@vercel/node"
+      "src": "public/**/*",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "/server-hybrid.js"
+      "src": "/",
+      "dest": "/public/index.html"
     },
     {
       "src": "/(.*)",
