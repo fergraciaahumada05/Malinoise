@@ -2,9 +2,9 @@
   "name": "malinoise-web",
   "version": "2.0.0",
   "description": "Aplicación web profesional para Malinoise con autenticación real, dashboard empresarial y sistema híbrido de base de datos",
-  "main": "server-hybrid.js",
-  "scripts": {
-    "start": "node server-hybrid.js",
+  "main": "server-hybrid.js",  "scripts": {
+    "start": "node diagnose.js",
+    "start-main": "node server-hybrid.js",
     "dev": "nodemon server-hybrid.js",
     "build": "npm install",
     "test": "echo \"Tests no configurados aún\" && exit 1",
