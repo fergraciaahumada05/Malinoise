@@ -10,10 +10,37 @@
     <title>Malinoise - Tu Asistente de Negocios Inteligente</title>
     
     <!-- Preload critical resources -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" as="style">
-    
-    <!-- CDN Libraries - Optimized loading -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" as="style">    <!-- CDN Libraries - Optimized loading -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif']
+                    },
+                    colors: {
+                        'teal': {
+                            50: '#f0fdfa',
+                            500: '#14b8a6',
+                            600: '#0d9488',
+                            700: '#0f766e'
+                        }
+                    }
+                }
+            },
+            safelist: [
+                'bg-teal-600',
+                'hover:bg-teal-700',
+                'text-slate-800',
+                'text-slate-600',
+                'bg-slate-50',
+                'shadow-lg',
+                'hover:shadow-xl'
+            ]
+        }
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
     <script src="https://cdn.socket.io/4.7.4/socket.io.min.js" defer></script>
     
@@ -51,9 +78,8 @@
     - Breakpoints: 320px, 640px, 768px, 1024px, 1280px
     - Optimizado para touch y interacciones táctiles
     - Tipografía escalable y espaciado adaptativo
-    -->
-      <!-- Custom Styles and Scripts -->
-    <link rel="stylesheet" href="css/custom.css">
+    -->      <!-- Custom Styles and Scripts -->
+    <link rel="stylesheet" href="css/custom.css?v=2.0" media="all">
     <script src="js/auth-api-demo.js" defer></script><style>
         /* 
         ============================================================================
