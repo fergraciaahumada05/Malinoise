@@ -1,21 +1,15 @@
 {
   "name": "malinoise-web",
   "version": "2.0.0",
-  "description": "Aplicación web profesional para Malinoise con base de datos real",
-  "main": "server.js",
+  "description": "Aplicación web profesional para Malinoise con autenticación real, dashboard empresarial y sistema híbrido de base de datos",
+  "main": "server-hybrid.js",
   "scripts": {
     "start": "node server-hybrid.js",
     "dev": "nodemon server-hybrid.js",
-    "start:simple": "node server-simple.js",
-    "dev:simple": "nodemon server-simple.js",
-    "start:full": "node server-professional.js",
-    "dev:full": "nodemon server-professional.js",
-    "start:db": "node server-database.js",
-    "dev:db": "nodemon server-database.js",
-    "setup:db": "bash setup-database.sh",
-    "setup:db-win": "powershell -ExecutionPolicy Bypass -File setup-database.ps1",
     "build": "npm install",
-    "migrate": "node scripts/migrate.js"
+    "test": "echo \"Tests no configurados aún\" && exit 1",
+    "health": "curl http://localhost:3333/api/health || echo 'Servidor no disponible'",
+    "logs": "echo 'Ver logs en Railway dashboard o terminal'"
   },
   "keywords": [
     "malinoise",

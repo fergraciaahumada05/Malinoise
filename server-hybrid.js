@@ -1,3 +1,25 @@
+/**
+ * ===============================================================================
+ * MALINOISE WEB APPLICATION - SERVIDOR HÍBRIDO
+ * ===============================================================================
+ * 
+ * Servidor Express.js que soporta automáticamente:
+ * - SQLite para desarrollo local
+ * - PostgreSQL para producción (Railway, Heroku, etc.)
+ * 
+ * Funcionalidades:
+ * - Sistema completo de autenticación con JWT
+ * - Envío de emails reales con Gmail
+ * - API REST para frontend
+ * - Auto-detección de entorno
+ * 
+ * @author Fernando José Gracia Ahumada
+ * @version 2.0.0
+ * @license MIT
+ * ===============================================================================
+ */
+
+// Importación de dependencias principales
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
@@ -5,92 +27,138 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 const fs = require('fs');
+
+// Cargar variables de entorno
 require('dotenv').config();
 
+// Inicializar aplicación Express
 const app = express();
 const PORT = process.env.PORT || 3333;
 
 // ============================================================================
-// CONFIGURACIÓN DE MIDDLEWARES
+// CONFIGURACIÓN DE MIDDLEWARES PRINCIPALES
 // ============================================================================
 
+/**
+ * Configuración de CORS para permitir solicitudes desde diferentes orígenes
+ * Incluye dominios de desarrollo local y producción
+ */
 app.use(cors({
-    origin: ['http://localhost:3000', 'http://localhost:8000', 'https://*.vercel.app', 'https://*.railway.app'],
+    origin: [
+        'http://localhost:3000', 
+        'http://localhost:3333', 
+        'http://localhost:8000', 
+        'https://*.vercel.app', 
+        'https://*.railway.app',
+        'https://*.herokuapp.com'
+    ],
     credentials: true
 }));
 
-app.use(express.json());
+// Middleware para parsing de JSON
+app.use(express.json({ limit: '10mb' }));
+
+// Servir archivos estáticos desde el directorio public
 app.use(express.static('public'));
 
 // ============================================================================
 // CONFIGURACIÓN DE BASE DE DATOS HÍBRIDA (SQLite + PostgreSQL)
 // ============================================================================
 
-let db;
+let database = null;
 let isPostgreSQL = false;
 
+/**
+ * Inicializa la conexión de base de datos
+ * Auto-detecta si usar PostgreSQL (producción) o SQLite (desarrollo)
+ * 
+ * @returns {Promise<void>}
+ */
 async function initializeDatabase() {
-    console.log('🔄 Inicializando base de datos...');
+    console.log('🔄 Inicializando sistema de base de datos...');
     
-    // Intentar PostgreSQL primero (para producción)
+    // Intentar PostgreSQL primero (para entornos de producción)
     if (process.env.DATABASE_URL || (process.env.DB_HOST && process.env.DB_HOST !== 'localhost')) {
         try {
-            const { Pool } = require('pg');
-            
-            const config = process.env.DATABASE_URL ? {
-                connectionString: process.env.DATABASE_URL,
-                ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
-            } : {
-                host: process.env.DB_HOST,
-                port: process.env.DB_PORT || 5432,
-                database: process.env.DB_NAME,
-                user: process.env.DB_USER,
-                password: process.env.DB_PASSWORD,
-                ssl: process.env.DB_SSL === 'false' ? false : { rejectUnauthorized: false }
-            };
-
-            db = new Pool(config);
-            await db.query('SELECT NOW()');
-            isPostgreSQL = true;
-            console.log('✅ Conectado a PostgreSQL');
-            
-            // Crear tablas PostgreSQL
-            await createPostgreSQLTables();
-            
+            await initializePostgreSQL();
         } catch (error) {
-            console.log('⚠️  PostgreSQL no disponible, usando SQLite:', error.message);
+            console.log('⚠️  PostgreSQL no disponible, fallback a SQLite:', error.message);
             await initializeSQLite();
         }
     } else {
-        console.log('🔄 Usando SQLite para desarrollo local');
+        console.log('🔄 Entorno de desarrollo detectado - usando SQLite');
         await initializeSQLite();
     }
 }
 
+/**
+ * Inicializa la conexión a PostgreSQL
+ * Utilizada en entornos de producción
+ * 
+ * @returns {Promise<void>}
+ */
+async function initializePostgreSQL() {
+    const { Pool } = require('pg');
+    
+    const config = process.env.DATABASE_URL ? {
+        connectionString: process.env.DATABASE_URL,
+        ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
+    } : {
+        host: process.env.DB_HOST,
+        port: process.env.DB_PORT || 5432,
+        database: process.env.DB_NAME,
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        ssl: process.env.DB_SSL === 'false' ? false : { rejectUnauthorized: false }
+    };
+
+    database = new Pool(config);
+    
+    // Verificar conexión
+    await database.query('SELECT NOW()');
+    isPostgreSQL = true;    console.log('✅ Conectado exitosamente a PostgreSQL');
+    
+    // Crear estructura de tablas
+    await createPostgreSQLTables();
+}
+
+/**
+ * Inicializa la conexión a SQLite
+ * Utilizada en entornos de desarrollo local
+ * 
+ * @returns {Promise<void>}
+ */
 async function initializeSQLite() {
     const sqlite3 = require('sqlite3').verbose();
     const { open } = require('sqlite');
     
     // Crear directorio de base de datos si no existe
-    const dbDir = path.join(__dirname, 'database');
-    if (!fs.existsSync(dbDir)) {
-        fs.mkdirSync(dbDir, { recursive: true });
+    const databaseDirectory = path.join(__dirname, 'database');
+    if (!fs.existsSync(databaseDirectory)) {
+        fs.mkdirSync(databaseDirectory, { recursive: true });
     }
     
-    db = await open({
-        filename: path.join(dbDir, 'malinoise.db'),
+    database = await open({
+        filename: path.join(databaseDirectory, 'malinoise.db'),
         driver: sqlite3.Database
     });
     
     isPostgreSQL = false;
-    console.log('✅ Conectado a SQLite');
+    console.log('✅ Conectado exitosamente a SQLite');
     
-    // Crear tablas SQLite
+    // Crear estructura de tablas SQLite
     await createSQLiteTables();
 }
 
+/**
+ * Crea las tablas necesarias en PostgreSQL
+ * Incluye usuarios y sesiones con sus respectivas relaciones
+ * 
+ * @returns {Promise<void>}
+ */
 async function createPostgreSQLTables() {
-    await db.query(`
+    // Tabla de usuarios
+    await database.query(`
         CREATE TABLE IF NOT EXISTS users (
             id SERIAL PRIMARY KEY,
             name VARCHAR(255) NOT NULL,
@@ -105,7 +173,8 @@ async function createPostgreSQLTables() {
         )
     `);
 
-    await db.query(`
+    // Tabla de sesiones
+    await database.query(`
         CREATE TABLE IF NOT EXISTS sessions (
             id SERIAL PRIMARY KEY,
             user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
@@ -115,8 +184,15 @@ async function createPostgreSQLTables() {
         )
     `);
 
-    console.log('✅ Tablas PostgreSQL creadas');
+    console.log('✅ Estructura de tablas PostgreSQL creada exitosamente');
 }
+
+/**
+ * Crea las tablas necesarias en SQLite
+ * Equivalente a las tablas de PostgreSQL pero adaptadas para SQLite
+ * 
+ * @returns {Promise<void>}
+ */
 
 async function createSQLiteTables() {
     await db.exec(`

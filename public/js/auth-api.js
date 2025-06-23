@@ -1,43 +1,87 @@
-// ============================================================
-// FUNCIONES DE AUTENTICACIÓN REAL - MALINOISE
-// ============================================================
+/**
+ * ===============================================================================
+ * MALINOISE WEB APPLICATION - API DE AUTENTICACIÓN
+ * ===============================================================================
+ * 
+ * Cliente JavaScript para manejar toda la autenticación del frontend
+ * 
+ * Funcionalidades principales:
+ * - Registro de usuarios con validación completa
+ * - Login/logout con JWT tokens
+ * - Verificación de email con códigos únicos
+ * - Recuperación de contraseña
+ * - Gestión de sesiones
+ * - Comunicación con backend híbrido
+ * 
+ * @author Fernando José Gracia Ahumada
+ * @version 2.0.0
+ * @license MIT
+ * ===============================================================================
+ */
 
+// ============================================================================
+// CONFIGURACIÓN GLOBAL DE LA API
+// ============================================================================
+
+/** URL base de la API - auto-detecta el origen actual */
 const API_BASE_URL = window.location.origin;
-const USE_REAL_API = true; // Cambiado a true para usar APIs reales
+
+/** Configuración para usar API real del backend */
+const USE_REAL_API = true;
+
+/** Timeout para peticiones HTTP en milisegundos */
+const REQUEST_TIMEOUT = 10000;
+
+// ============================================================================
+// FUNCIONES DE REGISTRO DE USUARIOS
+// ============================================================================
 
 /**
- * Registra un nuevo usuario enviando los datos al backend
- * @param {string} email - Correo electrónico del usuario
- * @param {string} password - Contraseña del usuario
- * @param {string} name - Nombre del usuario
- * @returns {Promise} Promesa con la respuesta del servidor
+ * Registra un nuevo usuario en el sistema
+ * 
+ * @param {string} email - Correo electrónico del usuario (requerido)
+ * @param {string} password - Contraseña del usuario (mínimo 6 caracteres)
+ * @param {string} name - Nombre completo del usuario (mínimo 2 caracteres)
+ * @returns {Promise<Object>} Respuesta del servidor con datos del usuario
+ * @throws {Error} Error de validación o de comunicación con el servidor
  */
 async function registerUser(email, password, name = '') {
-    // Validaciones básicas
+    // ========================================================================
+    // VALIDACIONES DEL LADO DEL CLIENTE
+    // ========================================================================
+    
     if (!email || !password) {
-        throw new Error('Email y contraseña son requeridos');
+        throw new Error('Email y contraseña son campos obligatorios');
     }
     
+    // Validación de formato de email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-        throw new Error('Email no válido');
+        throw new Error('Por favor ingresa un email válido');
     }
     
+    // Validación de longitud de contraseña
     if (password.length < 6) {
         throw new Error('La contraseña debe tener al menos 6 caracteres');
     }
     
+    // Validación de nombre
     if (!name || name.trim().length < 2) {
-        throw new Error('El nombre es requerido (mínimo 2 caracteres)');
+        throw new Error('El nombre es requerido y debe tener al menos 2 caracteres');
     }
     
+    // ========================================================================
+    // PETICIÓN AL BACKEND
+    // ========================================================================
+    
     try {
-        console.log('🔄 Registrando usuario real...');
+        console.log('🔄 Iniciando registro de usuario...');
         
         const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Accept': 'application/json'
             },
             body: JSON.stringify({
                 email: email.trim().toLowerCase(),
@@ -46,39 +90,38 @@ async function registerUser(email, password, name = '') {
             })
         });
         
-        const data = await response.json();
+        const responseData = await response.json();
         
+        // Manejar respuestas de error del servidor
         if (!response.ok) {
-            throw new Error(data.error || 'Error en el registro');
+            throw new Error(responseData.message || `Error del servidor: ${response.status}`);
         }
-        
-        console.log('✅ Usuario registrado exitosamente');
-        console.log('� Email de verificación enviado');
-        
-        return {
-            success: true,
-            message: data.message || 'Código de verificación enviado a tu email',
-            verificationRequired: true,
-            email: email
-        };
+          console.log('✅ Usuario registrado exitosamente');
+        return responseData;
         
     } catch (error) {
         console.error('❌ Error en registro:', error);
         
-        // Si la API real falla, usar simulación como fallback
-        if (error.message.includes('fetch') || error.message.includes('network')) {
-            console.log('🔄 API no disponible, usando simulación como fallback');
-            return simulateEmailVerification(email);
+        // Re-lanzar errores de red o del servidor con mensajes más claros
+        if (error.name === 'TypeError' && error.message.includes('fetch')) {
+            throw new Error('No se pudo conectar con el servidor. Verifica tu conexión a internet.');
         }
-          throw error;
+        
+        throw error;
     }
 }
 
+// ============================================================================
+// FUNCIONES DE LOGIN Y LOGOUT
+// ============================================================================
+
 /**
  * Inicia sesión con un usuario existente
+ * 
  * @param {string} email - Correo electrónico del usuario
  * @param {string} password - Contraseña del usuario
- * @returns {Promise} Promesa con la respuesta del servidor
+ * @returns {Promise<Object>} Respuesta del servidor con datos de autenticación
+ * @throws {Error} Error de validación o de comunicación con el servidor
  */
 async function loginUser(email, password) {
     // Si la API real no está disponible, usar simulación

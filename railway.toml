@@ -1,15 +1,44 @@
+# ===============================================================================
+# CONFIGURACIÓN DE RAILWAY PARA MALINOISE
+# ===============================================================================
+# 
+# Configuración optimizada para deploy automático en Railway
+# - Auto-detección de dependencias con Nixpacks
+# - Health checks configurados
+# - Variables de entorno para producción
+# - Política de reinicio automático
+# 
+# @author Fernando José Gracia Ahumada
+# @version 2.0.0
+# ===============================================================================
+
 [build]
+# Usar Nixpacks para auto-detección y optimización del build
 builder = "NIXPACKS"
 
 [deploy]
+# Comando de inicio del servidor híbrido
 startCommand = "node server-hybrid.js"
+
+# Configuración de health checks
 healthcheckPath = "/api/health"
 healthcheckTimeout = 300
+
+# Política de reinicio en caso de fallo
 restartPolicyType = "ON_FAILURE"
 restartPolicyMaxRetries = 10
 
+# Configuración de memoria y CPU (opcional)
+# memoryLimitMB = 512
+# cpuLimitMilliCores = 1000
+
 [env]
+# Variables de entorno para producción
 NODE_ENV = "production"
 PORT = { value = "3000" }
+
+# Configuración de SSL para PostgreSQL
 DB_SSL = { value = "true" }
 DB_SSL_REJECT_UNAUTHORIZED = { value = "false" }
+
+# Variables adicionales se configuran en Railway dashboard
