@@ -1,0 +1,1348 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malinoise - Tu Asistente de Negocios Inteligente</title>
+    
+    <!-- Meta tags SEO -->
+    <meta name="description" content="Malinoise - Tu asistente de negocios inteligente con IA para análisis predictivo, gestión de inventario y automatización empresarial.">
+    <meta name="keywords" content="malinoise, IA, negocios, análisis predictivo, gestión inventario, automatización">
+    <meta name="author" content="Malinoise Team">
+    
+    <!-- Inline CSS - Todo incluido, sin dependencias externas -->
+    <style>
+        /* Reset y base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            background-color: #F8FAFC;
+            color: #1E293B;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Contenedores y Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .grid-cols-1 {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 20px;
+        }
+        
+        .grid-cols-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        
+        .grid-cols-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        
+        .flex {
+            display: flex;
+        }
+        
+        .flex-col {
+            flex-direction: column;
+        }
+        
+        .items-center {
+            align-items: center;
+        }
+        
+        .justify-center {
+            justify-content: center;
+        }
+        
+        .justify-between {
+            justify-content: space-between;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        /* Header y Navegación */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            border-bottom: 1px solid #E2E8F0;
+            transition: all 0.3s ease;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #0D9488;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: none;
+            gap: 30px;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: #475569;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #0D9488;
+        }
+        
+        .menu-toggle {
+            display: block;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #475569;
+            cursor: pointer;
+            z-index: 101;
+        }
+        
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100vh;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            transition: left 0.3s ease;
+            z-index: 99;
+        }
+        
+        .mobile-menu.active {
+            left: 0;
+        }
+        
+        .mobile-menu a {
+            color: #1E293B;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: 500;
+            padding: 15px 30px;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+        
+        .mobile-menu a:hover {
+            background: #0D9488;
+            color: white;
+        }
+        
+        /* Secciones principales */
+        section {
+            padding: 80px 0;
+            position: relative;
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, #0D9488 0%, #14B8A6 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" patternUnits="userSpaceOnUse" width="100" height="100"><circle cx="20" cy="20" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="80" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            margin: 5px;
+        }
+        
+        .btn-primary {
+            background: white;
+            color: #0D9488;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+        
+        .btn-primary:hover {
+            background: transparent;
+            color: white;
+            border-color: white;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border-color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: white;
+            color: #0D9488;
+            transform: translateY(-2px);
+        }
+        
+        /* Tarjetas y módulos */
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid #E2E8F0;
+            margin-bottom: 20px;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-expandable {
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card-content {
+            max-height: 120px;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .card-content.expanded {
+            max-height: 1000px;
+        }
+        
+        .expand-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: #0D9488;
+            font-size: 20px;
+            transition: transform 0.3s ease;
+        }
+        
+        .expand-icon.rotated {
+            transform: rotate(180deg);
+        }
+        
+        /* Sección del gráfico */
+        .chart-container {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            margin: 40px 0;
+        }
+        
+        .chart-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .chart-btn {
+            padding: 8px 16px;
+            border: 2px solid #E2E8F0;
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+        
+        .chart-btn.active {
+            background: #0D9488;
+            color: white;
+            border-color: #0D9488;
+        }
+        
+        .chart-btn:hover {
+            border-color: #0D9488;
+        }
+        
+        /* Canvas del gráfico simplificado */
+        .chart-canvas {
+            width: 100%;
+            height: 400px;
+            border: 2px solid #E2E8F0;
+            border-radius: 8px;
+            background: #F8FAFC;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64748B;
+            font-size: 18px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .chart-canvas::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: 10%;
+            right: 10%;
+            bottom: 20%;
+            background: linear-gradient(45deg, #0D9488, #14B8A6, #0891B2, #0284C7);
+            opacity: 0.1;
+            border-radius: 4px;
+        }
+        
+        /* Sección de tecnología */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .tech-item {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .tech-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+        
+        .tech-icon {
+            font-size: 48px;
+            color: #0D9488;
+            margin-bottom: 15px;
+        }
+        
+        /* Modelo de negocio */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .pricing-card {
+            background: white;
+            border-radius: 12px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .pricing-card.featured {
+            border: 2px solid #0D9488;
+            transform: scale(1.05);
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .pricing-card.featured:hover {
+            transform: translateY(-10px) scale(1.07);
+        }
+        
+        .price {
+            font-size: 48px;
+            font-weight: bold;
+            color: #0D9488;
+            margin: 20px 0;
+        }
+        
+        .features {
+            list-style: none;
+            padding: 0;
+            margin: 30px 0;
+        }
+        
+        .features li {
+            padding: 8px 0;
+            color: #475569;
+        }
+        
+        .features li:before {
+            content: '✓';
+            color: #10B981;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        /* Descargas */
+        .download-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .download-item {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .download-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+        
+        .platform-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+        
+        .android { color: #3DDC84; }
+        .apple { color: #000; }
+        .windows { color: #00BCF2; }
+        
+        .download-btn {
+            width: 100%;
+            padding: 15px;
+            background: #0D9488;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .download-btn:hover {
+            background: #0F766E;
+        }
+        
+        .download-btn:disabled {
+            background: #94A3B8;
+            cursor: not-allowed;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #E2E8F0;
+            border-radius: 3px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: #0D9488;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        /* Autenticación */
+        .auth-forms {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .auth-form {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #374151;
+            font-weight: 500;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #E2E8F0;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #0D9488;
+        }
+        
+        .form-group input.error {
+            border-color: #EF4444;
+        }
+        
+        .error-message {
+            color: #EF4444;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        
+        .success-message {
+            color: #10B981;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        
+        /* Notificaciones */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            border-radius: 8px;
+            padding: 16px 20px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            transform: translateX(400px);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        
+        .notification.success {
+            border-left: 4px solid #10B981;
+        }
+        
+        .notification.error {
+            border-left: 4px solid #EF4444;
+        }
+        
+        .notification.info {
+            border-left: 4px solid #3B82F6;
+        }
+        
+        /* Footer */
+        footer {
+            background: #1E293B;
+            color: white;
+            text-align: center;
+            padding: 40px 0;
+        }
+        
+        /* Animaciones */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .animate-fadeInUp {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        
+        .animate-fadeIn {
+            animation: fadeIn 0.6s ease forwards;
+        }
+        
+        .animate-pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        /* Utilidades */
+        .hidden {
+            display: none !important;
+        }
+        
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+        
+        .text-sm { font-size: 14px; }
+        .text-lg { font-size: 18px; }
+        .text-xl { font-size: 20px; }
+        .text-2xl { font-size: 24px; }
+        .text-3xl { font-size: 30px; }
+        .text-4xl { font-size: 36px; }
+        
+        .font-bold { font-weight: bold; }
+        .font-semibold { font-weight: 600; }
+        
+        .mb-4 { margin-bottom: 16px; }
+        .mb-6 { margin-bottom: 24px; }
+        .mb-8 { margin-bottom: 32px; }
+        .mt-4 { margin-top: 16px; }
+        .mt-6 { margin-top: 24px; }
+        .mt-8 { margin-top: 32px; }
+        
+        .p-4 { padding: 16px; }
+        .p-6 { padding: 24px; }
+        .py-4 { padding-top: 16px; padding-bottom: 16px; }
+        .px-4 { padding-left: 16px; padding-right: 16px; }
+        
+        .rounded { border-radius: 6px; }
+        .rounded-lg { border-radius: 8px; }
+        .rounded-xl { border-radius: 12px; }
+        
+        .shadow { box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); }
+        .btn-full-width {
+            width: 100%;
+        }
+        
+        /* Responsive */
+        @media (min-width: 768px) {
+            .container {
+                padding: 0 40px;
+            }
+            
+            .nav-links {
+                display: flex;
+            }
+            
+            .menu-toggle {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 64px;
+            }
+            
+            .hero p {
+                font-size: 24px;
+            }
+            
+            .grid-cols-2 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .grid-cols-3 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            section {
+                padding: 120px 0;
+            }
+            
+            .hero {
+                padding: 160px 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header con navegación -->
+    <header id="header">
+        <nav class="container">
+            <a href="#" class="logo">Malinoise</a>
+            <ul class="nav-links">
+                <li><a href="#vision">Inicio</a></li>
+                <li><a href="#modulos">Módulos</a></li>
+                <li><a href="#demo">Demo IA</a></li>
+                <li><a href="#tecnologia">Tecnología</a></li>
+                <li><a href="#precios">Precios</a></li>
+                <li><a href="#descargas">Descargas</a></li>
+                <li><a href="#auth">Acceso</a></li>
+            </ul>
+            <button class="menu-toggle" id="menuToggle">☰</button>
+        </nav>
+        
+        <!-- Menú móvil -->
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="#vision">Inicio</a>
+            <a href="#modulos">Módulos</a>
+            <a href="#demo">Demo IA</a>
+            <a href="#tecnologia">Tecnología</a>
+            <a href="#precios">Precios</a>
+            <a href="#descargas">Descargas</a>
+            <a href="#auth">Acceso</a>
+        </div>
+    </header>
+
+    <!-- Sección Hero -->
+    <section id="vision" class="hero">
+        <div class="container">
+            <div class="hero-content text-center">
+                <h1>Tu Asistente de Negocios Inteligente</h1>
+                <p>Revoluciona tu empresa con análisis predictivo, gestión inteligente de inventario y automatización avanzada con IA</p>
+                <div>
+                    <a href="#demo" class="btn btn-primary">Ver Demo</a>
+                    <a href="#modulos" class="btn btn-secondary">Explorar Módulos</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Módulos Interactivos -->
+    <section id="modulos">
+        <div class="container">
+            <h2 class="text-4xl font-bold text-center mb-8">Módulos Inteligentes</h2>
+            <div class="grid-cols-1">
+                <!-- Módulo 1: Análisis Predictivo -->
+                <div class="card card-expandable" onclick="toggleCard(this)">
+                    <div class="expand-icon">▼</div>
+                    <h3 class="text-2xl font-bold mb-4">📊 Análisis Predictivo Avanzado</h3>
+                    <div class="card-content">
+                        <p class="mb-4">Anticipa tendencias del mercado y comportamientos de clientes con algoritmos de machine learning de última generación.</p>
+                        <ul class="features">
+                            <li>Predicción de demanda con 95% de precisión</li>
+                            <li>Análisis de comportamiento del cliente</li>
+                            <li>Forecasting de ventas automático</li>
+                            <li>Detección de anomalías en tiempo real</li>
+                            <li>Reportes predictivos personalizados</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Módulo 2: Gestión de Inventario -->
+                <div class="card card-expandable" onclick="toggleCard(this)">
+                    <div class="expand-icon">▼</div>
+                    <h3 class="text-2xl font-bold mb-4">📦 Gestión Inteligente de Inventario</h3>
+                    <div class="card-content">
+                        <p class="mb-4">Optimiza tu inventario con IA que aprende de patrones históricos y tendencias del mercado.</p>
+                        <ul class="features">
+                            <li>Reposición automática inteligente</li>
+                            <li>Optimización de stock por producto</li>
+                            <li>Alertas de sobre-stock y desabasto</li>
+                            <li>Integración con proveedores</li>
+                            <li>Análisis de rotación de productos</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Módulo 3: Automatización de Procesos -->
+                <div class="card card-expandable" onclick="toggleCard(this)">
+                    <div class="expand-icon">▼</div>
+                    <h3 class="text-2xl font-bold mb-4">⚙️ Automatización de Procesos</h3>
+                    <div class="card-content">
+                        <p class="mb-4">Automatiza tareas repetitivas y flujos de trabajo complejos con robotic process automation (RPA).</p>
+                        <ul class="features">
+                            <li>Automatización de facturas y pagos</li>
+                            <li>Flujos de trabajo personalizables</li>
+                            <li>Integración con sistemas existentes</li>
+                            <li>Bots inteligentes para atención al cliente</li>
+                            <li>Automatización de reportes</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Módulo 4: CRM Inteligente -->
+                <div class="card card-expandable" onclick="toggleCard(this)">
+                    <div class="expand-icon">▼</div>
+                    <h3 class="text-2xl font-bold mb-4">👥 CRM Inteligente</h3>
+                    <div class="card-content">
+                        <p class="mb-4">Gestiona relaciones con clientes usando IA para personalizar experiencias y aumentar conversiones.</p>
+                        <ul class="features">
+                            <li>Segmentación automática de clientes</li>
+                            <li>Scoring de leads con IA</li>
+                            <li>Campañas de marketing personalizadas</li>
+                            <li>Análisis de satisfacción del cliente</li>
+                            <li>Predicción de churn de clientes</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Módulo 5: Finanzas Predictivas -->
+                <div class="card card-expandable" onclick="toggleCard(this)">
+                    <div class="expand-icon">▼</div>
+                    <h3 class="text-2xl font-bold mb-4">💰 Finanzas Predictivas</h3>
+                    <div class="card-content">
+                        <p class="mb-4">Optimiza la gestión financiera con análisis predictivos y automatización de procesos contables.</p>
+                        <ul class="features">
+                            <li>Proyecciones de flujo de caja</li>
+                            <li>Análisis de riesgo crediticio</li>
+                            <li>Optimización de precios dinámicos</li>
+                            <li>Detección de fraudes financieros</li>
+                            <li>Reportes financieros automatizados</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Módulo 6: Business Intelligence -->
+                <div class="card card-expandable" onclick="toggleCard(this)">
+                    <div class="expand-icon">▼</div>
+                    <h3 class="text-2xl font-bold mb-4">📈 Business Intelligence</h3>
+                    <div class="card-content">
+                        <p class="mb-4">Transforma datos en insights accionables con dashboards interactivos y análisis en tiempo real.</p>
+                        <ul class="features">
+                            <li>Dashboards personalizables en tiempo real</li>
+                            <li>KPIs inteligentes y adaptativos</li>
+                            <li>Análisis de competencia automatizado</li>
+                            <li>Integración con múltiples fuentes de datos</li>
+                            <li>Alertas inteligentes de negocio</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Demo IA -->
+    <section id="demo">
+        <div class="container">
+            <h2 class="text-4xl font-bold text-center mb-8">Demo de Análisis Predictivo</h2>
+            <div class="chart-container">
+                <h3 class="text-2xl font-bold mb-4">Predicciones de Ventas - Próximos 6 Meses</h3>
+                <div class="chart-controls">                    <button class="chart-btn active" onclick="updateChart('ventas', this)">Ventas</button>
+                    <button class="chart-btn" onclick="updateChart('inventario', this)">Inventario</button>
+                    <button class="chart-btn" onclick="updateChart('clientes', this)">Clientes</button>
+                    <button class="chart-btn" onclick="updateChart('ingresos', this)">Ingresos</button>
+                </div>
+                <div class="chart-canvas" id="chartCanvas">
+                    🎯 Gráfico Interactivo de Análisis Predictivo
+                    <br><small>Simulación de datos en tiempo real</small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Tecnología -->
+    <section id="tecnologia">
+        <div class="container">
+            <h2 class="text-4xl font-bold text-center mb-8">Tecnología de Vanguardia</h2>
+            <div class="tech-grid">
+                <div class="tech-item animate-float">
+                    <div class="tech-icon">🤖</div>
+                    <h3 class="text-xl font-bold mb-2">Inteligencia Artificial</h3>
+                    <p>Machine Learning avanzado con redes neuronales profundas</p>
+                </div>
+                <div class="tech-item animate-float">
+                    <div class="tech-icon">☁️</div>
+                    <h3 class="text-xl font-bold mb-2">Cloud Computing</h3>
+                    <p>Infraestructura escalable en la nube con alta disponibilidad</p>
+                </div>
+                <div class="tech-item animate-float">
+                    <div class="tech-icon">🔒</div>
+                    <h3 class="text-xl font-bold mb-2">Seguridad Avanzada</h3>
+                    <p>Encriptación de extremo a extremo y protección de datos</p>
+                </div>
+                <div class="tech-item animate-float">
+                    <div class="tech-icon">📱</div>
+                    <h3 class="text-xl font-bold mb-2">Multiplataforma</h3>
+                    <p>Disponible en web, móvil y desktop con sincronización</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Modelo de Negocio -->
+    <section id="precios">
+        <div class="container">
+            <h2 class="text-4xl font-bold text-center mb-8">Planes de Suscripción</h2>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3 class="text-2xl font-bold mb-4">Freemium</h3>
+                    <div class="price">Gratis</div>
+                    <ul class="features">
+                        <li>Análisis básico de datos</li>
+                        <li>3 reportes mensuales</li>
+                        <li>Soporte por email</li>
+                        <li>1 usuario</li>
+                        <li>Almacenamiento 1GB</li>
+                    </ul>
+                    <a href="#auth" class="btn btn-secondary">Comenzar Gratis</a>
+                </div>
+                
+                <div class="pricing-card featured">
+                    <h3 class="text-2xl font-bold mb-4">Premium</h3>
+                    <div class="price">$99<span style="font-size: 16px;">/mes</span></div>
+                    <ul class="features">
+                        <li>IA predictiva completa</li>
+                        <li>Reportes ilimitados</li>
+                        <li>Soporte 24/7</li>
+                        <li>Usuarios ilimitados</li>
+                        <li>Almacenamiento 100GB</li>
+                        <li>Integración APIs</li>
+                        <li>Dashboards personalizados</li>
+                    </ul>
+                    <a href="#auth" class="btn btn-primary">Upgrade Premium</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Descargas -->
+    <section id="descargas">
+        <div class="container">
+            <h2 class="text-4xl font-bold text-center mb-8">Descarga Malinoise</h2>
+            <div class="download-grid">
+                <div class="download-item">
+                    <div class="platform-icon android">📱</div>
+                    <h3 class="text-xl font-bold mb-2">Android</h3>
+                    <p class="mb-4">Compatible con Android 8.0+</p>                    <button class="download-btn" onclick="simulateDownload('android', this)">
+                        Descargar APK
+                    </button>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="androidProgress"></div>
+                    </div>
+                </div>
+                
+                <div class="download-item">
+                    <div class="platform-icon apple">🍎</div>
+                    <h3 class="text-xl font-bold mb-2">iOS</h3>
+                    <p class="mb-4">Compatible con iOS 13.0+</p>                    <button class="download-btn" onclick="simulateDownload('ios', this)">
+                        App Store
+                    </button>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="iosProgress"></div>
+                    </div>
+                </div>
+                
+                <div class="download-item">
+                    <div class="platform-icon windows">💻</div>
+                    <h3 class="text-xl font-bold mb-2">Windows</h3>
+                    <p class="mb-4">Compatible con Windows 10+</p>                    <button class="download-btn" onclick="simulateDownload('windows', this)">
+                        Descargar EXE
+                    </button>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="windowsProgress"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Autenticación -->
+    <section id="auth">
+        <div class="container">
+            <h2 class="text-4xl font-bold text-center mb-8">Acceso de Usuarios</h2>
+            <div class="auth-forms">
+                <!-- Formulario de Login -->
+                <div class="auth-form">
+                    <h3 class="text-2xl font-bold mb-6">Iniciar Sesión</h3>
+                    <form id="loginForm" onsubmit="handleLogin(event)">
+                        <div class="form-group">
+                            <label for="loginEmail">Email</label>
+                            <input type="email" id="loginEmail" required>
+                            <div class="error-message" id="loginEmailError"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="loginPassword">Contraseña</label>
+                            <input type="password" id="loginPassword" required>
+                            <div class="error-message" id="loginPasswordError"></div>
+                        </div>                        <button type="submit" class="btn btn-primary btn-full-width">
+                            Iniciar Sesión
+                        </button>
+                        <div class="success-message" id="loginSuccess"></div>
+                    </form>
+                </div>
+
+                <!-- Formulario de Registro -->
+                <div class="auth-form">
+                    <h3 class="text-2xl font-bold mb-6">Crear Cuenta</h3>
+                    <form id="registerForm" onsubmit="handleRegister(event)">
+                        <div class="form-group">
+                            <label for="registerName">Nombre completo</label>
+                            <input type="text" id="registerName" required>
+                            <div class="error-message" id="registerNameError"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="registerEmail">Email</label>
+                            <input type="email" id="registerEmail" required>
+                            <div class="error-message" id="registerEmailError"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="registerPassword">Contraseña</label>
+                            <input type="password" id="registerPassword" required>
+                            <div class="error-message" id="registerPasswordError"></div>
+                        </div>                        <button type="submit" class="btn btn-primary btn-full-width">
+                            Crear Cuenta
+                        </button>
+                        <div class="success-message" id="registerSuccess"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Malinoise. Todos los derechos reservados. | Tu asistente de negocios inteligente.</p>
+        </div>
+    </footer>
+
+    <!-- Contenedor de notificaciones -->
+    <div id="notification" class="notification"></div>
+
+    <!-- JavaScript integrado - Sin dependencias externas -->
+    <script>
+        // Variables globales
+        let currentChart = 'ventas';
+        let isMenuOpen = false;
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeNavigation();
+            initializeScrollEffects();
+            initializeAnimations();
+            console.log('Malinoise cargado - Versión estática');
+        });
+
+        // === NAVEGACIÓN ===
+        function initializeNavigation() {
+            const menuToggle = document.getElementById('menuToggle');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const navLinks = document.querySelectorAll('a[href^="#"]');
+
+            // Toggle menú móvil
+            menuToggle.addEventListener('click', function() {
+                isMenuOpen = !isMenuOpen;
+                mobileMenu.classList.toggle('active');
+                menuToggle.innerHTML = isMenuOpen ? '✕' : '☰';
+            });
+
+            // Cerrar menú al hacer clic en enlaces
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (isMenuOpen) {
+                        isMenuOpen = false;
+                        mobileMenu.classList.remove('active');
+                        menuToggle.innerHTML = '☰';
+                    }
+                });
+            });
+
+            // Scroll suave
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+
+        function initializeScrollEffects() {
+            const header = document.getElementById('header');
+            
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 100) {
+                    header.style.background = 'rgba(255, 255, 255, 0.98)';
+                    header.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1)';
+                } else {
+                    header.style.background = 'rgba(255, 255, 255, 0.95)';
+                    header.style.boxShadow = 'none';
+                }
+            });
+        }
+
+        // === TARJETAS EXPANDIBLES ===
+        function toggleCard(cardElement) {
+            const content = cardElement.querySelector('.card-content');
+            const icon = cardElement.querySelector('.expand-icon');
+            
+            content.classList.toggle('expanded');
+            icon.classList.toggle('rotated');
+        }        // === GRÁFICO INTERACTIVO ===
+        function updateChart(type, buttonElement) {
+            currentChart = type;
+            
+            // Actualizar botones activos
+            document.querySelectorAll('.chart-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Si no se pasa el elemento, lo buscamos por el tipo
+            if (!buttonElement) {
+                buttonElement = document.querySelector(`[onclick*="${type}"]`);
+            }
+            if (buttonElement) {
+                buttonElement.classList.add('active');
+            }
+            
+            // Simular actualización del gráfico
+            const canvas = document.getElementById('chartCanvas');
+            canvas.style.opacity = '0.5';
+            
+            setTimeout(() => {
+                const titles = {
+                    'ventas': '📈 Predicción de Ventas - Crecimiento del 25%',
+                    'inventario': '📦 Optimización de Inventario - Reducción del 15%',
+                    'clientes': '👥 Análisis de Clientes - Retención del 89%',
+                    'ingresos': '💰 Proyección de Ingresos - Aumento del 32%'
+                };
+                
+                canvas.innerHTML = titles[type] + '<br><small>Datos actualizados en tiempo real</small>';
+                canvas.style.opacity = '1';
+                
+                showNotification(`Gráfico actualizado: ${type}`, 'info');
+            }, 500);
+        }        // === DESCARGAS SIMULADAS ===
+        function simulateDownload(platform, buttonElement) {
+            const button = buttonElement || event.target;
+            const progressBar = document.getElementById(platform + 'Progress');
+            
+            if (!progressBar) {
+                showNotification(`Error: No se encontró la barra de progreso para ${platform}`, 'error');
+                return;
+            }
+            
+            button.disabled = true;
+            button.textContent = 'Descargando...';
+            
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.random() * 15;
+                if (progress > 100) progress = 100;
+                
+                progressBar.style.width = progress + '%';
+                
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    button.textContent = 'Completado ✓';
+                    button.style.background = '#10B981';
+                    showNotification(`Descarga completada para ${platform}`, 'success');
+                    
+                    setTimeout(() => {
+                        button.disabled = false;
+                        button.textContent = platform === 'android' ? 'Descargar APK' : 
+                                          platform === 'ios' ? 'App Store' : 'Descargar EXE';
+                        button.style.background = '#0D9488';
+                        progressBar.style.width = '0%';
+                    }, 3000);
+                }
+            }, 200);
+        }
+
+        // === AUTENTICACIÓN ===
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            // Limpiar errores previos
+            clearErrors('login');
+            
+            // Validación básica
+            if (!isValidEmail(email)) {
+                showError('loginEmailError', 'Email inválido');
+                return;
+            }
+            
+            if (password.length < 6) {
+                showError('loginPasswordError', 'La contraseña debe tener al menos 6 caracteres');
+                return;
+            }
+            
+            // Simular login
+            showSuccess('loginSuccess', 'Iniciando sesión...');
+            
+            setTimeout(() => {
+                showNotification('Bienvenido a Malinoise!', 'success');
+                document.getElementById('loginForm').reset();
+                clearErrors('login');
+                document.getElementById('loginSuccess').textContent = '';
+            }, 2000);
+        }
+
+        function handleRegister(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('registerName').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+            
+            // Limpiar errores previos
+            clearErrors('register');
+            
+            // Validación
+            if (name.length < 2) {
+                showError('registerNameError', 'El nombre debe tener al menos 2 caracteres');
+                return;
+            }
+            
+            if (!isValidEmail(email)) {
+                showError('registerEmailError', 'Email inválido');
+                return;
+            }
+            
+            if (password.length < 6) {
+                showError('registerPasswordError', 'La contraseña debe tener al menos 6 caracteres');
+                return;
+            }
+            
+            // Simular registro
+            showSuccess('registerSuccess', 'Creando cuenta...');
+            
+            setTimeout(() => {
+                showNotification('Cuenta creada exitosamente!', 'success');
+                document.getElementById('registerForm').reset();
+                clearErrors('register');
+                document.getElementById('registerSuccess').textContent = '';
+            }, 2000);
+        }
+
+        // === UTILIDADES ===
+        function isValidEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        function showError(elementId, message) {
+            const element = document.getElementById(elementId);
+            if (element) {
+                element.textContent = message;
+                element.previousElementSibling.classList.add('error');
+            }
+        }
+
+        function showSuccess(elementId, message) {
+            const element = document.getElementById(elementId);
+            if (element) {
+                element.textContent = message;
+            }
+        }
+
+        function clearErrors(formType) {
+            const errors = document.querySelectorAll(`#${formType}Form .error-message`);
+            const inputs = document.querySelectorAll(`#${formType}Form input`);
+            
+            errors.forEach(error => error.textContent = '');
+            inputs.forEach(input => input.classList.remove('error'));
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = `notification ${type} show`;
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        function initializeAnimations() {
+            // Intersection Observer para animaciones
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-fadeInUp');
+                    }
+                });
+            }, observerOptions);
+
+            // Observar elementos para animar
+            document.querySelectorAll('.card, .tech-item, .pricing-card, .download-item').forEach(el => {
+                observer.observe(el);
+            });
+        }
+    </script>
+</body>
+</html>
