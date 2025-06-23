@@ -40,6 +40,11 @@ const PORT = process.env.PORT || 5000;
 // ============================================================================
 
 /**
+ * Configuración de archivos estáticos desde la carpeta public
+ */
+app.use(express.static(path.join(__dirname, 'public')));
+
+/**
  * Configuración de CORS para permitir solicitudes desde diferentes orígenes
  * Incluye dominios de desarrollo local y producción
  */
