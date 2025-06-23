@@ -3,247 +3,2109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mantenimiento Programado - Malinoise</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- Auto-refresh cada 5 minutos implementado vía JavaScript -->
+    <title>Malinoise - Tu Asistente de Negocios Inteligente</title>
+    
+    <!-- Meta tags SEO -->
+    <meta name="description" content="Malinoise - Tu asistente de negocios inteligente con IA para análisis predictivo, gestión de inventario y automatización empresarial.">
+    <meta name="keywords" content="malinoise, IA, negocios, análisis predictivo, gestión inventario, automatización">
+    <meta name="author" content="Malinoise Team">
+    
+    <!-- Inline CSS - Todo incluido, sin dependencias externas -->
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        /* Reset y base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            background-color: #F8FAFC;
+            color: #1E293B;
+            line-height: 1.6;
+            overflow-x: hidden;
         }
         
-        .maintenance-bg {
-            background: linear-gradient(135deg, #1e40af 0%, #3730a3 50%, #581c87 100%);
+        /* Contenedores y Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
         
-        .progress-bar {
-            animation: progress 20s linear infinite;
+        .grid-cols-1 {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 20px;
         }
         
-        @keyframes progress {
-            0% { width: 0%; }
-            100% { width: 100%; }
+        .grid-cols-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
         }
         
-        .pulse-icon {
-            animation: pulse-scale 2s ease-in-out infinite;
+        .grid-cols-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
         }
         
-        @keyframes pulse-scale {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+        .flex {
+            display: flex;
         }
         
-        .countdown-timer {
-            background: rgba(255, 255, 255, 0.1);
-            -webkit-backdrop-filter: blur(10px);
+        .flex-col {
+            flex-direction: column;
+        }
+        
+        .items-center {
+            align-items: center;
+        }
+        
+        .justify-center {
+            justify-content: center;
+        }
+        
+        .justify-between {
+            justify-content: space-between;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        /* Header y Navegación */
+        header {
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            border-bottom: 1px solid #E2E8F0;
+            transition: all 0.3s ease;
         }
-    </style>
-</head>
-<body class="maintenance-bg min-h-screen flex items-center justify-center text-white">
-    
-    <!-- Contenedor Principal -->
-    <div class="max-w-4xl mx-auto px-4 py-8 text-center">
         
-        <!-- Icono Principal -->
-        <div class="mb-8">
-            <div class="w-32 h-32 mx-auto bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center pulse-icon">
-                <i class="fas fa-tools text-5xl text-white"></i>
-            </div>
-        </div>
-
-        <!-- Título -->
-        <h1 class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">
-            🚧 En Mantenimiento
-        </h1>
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
         
-        <!-- Mensaje Principal -->
-        <div class="mb-8">
-            <h2 class="text-2xl md:text-3xl font-semibold mb-4 text-white">
-                Estamos Mejorando Malinoise Para Ti
-            </h2>
-            <p class="text-lg md:text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed">
-                Nuestro equipo está trabajando en importantes actualizaciones para ofrecerte una experiencia aún mejor. 
-                Volveremos pronto con nuevas funcionalidades y mejoras de rendimiento.
-            </p>
-        </div>
-
-        <!-- Tiempo Estimado -->
-        <div class="countdown-timer rounded-2xl p-6 mb-8 max-w-md mx-auto">
-            <h3 class="text-lg font-semibold mb-4 text-white">
-                <i class="far fa-clock mr-2"></i>
-                Tiempo Estimado de Finalización
-            </h3>
-            <div id="countdown" class="text-3xl font-bold text-yellow-400 mb-2">
-                --:--:--
-            </div>
-            <p class="text-sm text-blue-100">
-                Actualizándose automáticamente cada 5 minutos
-            </p>
-        </div>
-
-        <!-- Barra de Progreso -->
-        <div class="mb-8">
-            <div class="w-full bg-white/20 rounded-full h-3 mb-2">
-                <div class="progress-bar bg-gradient-to-r from-yellow-400 to-orange-500 h-3 rounded-full"></div>
-            </div>
-            <p class="text-sm text-blue-100">
-                Progreso de actualización...
-            </p>
-        </div>
-
-        <!-- Estado de Servicios -->
-        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 mb-8 border border-white/20">
-            <h3 class="text-xl font-semibold mb-4 text-white">
-                <i class="fas fa-server mr-2"></i>
-                Estado de Servicios
-            </h3>
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div class="flex flex-col items-center p-3 bg-white/5 rounded-lg">
-                    <div class="w-3 h-3 bg-yellow-400 rounded-full mb-2 animate-pulse"></div>
-                    <span class="text-sm font-medium text-white">Servidor Web</span>
-                    <span class="text-xs text-blue-200">Actualizando</span>
-                </div>
-                <div class="flex flex-col items-center p-3 bg-white/5 rounded-lg">
-                    <div class="w-3 h-3 bg-green-400 rounded-full mb-2"></div>
-                    <span class="text-sm font-medium text-white">Base de Datos</span>
-                    <span class="text-xs text-blue-200">Operativa</span>
-                </div>
-                <div class="flex flex-col items-center p-3 bg-white/5 rounded-lg">
-                    <div class="w-3 h-3 bg-yellow-400 rounded-full mb-2 animate-pulse"></div>
-                    <span class="text-sm font-medium text-white">API</span>
-                    <span class="text-xs text-blue-200">Mantenimiento</span>
-                </div>
-                <div class="flex flex-col items-center p-3 bg-white/5 rounded-lg">
-                    <div class="w-3 h-3 bg-green-400 rounded-full mb-2"></div>
-                    <span class="text-sm font-medium text-white">CDN</span>
-                    <span class="text-xs text-blue-200">Operativo</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Actualizaciones y Mejoras -->
-        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 mb-8 border border-white/20">
-            <h3 class="text-xl font-semibold mb-4 text-white">
-                <i class="fas fa-rocket mr-2"></i>
-                Novedades en Esta Actualización
-            </h3>
-            <div class="grid md:grid-cols-2 gap-4 text-left">
-                <div class="flex items-start space-x-3">
-                    <i class="fas fa-check-circle text-green-400 mt-1"></i>
-                    <div>
-                        <h4 class="font-medium text-white">Sistema de IA Mejorado</h4>
-                        <p class="text-sm text-blue-200">Nuevos algoritmos de análisis predictivo</p>
-                    </div>
-                </div>
-                <div class="flex items-start space-x-3">
-                    <i class="fas fa-check-circle text-green-400 mt-1"></i>
-                    <div>
-                        <h4 class="font-medium text-white">Interfaz Optimizada</h4>
-                        <p class="text-sm text-blue-200">Mejor experiencia móvil y desktop</p>
-                    </div>
-                </div>
-                <div class="flex items-start space-x-3">
-                    <i class="fas fa-check-circle text-green-400 mt-1"></i>
-                    <div>
-                        <h4 class="font-medium text-white">Seguridad Reforzada</h4>
-                        <p class="text-sm text-blue-200">Protocolos de autenticación avanzados</p>
-                    </div>
-                </div>
-                <div class="flex items-start space-x-3">
-                    <i class="fas fa-check-circle text-green-400 mt-1"></i>
-                    <div>
-                        <h4 class="font-medium text-white">Nuevos Reportes</h4>
-                        <p class="text-sm text-blue-200">Dashboards analíticos mejorados</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Contacto y Redes Sociales -->
-        <div class="text-center">
-            <p class="text-lg font-medium text-white mb-4">
-                ¿Necesitas asistencia urgente?
-            </p>
-            <div class="flex justify-center gap-6 mb-6">
-                <a href="mailto:support@malinoise.com" class="flex items-center px-4 py-2 bg-white/20 rounded-lg hover:bg-white/30 transition-all">
-                    <i class="fas fa-envelope mr-2"></i>
-                    Soporte
-                </a>
-                <a href="tel:+1234567890" class="flex items-center px-4 py-2 bg-white/20 rounded-lg hover:bg-white/30 transition-all">
-                    <i class="fas fa-phone mr-2"></i>
-                    Emergencias
-                </a>
-                <a href="#" class="flex items-center px-4 py-2 bg-white/20 rounded-lg hover:bg-white/30 transition-all">
-                    <i class="fab fa-twitter mr-2"></i>
-                    Actualizaciones
-                </a>
-            </div>
-            
-            <!-- Información de la Empresa -->
-            <div class="text-sm text-blue-200">
-                <p>&copy; 2025 Malinoise. Todos los derechos reservados.</p>
-                <p>Sistema de Desarrollo y Análisis Empresarial con IA</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- JavaScript -->
-    <script>
-        // Configurar countdown (ejemplo: 2 horas)
-        let maintenanceEnd = new Date();
-        maintenanceEnd.setHours(maintenanceEnd.getHours() + 2);
-
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const distance = maintenanceEnd.getTime() - now;
-
-            if (distance > 0) {
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                document.getElementById('countdown').innerHTML = 
-                    `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-            } else {
-                document.getElementById('countdown').innerHTML = 'Finalizando...';
-                // Redirigir automáticamente cuando termine
-                setTimeout(() => {
-                    window.location.href = '/';
-                }, 3000);
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #0D9488;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: none;
+            gap: 30px;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: #475569;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #0D9488;
+        }
+        
+        .menu-toggle {
+            display: block;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #475569;
+            cursor: pointer;
+            z-index: 101;
+        }
+        
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100vh;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            transition: left 0.3s ease;
+            z-index: 99;
+        }
+        
+        .mobile-menu.active {
+            left: 0;
+        }
+        
+        .mobile-menu a {
+            color: #1E293B;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: 500;
+            padding: 15px 30px;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+        
+        .mobile-menu a:hover {
+            background: #0D9488;
+            color: white;
+        }
+        
+        /* Secciones principales */
+        section {
+            padding: 80px 0;
+            position: relative;
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, #0D9488 0%, #14B8A6 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" patternUnits="userSpaceOnUse" width="100" height="100"><circle cx="20" cy="20" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="80" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            margin: 5px;
+        }
+        
+        .btn-primary {
+            background: white;
+            color: #0D9488;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+        
+        .btn-primary:hover {
+            background: transparent;
+            color: white;
+            border-color: white;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border-color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: white;
+            color: #0D9488;
+            transform: translateY(-2px);
+        }
+        
+        /* Tarjetas y módulos */
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid #E2E8F0;
+            margin-bottom: 20px;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+          .card-expandable {
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border: 1px solid #e2e8f0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .card-expandable:hover {
+            background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
+            border-color: #0d9488;
+            box-shadow: 0 20px 25px -5px rgba(13, 148, 136, 0.1), 0 10px 10px -5px rgba(13, 148, 136, 0.04);
+        }
+        
+        .card-expandable::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(13, 148, 136, 0.05), transparent);
+            transition: left 0.5s;
+        }
+        
+        .card-expandable:hover::before {
+            left: 100%;
+        }
+        
+        .card-content {
+            max-height: 120px;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+        
+        .card-content.expanded {
+            max-height: 1000px;
+        }
+        
+        .card-content::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 30px;
+            background: linear-gradient(transparent, white);
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+        
+        .card-content.expanded::after {
+            opacity: 0;
+        }
+        
+        .expand-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: #0D9488;
+            font-size: 20px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(13, 148, 136, 0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .expand-icon:hover {
+            background: rgba(13, 148, 136, 0.2);
+            transform: scale(1.1);
+        }
+        
+        .expand-icon.rotated {
+            transform: rotate(180deg);
+            background: rgba(13, 148, 136, 0.2);
+        }
+        
+        .features {
+            animation: fadeInUp 0.6s ease-out;
+        }
+          @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
 
-        // Actualizar countdown cada segundo
-        setInterval(updateCountdown, 1000);
-        updateCountdown();
+        /* Estilos para hero mejorado */
+        .hero .absolute {
+            position: absolute;
+        }
+        
+        .hero .bottom-8 {
+            bottom: 32px;
+        }
+        
+        .hero .left-1\/2 {
+            left: 50%;
+        }
+        
+        .hero .transform {
+            transform: translateX(-50%);
+        }
+        
+        .hero .-translate-x-1\/2 {
+            transform: translateX(-50%);
+        }
 
-        // Efecto de entrada
+        /* Estilos para módulos mejorados */
+        .max-w-3xl {
+            max-width: 48rem;
+        }
+        
+        .mx-auto {
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .space-y-1 > * + * {
+            margin-top: 0.25rem;
+        }
+        
+        .gap-4 {
+            gap: 1rem;
+        }
+        
+        .gap-6 {
+            gap: 1.5rem;
+        }
+        
+        .gap-8 {
+            gap: 2rem;
+        }
+        
+        .bg-gradient-to-br {
+            background-image: linear-gradient(to bottom right, var(--tw-gradient-stops));
+        }
+        
+        .bg-gradient-to-r {
+            background-image: linear-gradient(to right, var(--tw-gradient-stops));
+        }
+        
+        .from-teal-50 {
+            --tw-gradient-from: #f0fdfa;
+            --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(240, 253, 250, 0));
+        }
+        
+        .to-cyan-100 {
+            --tw-gradient-to: #cffafe;
+        }
+        
+        .from-amber-50 {
+            --tw-gradient-from: #fffbeb;
+            --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(255, 251, 235, 0));
+        }
+        
+        .to-orange-100 {
+            --tw-gradient-to: #ffedd5;
+        }
+        
+        .from-emerald-50 {
+            --tw-gradient-from: #ecfdf5;
+            --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(236, 253, 245, 0));
+        }
+        
+        .to-green-100 {
+            --tw-gradient-to: #dcfce7;
+        }
+        
+        .text-teal-600 {
+            color: #0d9488;
+        }
+        
+        .text-amber-600 {
+            color: #d97706;
+        }
+        
+        .text-emerald-600 {
+            color: #059669;
+        }
+        
+        .text-blue-600 {
+            color: #2563eb;
+        }
+        
+        .text-purple-600 {
+            color: #9333ea;
+        }
+        
+        .text-rose-600 {
+            color: #e11d48;
+        }
+        
+        .text-slate-600 {
+            color: #475569;
+        }
+        
+        .text-slate-700 {
+            color: #334155;
+        }
+        
+        .bg-teal-50 {
+            background-color: #f0fdfa;
+        }
+        
+        .bg-blue-50 {
+            background-color: #eff6ff;
+        }
+        
+        .bg-amber-50 {
+            background-color: #fffbeb;
+        }
+        
+        .bg-green-50 {
+            background-color: #f0fdf4;
+        }
+        
+        .bg-purple-50 {
+            background-color: #faf5ff;
+        }
+        
+        .bg-indigo-50 {
+            background-color: #eef2ff;
+        }
+        
+        .bg-cyan-50 {
+            background-color: #ecfeff;
+        }
+        
+        .bg-emerald-50 {
+            background-color: #ecfdf5;
+        }
+        
+        .bg-rose-50 {
+            background-color: #fff1f2;
+        }
+        
+        .bg-pink-50 {
+            background-color: #fdf2f8;
+        }
+        
+        .text-teal-800 {
+            color: #115e59;
+        }
+        
+        .text-blue-800 {
+            color: #1e40af;
+        }
+        
+        .text-amber-800 {
+            color: #92400e;
+        }
+        
+        .text-green-800 {
+            color: #166534;
+        }
+        
+        .text-purple-800 {
+            color: #6b21a8;
+        }
+        
+        .text-indigo-800 {
+            color: #3730a3;
+        }
+        
+        .text-cyan-800 {
+            color: #155e75;
+        }
+        
+        .text-emerald-800 {
+            color: #065f46;
+        }
+        
+        .text-rose-800 {
+            color: #9f1239;
+        }
+        
+        .text-pink-800 {
+            color: #9d174d;
+        }
+        
+        .border-dashed {
+            border-style: dashed;
+        }
+        
+        .border-teal-300 {
+            border-color: #5eead4;
+        }
+        
+        .border-amber-300 {
+            border-color: #fcd34d;
+        }
+        
+        .border-purple-300 {
+            border-color: #c4b5fd;
+        }
+        
+        .border-blue-300 {
+            border-color: #93c5fd;
+        }
+        
+        .border-emerald-300 {
+            border-color: #6ee7b7;
+        }
+        
+        .border-rose-300 {
+            border-color: #fda4af;
+        }
+        
+        .from-teal-500 {
+            --tw-gradient-from: #14b8a6;
+            --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(20, 184, 166, 0));
+        }
+        
+        .to-cyan-600 {
+            --tw-gradient-to: #0891b2;
+        }
+        
+        .from-amber-500 {
+            --tw-gradient-from: #f59e0b;
+            --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(245, 158, 11, 0));
+        }
+        
+        .to-orange-600 {
+            --tw-gradient-to: #ea580c;
+        }
+        
+        .from-purple-500 {
+            --tw-gradient-from: #a855f7;
+            --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(168, 85, 247, 0));
+        }
+        
+        .to-indigo-600 {
+            --tw-gradient-to: #4f46e5;
+        }
+        
+        .from-blue-500 {
+            --tw-gradient-from: #3b82f6;
+            --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(59, 130, 246, 0));
+        }
+        
+        .from-emerald-500 {
+            --tw-gradient-from: #10b981;
+            --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(16, 185, 129, 0));
+        }
+        
+        .to-green-600 {
+            --tw-gradient-to: #16a34a;
+        }
+        
+        .from-rose-500 {
+            --tw-gradient-from: #f43f5e;
+            --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(244, 63, 94, 0));
+        }
+        
+        .to-pink-600 {
+            --tw-gradient-to: #db2777;
+        }
+        
+        .bg-teal-600 {
+            background-color: #0d9488;
+        }
+        
+        .bg-amber-600 {
+            background-color: #d97706;
+        }
+        
+        .bg-purple-600 {
+            background-color: #9333ea;
+        }
+        
+        .bg-blue-600 {
+            background-color: #2563eb;
+        }
+        
+        .bg-emerald-600 {
+            background-color: #059669;
+        }
+        
+        .bg-rose-600 {
+            background-color: #e11d48;
+        }
+        
+        .hover\:bg-teal-700:hover {
+            background-color: #0f766e;
+        }
+        
+        .hover\:bg-amber-700:hover {
+            background-color: #b45309;
+        }
+        
+        .hover\:bg-purple-700:hover {
+            background-color: #7c3aed;
+        }
+        
+        .hover\:bg-blue-700:hover {
+            background-color: #1d4ed8;
+        }
+        
+        .hover\:bg-emerald-700:hover {
+            background-color: #047857;
+        }
+        
+        .hover\:bg-rose-700:hover {
+            background-color: #be185d;
+        }
+        
+        .flex-1 {
+            flex: 1 1 0%;
+        }
+        
+        .items-start {
+            align-items: flex-start;
+        }
+        
+        .text-5xl {
+            font-size: 3rem;
+            line-height: 1;
+        }
+        
+        .text-white\/90 {
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .text-white\/80 {
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .text-white\/60 {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .bg-white\/20 {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .rounded-2xl {
+            border-radius: 1rem;
+        }
+        
+        .rounded-full {
+            border-radius: 9999px;
+        }
+        
+        .inline-block {
+            display: inline-block;
+        }
+        
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(-25%);
+                animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+            }
+            50% {
+                transform: none;
+                animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+            }
+        }
+        
+        .animate-bounce {
+            animation: bounce 1s infinite;
+        }
+        
+        /* Botón de ancho completo para formularios */
+        .btn-full-width {
+            width: 100%;
+        }
+        
+        /* Sección del gráfico */
+        .chart-container {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            margin: 40px 0;
+        }
+        
+        .chart-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .chart-btn {
+            padding: 8px 16px;
+            border: 2px solid #E2E8F0;
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+        
+        .chart-btn.active {
+            background: #0D9488;
+            color: white;
+            border-color: #0D9488;
+        }
+        
+        .chart-btn:hover {
+            border-color: #0D9488;
+        }
+        
+        /* Canvas del gráfico simplificado */
+        .chart-canvas {
+            width: 100%;
+            height: 400px;
+            border: 2px solid #E2E8F0;
+            border-radius: 8px;
+            background: #F8FAFC;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64748B;
+            font-size: 18px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .chart-canvas::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: 10%;
+            right: 10%;
+            bottom: 20%;
+            background: linear-gradient(45deg, #0D9488, #14B8A6, #0891B2, #0284C7);
+            opacity: 0.1;
+            border-radius: 4px;
+        }
+        
+        /* Sección de tecnología */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .tech-item {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .tech-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+        
+        .tech-icon {
+            font-size: 48px;
+            color: #0D9488;
+            margin-bottom: 15px;
+        }
+        
+        /* Modelo de negocio */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .pricing-card {
+            background: white;
+            border-radius: 12px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .pricing-card.featured {
+            border: 2px solid #0D9488;
+            transform: scale(1.05);
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .pricing-card.featured:hover {
+            transform: translateY(-10px) scale(1.07);
+        }
+        
+        .price {
+            font-size: 48px;
+            font-weight: bold;
+            color: #0D9488;
+            margin: 20px 0;
+        }
+        
+        .features {
+            list-style: none;
+            padding: 0;
+            margin: 30px 0;
+        }
+        
+        .features li {
+            padding: 8px 0;
+            color: #475569;
+        }
+        
+        .features li:before {
+            content: '✓';
+            color: #10B981;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        /* Descargas */
+        .download-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .download-item {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .download-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+        
+        .platform-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+        
+        .android { color: #3DDC84; }
+        .apple { color: #000; }
+        .windows { color: #00BCF2; }
+        
+        .download-btn {
+            width: 100%;
+            padding: 15px;
+            background: #0D9488;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .download-btn:hover {
+            background: #0F766E;
+        }
+        
+        .download-btn:disabled {
+            background: #94A3B8;
+            cursor: not-allowed;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #E2E8F0;
+            border-radius: 3px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: #0D9488;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        /* Autenticación */
+        .auth-forms {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .auth-form {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #374151;
+            font-weight: 500;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #E2E8F0;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #0D9488;
+        }
+        
+        .form-group input.error {
+            border-color: #EF4444;
+        }
+        
+        .error-message {
+            color: #EF4444;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        
+        .success-message {
+            color: #10B981;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        
+        /* Notificaciones */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            border-radius: 8px;
+            padding: 16px 20px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            transform: translateX(400px);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        
+        .notification.success {
+            border-left: 4px solid #10B981;
+        }
+        
+        .notification.error {
+            border-left: 4px solid #EF4444;
+        }
+        
+        .notification.info {
+            border-left: 4px solid #3B82F6;
+        }
+        
+        /* Footer */
+        footer {
+            background: #1E293B;
+            color: white;
+            text-align: center;
+            padding: 40px 0;
+        }
+        
+        /* Animaciones */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .animate-fadeInUp {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        
+        .animate-fadeIn {
+            animation: fadeIn 0.6s ease forwards;
+        }
+        
+        .animate-pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        /* Utilidades */
+        .hidden {
+            display: none !important;
+        }
+        
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+        
+        .text-sm { font-size: 14px; }
+        .text-lg { font-size: 18px; }
+        .text-xl { font-size: 20px; }
+        .text-2xl { font-size: 24px; }
+        .text-3xl { font-size: 30px; }
+        .text-4xl { font-size: 36px; }
+        
+        .font-bold { font-weight: bold; }
+        .font-semibold { font-weight: 600; }
+        
+        .mb-4 { margin-bottom: 16px; }
+        .mb-6 { margin-bottom: 24px; }
+        .mb-8 { margin-bottom: 32px; }
+        .mt-4 { margin-top: 16px; }
+        .mt-6 { margin-top: 24px; }
+        .mt-8 { margin-top: 32px; }
+        
+        .p-4 { padding: 16px; }
+        .p-6 { padding: 24px; }
+        .py-4 { padding-top: 16px; padding-bottom: 16px; }
+        .px-4 { padding-left: 16px; padding-right: 16px; }
+        
+        .rounded { border-radius: 6px; }
+        .rounded-lg { border-radius: 8px; }
+        .rounded-xl { border-radius: 12px; }
+        
+        .shadow { box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); }
+        .shadow-lg { box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); }
+        
+        /* Responsive */
+        @media (min-width: 768px) {
+            .container {
+                padding: 0 40px;
+            }
+            
+            .nav-links {
+                display: flex;
+            }
+            
+            .menu-toggle {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 64px;
+            }
+            
+            .hero p {
+                font-size: 24px;
+            }
+            
+            .grid-cols-2 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .grid-cols-3 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            section {
+                padding: 120px 0;
+            }
+            
+            .hero {
+                padding: 160px 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header con navegación -->
+    <header id="header">
+        <nav class="container">
+            <a href="#" class="logo">Malinoise</a>
+            <ul class="nav-links">
+                <li><a href="#vision">Inicio</a></li>
+                <li><a href="#modulos">Módulos</a></li>
+                <li><a href="#demo">Demo IA</a></li>
+                <li><a href="#tecnologia">Tecnología</a></li>
+                <li><a href="#precios">Precios</a></li>
+                <li><a href="#descargas">Descargas</a></li>
+                <li><a href="#auth">Acceso</a></li>
+            </ul>
+            <button class="menu-toggle" id="menuToggle">☰</button>
+        </nav>
+        
+        <!-- Menú móvil -->
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="#vision">Inicio</a>
+            <a href="#modulos">Módulos</a>
+            <a href="#demo">Demo IA</a>
+            <a href="#tecnologia">Tecnología</a>
+            <a href="#precios">Precios</a>
+            <a href="#descargas">Descargas</a>
+            <a href="#auth">Acceso</a>
+        </div>
+    </header>    <!-- Sección Hero Mejorada -->
+    <section id="vision" class="hero">
+        <div class="container">
+            <div class="hero-content text-center">
+                <div class="mb-6">
+                    <span class="inline-block bg-white/20 text-white px-4 py-2 rounded-full text-sm font-semibold mb-4">
+                        🚀 La IA que impulsa +10,000 empresas
+                    </span>
+                </div>
+                
+                <h1>Tu Asistente de Negocios Inteligente</h1>
+                <p>Revoluciona tu empresa con análisis predictivo, gestión inteligente de inventario y automatización avanzada con IA que aprende y se adapta a tu negocio 24/7</p>
+                
+                <!-- Estadísticas de confianza -->
+                <div class="flex justify-center gap-8 mb-8 text-white/90">
+                    <div class="text-center">
+                        <div class="text-2xl font-bold">95%</div>
+                        <div class="text-sm">Precisión IA</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold">10K+</div>
+                        <div class="text-sm">Empresas</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold">24/7</div>
+                        <div class="text-sm">Automático</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold">+40%</div>
+                        <div class="text-sm">ROI Promedio</div>
+                    </div>
+                </div>
+
+                <!-- Claims de confianza -->
+                <div class="flex justify-center gap-6 mb-8 text-sm text-white/80">
+                    <span>✅ Sin contratos largos</span>
+                    <span>✅ Setup en 24 horas</span>
+                    <span>✅ Soporte 24/7</span>
+                    <span>✅ ROI garantizado</span>
+                </div>
+                
+                <div class="flex justify-center gap-4">
+                    <a href="#demo" class="btn btn-primary animate-pulse">🎮 Ver Demo Interactivo</a>
+                    <a href="#modulos" class="btn btn-secondary">📊 Explorar Módulos</a>
+                </div>
+
+                <!-- Indicador de scroll -->
+                <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white/60 animate-bounce">
+                    <div class="text-sm mb-2">Descubre más</div>
+                    <div class="text-2xl">↓</div>
+                </div>
+            </div>
+        </div>
+    </section><!-- Sección Módulos Interactivos Mejorada -->
+    <section id="modulos">
+        <div class="container">
+            <!-- Header de la sección -->
+            <div class="text-center mb-8">
+                <h2 class="text-4xl font-bold mb-4">Módulos Inteligentes de IA</h2>
+                <p class="text-xl text-slate-600 max-w-3xl mx-auto">
+                    Descubre cómo nuestros 6 módulos revolucionarios transforman completamente la gestión empresarial con inteligencia artificial avanzada
+                </p>
+            </div>
+
+            <!-- Estadísticas generales -->
+            <div class="grid-cols-3 mb-8 text-center">
+                <div class="bg-gradient-to-br from-teal-50 to-cyan-100 p-6 rounded-xl">
+                    <div class="text-3xl font-bold text-teal-600 mb-2">95%</div>
+                    <div class="text-sm text-slate-600">Precisión en Predicciones</div>
+                </div>
+                <div class="bg-gradient-to-br from-amber-50 to-orange-100 p-6 rounded-xl">
+                    <div class="text-3xl font-bold text-amber-600 mb-2">40%</div>
+                    <div class="text-sm text-slate-600">Reducción de Costos</div>
+                </div>
+                <div class="bg-gradient-to-br from-emerald-50 to-green-100 p-6 rounded-xl">
+                    <div class="text-3xl font-bold text-emerald-600 mb-2">24/7</div>
+                    <div class="text-sm text-slate-600">Monitoreo Automático</div>
+                </div>
+            </div>
+
+            <div class="grid-cols-1">
+                <!-- Módulo 1: Análisis Predictivo -->
+                <div class="card card-expandable" onclick="toggleCard(this)">
+                    <div class="expand-icon">▼</div>
+                    <div class="flex items-start gap-4">
+                        <div class="text-5xl">📊</div>
+                        <div class="flex-1">
+                            <h3 class="text-2xl font-bold mb-2">Análisis Predictivo Avanzado</h3>
+                            <div class="text-sm text-teal-600 font-semibold mb-3">🎯 Precisión del 95% • 🚀 ROI del 250%</div>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <p class="mb-6 text-lg text-slate-700">Anticipa tendencias del mercado y comportamientos de clientes con algoritmos de machine learning de última generación que procesan millones de datos en tiempo real.</p>
+                        
+                        <!-- Grid de características principales -->
+                        <div class="grid-cols-2 gap-4 mb-6">
+                            <div class="bg-teal-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-teal-800 mb-2">🔮 Predicción Inteligente</h4>
+                                <ul class="text-sm text-slate-600 space-y-1">
+                                    <li>• Demanda de productos con 95% precisión</li>
+                                    <li>• Comportamiento del cliente futuro</li>
+                                    <li>• Tendencias de mercado emergentes</li>
+                                </ul>
+                            </div>
+                            <div class="bg-blue-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-blue-800 mb-2">⚡ Tiempo Real</h4>
+                                <ul class="text-sm text-slate-600 space-y-1">
+                                    <li>• Análisis instantáneo de datos</li>
+                                    <li>• Alertas automáticas inteligentes</li>
+                                    <li>• Dashboard en vivo 24/7</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Beneficios -->
+                        <div class="bg-gradient-to-r from-teal-500 to-cyan-600 text-white p-4 rounded-lg mb-6">
+                            <h4 class="font-bold mb-2">💡 Beneficios Comprobados</h4>
+                            <div class="grid-cols-3 gap-4 text-sm">
+                                <div>📈 +32% Ventas</div>
+                                <div>⏰ -60% Tiempo Análisis</div>
+                                <div>💰 -25% Costos Operativos</div>
+                            </div>
+                        </div>
+
+                        <!-- Demo interactivo -->
+                        <div class="border-2 border-dashed border-teal-300 p-4 rounded-lg text-center">
+                            <button onclick="demoFunction('predictivo')" class="bg-teal-600 text-white px-6 py-2 rounded-lg hover:bg-teal-700 transition-all">
+                                🎮 Ver Demo Interactivo
+                            </button>
+                            <p class="text-sm text-slate-500 mt-2">Prueba las predicciones en tiempo real</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Módulo 2: Gestión de Inventario -->
+                <div class="card card-expandable" onclick="toggleCard(this)">
+                    <div class="expand-icon">▼</div>
+                    <div class="flex items-start gap-4">
+                        <div class="text-5xl">📦</div>
+                        <div class="flex-1">
+                            <h3 class="text-2xl font-bold mb-2">Gestión Inteligente de Inventario</h3>
+                            <div class="text-sm text-amber-600 font-semibold mb-3">📊 -15% Stock Muerto • 🎯 +89% Rotación</div>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <p class="mb-6 text-lg text-slate-700">Revoluciona tu inventario con IA que aprende automáticamente de patrones históricos, estacionalidad y tendencias del mercado para optimizar cada decisión de stock.</p>
+                        
+                        <div class="grid-cols-2 gap-4 mb-6">
+                            <div class="bg-amber-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-amber-800 mb-2">🤖 Automatización Total</h4>
+                                <ul class="text-sm text-slate-600 space-y-1">
+                                    <li>• Reposición automática inteligente</li>
+                                    <li>• Órdenes de compra automáticas</li>
+                                    <li>• Integración directa con proveedores</li>
+                                </ul>
+                            </div>
+                            <div class="bg-green-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-green-800 mb-2">📈 Optimización Avanzada</h4>
+                                <ul class="text-sm text-slate-600 space-y-1">
+                                    <li>• Análisis ABC multicriteria</li>
+                                    <li>• Punto de reorden dinámico</li>
+                                    <li>• Gestión de caducidades</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="bg-gradient-to-r from-amber-500 to-orange-600 text-white p-4 rounded-lg mb-6">
+                            <h4 class="font-bold mb-2">🏆 Resultados Garantizados</h4>
+                            <div class="grid-cols-3 gap-4 text-sm">
+                                <div>📉 -40% Costos Storage</div>
+                                <div>🎯 +95% Disponibilidad</div>
+                                <div>⚡ -70% Tiempo Gestión</div>
+                            </div>
+                        </div>
+
+                        <div class="border-2 border-dashed border-amber-300 p-4 rounded-lg text-center">
+                            <button onclick="demoFunction('inventario')" class="bg-amber-600 text-white px-6 py-2 rounded-lg hover:bg-amber-700 transition-all">
+                                📱 Simular Gestión de Stock
+                            </button>
+                            <p class="text-sm text-slate-500 mt-2">Experimenta la optimización automática</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Módulo 3: Automatización de Procesos -->
+                <div class="card card-expandable" onclick="toggleCard(this)">
+                    <div class="expand-icon">▼</div>
+                    <div class="flex items-start gap-4">
+                        <div class="text-5xl">⚙️</div>
+                        <div class="flex-1">
+                            <h3 class="text-2xl font-bold mb-2">Automatización de Procesos RPA</h3>
+                            <div class="text-sm text-purple-600 font-semibold mb-3">🚀 -80% Tiempo Manual • 🎯 99.9% Precisión</div>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <p class="mb-6 text-lg text-slate-700">Elimina tareas repetitivas para siempre con robots de software que trabajan 24/7 sin errores, integrándose perfectamente con todos tus sistemas existentes.</p>
+                        
+                        <div class="grid-cols-2 gap-4 mb-6">
+                            <div class="bg-purple-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-purple-800 mb-2">🤖 Bots Inteligentes</h4>
+                                <ul class="text-sm text-slate-600 space-y-1">
+                                    <li>• Procesamiento de facturas</li>
+                                    <li>• Conciliación bancaria automática</li>
+                                    <li>• Generación de reportes</li>
+                                </ul>
+                            </div>
+                            <div class="bg-indigo-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-indigo-800 mb-2">🔄 Flujos Personalizados</h4>
+                                <ul class="text-sm text-slate-600 space-y-1">
+                                    <li>• Workflows visuales drag & drop</li>
+                                    <li>• Reglas de negocio flexibles</li>
+                                    <li>• Integración con 500+ apps</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="bg-gradient-to-r from-purple-500 to-indigo-600 text-white p-4 rounded-lg mb-6">
+                            <h4 class="font-bold mb-2">⚡ Impacto Inmediato</h4>
+                            <div class="grid-cols-3 gap-4 text-sm">
+                                <div>⏱️ -80% Tiempo Tareas</div>
+                                <div>🎯 99.9% Sin Errores</div>
+                                <div>💸 -50% Costos Admin</div>
+                            </div>
+                        </div>
+
+                        <div class="border-2 border-dashed border-purple-300 p-4 rounded-lg text-center">
+                            <button onclick="demoFunction('automatizacion')" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition-all">
+                                🎯 Ver Automatización en Acción
+                            </button>
+                            <p class="text-sm text-slate-500 mt-2">Diseña tu primer flujo automatizado</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Módulo 4: CRM Inteligente -->
+                <div class="card card-expandable" onclick="toggleCard(this)">
+                    <div class="expand-icon">▼</div>
+                    <div class="flex items-start gap-4">
+                        <div class="text-5xl">👥</div>
+                        <div class="flex-1">
+                            <h3 class="text-2xl font-bold mb-2">CRM Inteligente con IA</h3>
+                            <div class="text-sm text-blue-600 font-semibold mb-3">📈 +45% Conversiones • 🎯 85% Satisfacción</div>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <p class="mb-6 text-lg text-slate-700">Transforma relaciones con clientes usando IA que personaliza cada interacción, predice necesidades y automatiza el journey completo del cliente para maximizar conversiones.</p>
+                        
+                        <div class="grid-cols-2 gap-4 mb-6">
+                            <div class="bg-blue-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-blue-800 mb-2">🧠 IA Conversacional</h4>
+                                <ul class="text-sm text-slate-600 space-y-1">
+                                    <li>• Chatbots con GPT avanzado</li>
+                                    <li>• Scoring automático de leads</li>
+                                    <li>• Predicción de intención de compra</li>
+                                </ul>
+                            </div>
+                            <div class="bg-cyan-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-cyan-800 mb-2">🎯 Personalización 360°</h4>
+                                <ul class="text-sm text-slate-600 space-y-1">
+                                    <li>• Segmentación automática avanzada</li>
+                                    <li>• Campañas personalizadas 1:1</li>
+                                    <li>• Análisis de sentimiento en tiempo real</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="bg-gradient-to-r from-blue-500 to-cyan-600 text-white p-4 rounded-lg mb-6">
+                            <h4 class="font-bold mb-2">🎯 Crecimiento Acelerado</h4>
+                            <div class="grid-cols-3 gap-4 text-sm">
+                                <div>📈 +45% Conversiones</div>
+                                <div>🔄 -65% Churn Rate</div>
+                                <div>💰 +38% LTV Cliente</div>
+                            </div>
+                        </div>
+
+                        <div class="border-2 border-dashed border-blue-300 p-4 rounded-lg text-center">
+                            <button onclick="demoFunction('crm')" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-all">
+                                👤 Probar CRM Inteligente
+                            </button>
+                            <p class="text-sm text-slate-500 mt-2">Experimenta la personalización con IA</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Módulo 5: Finanzas Predictivas -->
+                <div class="card card-expandable" onclick="toggleCard(this)">
+                    <div class="expand-icon">▼</div>
+                    <div class="flex items-start gap-4">
+                        <div class="text-5xl">💰</div>
+                        <div class="flex-1">
+                            <h3 class="text-2xl font-bold mb-2">Finanzas Predictivas Avanzadas</h3>
+                            <div class="text-sm text-emerald-600 font-semibold mb-3">💹 +28% Rentabilidad • 🛡️ 99% Detección Fraude</div>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <p class="mb-6 text-lg text-slate-700">Optimiza completamente tu gestión financiera con IA que predice flujos de caja, detecta fraudes al instante y automatiza toda la contabilidad con precisión bancaria.</p>
+                        
+                        <div class="grid-cols-2 gap-4 mb-6">
+                            <div class="bg-emerald-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-emerald-800 mb-2">📊 Análisis Predictivo</h4>
+                                <ul class="text-sm text-slate-600 space-y-1">
+                                    <li>• Proyecciones de flujo de caja</li>
+                                    <li>• Análisis de riesgo crediticio</li>
+                                    <li>• Optimización de precios dinámicos</li>
+                                </ul>
+                            </div>
+                            <div class="bg-green-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-green-800 mb-2">🛡️ Seguridad Total</h4>
+                                <ul class="text-sm text-slate-600 space-y-1">
+                                    <li>• Detección de fraudes en tiempo real</li>
+                                    <li>• Alertas automáticas de anomalías</li>
+                                    <li>• Auditoría blockchain integrada</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="bg-gradient-to-r from-emerald-500 to-green-600 text-white p-4 rounded-lg mb-6">
+                            <h4 class="font-bold mb-2">💎 Rentabilidad Maximizada</h4>
+                            <div class="grid-cols-3 gap-4 text-sm">
+                                <div>💹 +28% ROI</div>
+                                <div>⏱️ -90% Tiempo Contable</div>
+                                <div>🔒 99.9% Seguridad</div>
+                            </div>
+                        </div>
+
+                        <div class="border-2 border-dashed border-emerald-300 p-4 rounded-lg text-center">
+                            <button onclick="demoFunction('finanzas')" class="bg-emerald-600 text-white px-6 py-2 rounded-lg hover:bg-emerald-700 transition-all">
+                                📈 Simular Análisis Financiero
+                            </button>
+                            <p class="text-sm text-slate-500 mt-2">Proyecta tu flujo de caja futuro</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Módulo 6: Business Intelligence -->
+                <div class="card card-expandable" onclick="toggleCard(this)">
+                    <div class="expand-icon">▼</div>
+                    <div class="flex items-start gap-4">
+                        <div class="text-5xl">📈</div>
+                        <div class="flex-1">
+                            <h3 class="text-2xl font-bold mb-2">Business Intelligence 360°</h3>
+                            <div class="text-sm text-rose-600 font-semibold mb-3">📊 Datos en Tiempo Real • 🎯 +60% Mejores Decisiones</div>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <p class="mb-6 text-lg text-slate-700">Convierte montañas de datos en insights accionables con dashboards inteligentes que se actualizan en tiempo real y revelan oportunidades ocultas de negocio.</p>
+                        
+                        <div class="grid-cols-2 gap-4 mb-6">
+                            <div class="bg-rose-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-rose-800 mb-2">📊 Dashboards Dinámicos</h4>
+                                <ul class="text-sm text-slate-600 space-y-1">
+                                    <li>• Visualizaciones interactivas 3D</li>
+                                    <li>• KPIs adaptativos inteligentes</li>
+                                    <li>• Drill-down automático</li>
+                                </ul>
+                            </div>
+                            <div class="bg-pink-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-pink-800 mb-2">🔍 Insights Automáticos</h4>
+                                <ul class="text-sm text-slate-600 space-y-1">
+                                    <li>• Análisis de competencia automático</li>
+                                    <li>• Detección de oportunidades</li>
+                                    <li>• Alertas inteligentes de negocio</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="bg-gradient-to-r from-rose-500 to-pink-600 text-white p-4 rounded-lg mb-6">
+                            <h4 class="font-bold mb-2">🚀 Ventaja Competitiva</h4>
+                            <div class="grid-cols-3 gap-4 text-sm">
+                                <div>⚡ Decisiones 10x Más Rápidas</div>
+                                <div>🎯 +60% Precisión</div>
+                                <div>📈 +35% Crecimiento</div>
+                            </div>
+                        </div>
+
+                        <div class="border-2 border-dashed border-rose-300 p-4 rounded-lg text-center">
+                            <button onclick="demoFunction('bi')" class="bg-rose-600 text-white px-6 py-2 rounded-lg hover:bg-rose-700 transition-all">
+                                📊 Explorar Dashboard Inteligente
+                            </button>
+                            <p class="text-sm text-slate-500 mt-2">Visualiza datos en tiempo real</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Call to Action final -->
+            <div class="text-center mt-12 p-8 bg-gradient-to-r from-teal-600 to-cyan-600 rounded-2xl text-white">
+                <h3 class="text-2xl font-bold mb-4">¿Listo para Transformar tu Negocio?</h3>
+                <p class="mb-6">Más de 10,000 empresas ya confían en Malinoise para impulsar su crecimiento</p>
+                <div class="flex gap-4 justify-center">
+                    <a href="#demo" class="bg-white text-teal-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-all">
+                        🎮 Ver Demo Completo
+                    </a>
+                    <a href="#auth" class="bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-teal-600 transition-all">
+                        🚀 Comenzar Gratis
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Demo IA -->
+    <section id="demo">
+        <div class="container">
+            <h2 class="text-4xl font-bold text-center mb-8">Demo de Análisis Predictivo</h2>
+            <div class="chart-container">
+                <h3 class="text-2xl font-bold mb-4">Predicciones de Ventas - Próximos 6 Meses</h3>
+                <div class="chart-controls">
+                    <button class="chart-btn active" onclick="updateChart('ventas')">Ventas</button>
+                    <button class="chart-btn" onclick="updateChart('inventario')">Inventario</button>
+                    <button class="chart-btn" onclick="updateChart('clientes')">Clientes</button>
+                    <button class="chart-btn" onclick="updateChart('ingresos')">Ingresos</button>
+                </div>
+                <div class="chart-canvas" id="chartCanvas">
+                    🎯 Gráfico Interactivo de Análisis Predictivo
+                    <br><small>Simulación de datos en tiempo real</small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Tecnología -->
+    <section id="tecnologia">
+        <div class="container">
+            <h2 class="text-4xl font-bold text-center mb-8">Tecnología de Vanguardia</h2>
+            <div class="tech-grid">
+                <div class="tech-item animate-float">
+                    <div class="tech-icon">🤖</div>
+                    <h3 class="text-xl font-bold mb-2">Inteligencia Artificial</h3>
+                    <p>Machine Learning avanzado con redes neuronales profundas</p>
+                </div>
+                <div class="tech-item animate-float">
+                    <div class="tech-icon">☁️</div>
+                    <h3 class="text-xl font-bold mb-2">Cloud Computing</h3>
+                    <p>Infraestructura escalable en la nube con alta disponibilidad</p>
+                </div>
+                <div class="tech-item animate-float">
+                    <div class="tech-icon">🔒</div>
+                    <h3 class="text-xl font-bold mb-2">Seguridad Avanzada</h3>
+                    <p>Encriptación de extremo a extremo y protección de datos</p>
+                </div>
+                <div class="tech-item animate-float">
+                    <div class="tech-icon">📱</div>
+                    <h3 class="text-xl font-bold mb-2">Multiplataforma</h3>
+                    <p>Disponible en web, móvil y desktop con sincronización</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Modelo de Negocio -->
+    <section id="precios">
+        <div class="container">
+            <h2 class="text-4xl font-bold text-center mb-8">Planes de Suscripción</h2>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3 class="text-2xl font-bold mb-4">Freemium</h3>
+                    <div class="price">Gratis</div>
+                    <ul class="features">
+                        <li>Análisis básico de datos</li>
+                        <li>3 reportes mensuales</li>
+                        <li>Soporte por email</li>
+                        <li>1 usuario</li>
+                        <li>Almacenamiento 1GB</li>
+                    </ul>
+                    <a href="#auth" class="btn btn-secondary">Comenzar Gratis</a>
+                </div>
+                
+                <div class="pricing-card featured">
+                    <h3 class="text-2xl font-bold mb-4">Premium</h3>
+                    <div class="price">$99<span class="text-sm">/mes</span></div>
+                    <ul class="features">
+                        <li>IA predictiva completa</li>
+                        <li>Reportes ilimitados</li>
+                        <li>Soporte 24/7</li>
+                        <li>Usuarios ilimitados</li>
+                        <li>Almacenamiento 100GB</li>
+                        <li>Integración APIs</li>
+                        <li>Dashboards personalizados</li>
+                    </ul>
+                    <a href="#auth" class="btn btn-primary">Upgrade Premium</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Descargas -->
+    <section id="descargas">
+        <div class="container">
+            <h2 class="text-4xl font-bold text-center mb-8">Descarga Malinoise</h2>
+            <div class="download-grid">
+                <div class="download-item">
+                    <div class="platform-icon android">📱</div>
+                    <h3 class="text-xl font-bold mb-2">Android</h3>
+                    <p class="mb-4">Compatible con Android 8.0+</p>
+                    <button class="download-btn" onclick="simulateDownload('android')">
+                        Descargar APK
+                    </button>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="androidProgress"></div>
+                    </div>
+                </div>
+                
+                <div class="download-item">
+                    <div class="platform-icon apple">🍎</div>
+                    <h3 class="text-xl font-bold mb-2">iOS</h3>
+                    <p class="mb-4">Compatible con iOS 13.0+</p>
+                    <button class="download-btn" onclick="simulateDownload('ios')">
+                        App Store
+                    </button>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="iosProgress"></div>
+                    </div>
+                </div>
+                
+                <div class="download-item">
+                    <div class="platform-icon windows">💻</div>
+                    <h3 class="text-xl font-bold mb-2">Windows</h3>
+                    <p class="mb-4">Compatible con Windows 10+</p>
+                    <button class="download-btn" onclick="simulateDownload('windows')">
+                        Descargar EXE
+                    </button>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="windowsProgress"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Autenticación -->
+    <section id="auth">
+        <div class="container">
+            <h2 class="text-4xl font-bold text-center mb-8">Acceso de Usuarios</h2>
+            <div class="auth-forms">
+                <!-- Formulario de Login -->
+                <div class="auth-form">
+                    <h3 class="text-2xl font-bold mb-6">Iniciar Sesión</h3>
+                    <form id="loginForm" onsubmit="handleLogin(event)">
+                        <div class="form-group">
+                            <label for="loginEmail">Email</label>
+                            <input type="email" id="loginEmail" required>
+                            <div class="error-message" id="loginEmailError"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="loginPassword">Contraseña</label>
+                            <input type="password" id="loginPassword" required>
+                            <div class="error-message" id="loginPasswordError"></div>
+                        </div>                        <button type="submit" class="btn btn-primary btn-full-width">
+                            Iniciar Sesión
+                        </button>
+                        <div class="success-message" id="loginSuccess"></div>
+                    </form>
+                </div>
+
+                <!-- Formulario de Registro -->
+                <div class="auth-form">
+                    <h3 class="text-2xl font-bold mb-6">Crear Cuenta</h3>
+                    <form id="registerForm" onsubmit="handleRegister(event)">
+                        <div class="form-group">
+                            <label for="registerName">Nombre completo</label>
+                            <input type="text" id="registerName" required>
+                            <div class="error-message" id="registerNameError"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="registerEmail">Email</label>
+                            <input type="email" id="registerEmail" required>
+                            <div class="error-message" id="registerEmailError"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="registerPassword">Contraseña</label>
+                            <input type="password" id="registerPassword" required>
+                            <div class="error-message" id="registerPasswordError"></div>
+                        </div>                        <button type="submit" class="btn btn-primary btn-full-width">
+                            Crear Cuenta
+                        </button>
+                        <div class="success-message" id="registerSuccess"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Malinoise. Todos los derechos reservados. | Tu asistente de negocios inteligente.</p>
+        </div>
+    </footer>
+
+    <!-- Contenedor de notificaciones -->
+    <div id="notification" class="notification"></div>
+
+    <!-- JavaScript integrado - Sin dependencias externas -->
+    <script>
+        // Variables globales
+        let currentChart = 'ventas';
+        let isMenuOpen = false;
+
+        // Inicialización
         document.addEventListener('DOMContentLoaded', function() {
-            document.body.style.opacity = '0';
+            initializeNavigation();
+            initializeScrollEffects();
+            initializeAnimations();
+            console.log('Malinoise cargado - Versión estática');
+        });
+
+        // === NAVEGACIÓN ===
+        function initializeNavigation() {
+            const menuToggle = document.getElementById('menuToggle');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const navLinks = document.querySelectorAll('a[href^="#"]');
+
+            // Toggle menú móvil
+            menuToggle.addEventListener('click', function() {
+                isMenuOpen = !isMenuOpen;
+                mobileMenu.classList.toggle('active');
+                menuToggle.innerHTML = isMenuOpen ? '✕' : '☰';
+            });
+
+            // Cerrar menú al hacer clic en enlaces
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (isMenuOpen) {
+                        isMenuOpen = false;
+                        mobileMenu.classList.remove('active');
+                        menuToggle.innerHTML = '☰';
+                    }
+                });
+            });
+
+            // Scroll suave
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+
+        function initializeScrollEffects() {
+            const header = document.getElementById('header');
+            
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 100) {
+                    header.style.background = 'rgba(255, 255, 255, 0.98)';
+                    header.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1)';
+                } else {
+                    header.style.background = 'rgba(255, 255, 255, 0.95)';
+                    header.style.boxShadow = 'none';
+                }
+            });
+        }        // === DEMOS INTERACTIVOS DE MÓDULOS ===
+        function demoFunction(moduleType) {
+            const demos = {
+                'predictivo': {
+                    title: '🔮 Demo: Análisis Predictivo',
+                    message: 'Generando predicciones con IA...\n📊 Analizando 50,000 datos históricos\n🎯 Precisión: 95.2%\n📈 Ventas proyectadas: +32% próximos 6 meses'
+                },
+                'inventario': {
+                    title: '📦 Demo: Gestión de Inventario',
+                    message: 'Optimizando stock inteligentemente...\n🤖 Calculando puntos de reorden\n📊 Rotación actual: 8.5x/año\n💡 Recomendación: Reducir stock producto A en 15%'
+                },
+                'automatizacion': {
+                    title: '⚙️ Demo: Automatización RPA',
+                    message: 'Robot procesando facturas...\n📄 22 facturas procesadas en 3 segundos\n✅ 100% sin errores\n💰 Ahorro estimado: $2,400/mes'
+                },
+                'crm': {
+                    title: '👥 Demo: CRM Inteligente',
+                    message: 'Analizando comportamiento de clientes...\n🎯 Lead Score: Cliente A (95/100)\n📧 Campaña personalizada generada\n💰 Probabilidad de compra: 87%'
+                },
+                'finanzas': {
+                    title: '💰 Demo: Finanzas Predictivas',
+                    message: 'Proyectando flujo de caja...\n📈 Ingresos Q1: $125,000 (+18%)\n⚠️ Alerta: Pago proveedor en 3 días\n💎 Rentabilidad proyectada: +28%'
+                },
+                'bi': {
+                    title: '📊 Demo: Business Intelligence',
+                    message: 'Generando insights en tiempo real...\n📈 KPI Principal: +15% vs mes anterior\n🔍 Oportunidad detectada: Mercado B\n⚡ 47 alertas inteligentes activas'
+                }
+            };
+
+            const demo = demos[moduleType];
+            if (demo) {
+                // Mostrar simulación de carga
+                const button = event.target;
+                const originalText = button.textContent;
+                
+                button.disabled = true;
+                button.textContent = '⏳ Cargando...';
+                button.style.background = '#94A3B8';
+                
+                setTimeout(() => {
+                    alert(`${demo.title}\n\n${demo.message}\n\n🎉 Demo completado exitosamente!`);
+                    
+                    button.disabled = false;
+                    button.textContent = originalText;
+                    button.style.background = '';
+                    
+                    showNotification(`Demo ${moduleType} ejecutado con éxito`, 'success');
+                }, 1500);
+            }
+        }
+
+        // === GRÁFICO INTERACTIVO ===
+        function updateChart(type) {
+            currentChart = type;
+            
+            // Actualizar botones activos
+            document.querySelectorAll('.chart-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Simular actualización del gráfico
+            const canvas = document.getElementById('chartCanvas');
+            canvas.style.opacity = '0.5';
+            
             setTimeout(() => {
-                document.body.style.transition = 'opacity 0.8s ease-in-out';
-                document.body.style.opacity = '1';
+                const titles = {
+                    'ventas': '📈 Predicción de Ventas - Crecimiento del 25%',
+                    'inventario': '📦 Optimización de Inventario - Reducción del 15%',
+                    'clientes': '👥 Análisis de Clientes - Retención del 89%',
+                    'ingresos': '💰 Proyección de Ingresos - Aumento del 32%'
+                };
+                
+                canvas.innerHTML = titles[type] + '<br><small>Datos actualizados en tiempo real</small>';
+                canvas.style.opacity = '1';
+                
+                showNotification(`Gráfico actualizado: ${type}`, 'info');
+            }, 500);
+        }
+
+        // === DESCARGAS SIMULADAS ===
+        function simulateDownload(platform) {
+            const button = event.target;
+            const progressBar = document.getElementById(platform + 'Progress');
+            
+            button.disabled = true;
+            button.textContent = 'Descargando...';
+            
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.random() * 15;
+                if (progress > 100) progress = 100;
+                
+                progressBar.style.width = progress + '%';
+                
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    button.textContent = 'Completado ✓';
+                    button.style.background = '#10B981';
+                    showNotification(`Descarga completada para ${platform}`, 'success');
+                    
+                    setTimeout(() => {
+                        button.disabled = false;
+                        button.textContent = platform === 'android' ? 'Descargar APK' : 
+                                          platform === 'ios' ? 'App Store' : 'Descargar EXE';
+                        button.style.background = '#0D9488';
+                        progressBar.style.width = '0%';
+                    }, 3000);
+                }
             }, 200);
-        });
+        }
 
-        // Notificación de estado de red
-        window.addEventListener('online', function() {
-            console.log('Conexión restaurada - verificando estado del servidor...');
-        });
+        // === AUTENTICACIÓN ===
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            // Limpiar errores previos
+            clearErrors('login');
+            
+            // Validación básica
+            if (!isValidEmail(email)) {
+                showError('loginEmailError', 'Email inválido');
+                return;
+            }
+            
+            if (password.length < 6) {
+                showError('loginPasswordError', 'La contraseña debe tener al menos 6 caracteres');
+                return;
+            }
+            
+            // Simular login
+            showSuccess('loginSuccess', 'Iniciando sesión...');
+            
+            setTimeout(() => {
+                showNotification('Bienvenido a Malinoise!', 'success');
+                document.getElementById('loginForm').reset();
+                clearErrors('login');
+                document.getElementById('loginSuccess').textContent = '';
+            }, 2000);
+        }
 
-        window.addEventListener('offline', function() {
-            console.log('Sin conexión a internet');
-        });
+        function handleRegister(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('registerName').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+            
+            // Limpiar errores previos
+            clearErrors('register');
+            
+            // Validación
+            if (name.length < 2) {
+                showError('registerNameError', 'El nombre debe tener al menos 2 caracteres');
+                return;
+            }
+            
+            if (!isValidEmail(email)) {
+                showError('registerEmailError', 'Email inválido');
+                return;
+            }
+            
+            if (password.length < 6) {
+                showError('registerPasswordError', 'La contraseña debe tener al menos 6 caracteres');
+                return;
+            }
+            
+            // Simular registro
+            showSuccess('registerSuccess', 'Creando cuenta...');
+            
+            setTimeout(() => {
+                showNotification('Cuenta creada exitosamente!', 'success');
+                document.getElementById('registerForm').reset();
+                clearErrors('register');
+                document.getElementById('registerSuccess').textContent = '';
+            }, 2000);
+        }
 
-        // Auto-refresh cada 5 minutos (300000 ms)
-        setTimeout(() => {
-            window.location.reload();
-        }, 300000);
+        // === UTILIDADES ===
+        function isValidEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        function showError(elementId, message) {
+            const element = document.getElementById(elementId);
+            if (element) {
+                element.textContent = message;
+                element.previousElementSibling.classList.add('error');
+            }
+        }
+
+        function showSuccess(elementId, message) {
+            const element = document.getElementById(elementId);
+            if (element) {
+                element.textContent = message;
+            }
+        }
+
+        function clearErrors(formType) {
+            const errors = document.querySelectorAll(`#${formType}Form .error-message`);
+            const inputs = document.querySelectorAll(`#${formType}Form input`);
+            
+            errors.forEach(error => error.textContent = '');
+            inputs.forEach(input => input.classList.remove('error'));
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = `notification ${type} show`;
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        function initializeAnimations() {
+            // Intersection Observer para animaciones
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-fadeInUp');
+                    }
+                });
+            }, observerOptions);
+
+            // Observar elementos para animar
+            document.querySelectorAll('.card, .tech-item, .pricing-card, .download-item').forEach(el => {
+                observer.observe(el);
+            });
+        }
     </script>
 </body>
 </html>
